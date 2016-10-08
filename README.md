@@ -2,6 +2,8 @@
 
 ###Keep Score User Stories
 
+See Scorecard Wireframes.pdf
+
 As a ScoreKeeper user I want to:
 
 1.  Input the lineup on a scorecard (scorecard-table) so that I know the batting order and who is up.
