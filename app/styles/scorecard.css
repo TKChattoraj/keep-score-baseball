@@ -1,0 +1,57 @@
+.score-ribbon {
+    position: relative;
+    padding: 0.5rem;
+    background-color: lightblue;
+    z-index: 1;
+    
+    height: 20%;
+}
+
+.card {
+    position: relative;
+    padding: 0.5rem;
+    
+    height: 80%;
+    background-color: lightcoral;
+}
+
+table.scorecard {
+    position: relative;
+    border-collapse: collapse;
+    width: 90%;
+    height: 90%;
+    border: 3px solid black;
+}
+
+tr.scorecard-row {
+    width: 100%;
+    border: 3pxsolid black;
+}
+
+td.order-number{
+    width: 2%;
+    height: 9%;
+    border: 3px solid black;
+}
+
+td.uniform-number {
+    width: 2%;
+    height: 9%;
+    border: 3px solid black;
+}
+
+td.player-name {
+    width: 14%;
+    height: 9%;
+    border: 3px solid black;
+}
+
+td.position {
+    width: 2%;
+    border: 3px solid black;
+}
+td.field-box {
+    width: 8%;
+    height: 9%;
+    border: 3px solid black;
+}

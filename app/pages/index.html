@@ -1,11 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='keepScore'>
 <head lang="en">
     <meta charset="UTF-8">
     <title>Keep Score Project</title>
-    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+    <link rel="stylesheet" type="text/css" href="/styles/scorecard.css">
 </head>
 <body>
+    <div class="navbar">Navigation Bar</div>
+    <div ng-controller="scorecardCtrl as scorecard">
+        <div class="score-ribbon">RHE</div>
+        <div class="card">
+            <table class='scorecard'>   
+                <tr class='scorecard-row' ng-repeat='r in scorecard.rowsArray'>
+                    <td class='order-number'>{{r}}</td>
+                    <td class='uniform-number'>14</td>
+                    <td class='player-name'>Rose</td>
+                    <td class='position'>5</td>
+                    <td class='field-box' ng-repeat='i in scorecard.inningsArray'></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+    
+<!--    Don't think I need ui-router just yet since I am not calling different pages but suspect I'll need it when I move to keeping score of the 'other' team to-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>-->
+    
+    
+    <script src='/scripts/scorecardMod.js'></script>
+    <script src='/scripts/controllers/scorecardCtrl.js'></script>
     <script src="/scripts/app.js"></script>
 </body>
 </html>
+
