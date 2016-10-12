@@ -1,7 +1,8 @@
 (function(){
     
+        
     angular
-        .module('scorecardMod', []);
+        .module('scorecardMod', ['angularjs-dropdown-multiselect']);
     
     
 })();

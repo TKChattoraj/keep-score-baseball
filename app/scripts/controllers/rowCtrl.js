@@ -1,5 +1,5 @@
 (function() {
-    function ScorecardCtrl($scope){
+    function RowCtrl($scope){
         this.rowsArray = ['batter1','batter2',3,4,5,6,7,8,9];
         this.inningsArray = [1,2,3,4,5,6,7,8,9,10];
         
@@ -16,5 +16,5 @@
     }
     angular 
         .module('scorecardMod')
-        .controller('scorecardCtrl', ['$scope', ScorecardCtrl]);
+        .controller('rowCtrl', ['$scope', RowCtrl]);
 })();
