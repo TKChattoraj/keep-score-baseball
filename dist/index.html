@@ -19,7 +19,9 @@
     <div ng-controller="scorecardCtrl as scorecard">
         <div class="score-ribbon">RHE</div>
         <div class="card">
+            
             <table class='scorecard'>
+                
                 <tr>
                     <th class='order-number'></th>
                     <th class='uniform-number'>#</th>
@@ -27,22 +29,26 @@
                     <th class='position'>POS</th>
                     <th class='field-box' ng-repeat='i in scorecard.inningsArray'>{{i}}</th>
                 </tr>
-                <tr class='scorecard-row' ng-repeat='r in scorecard.rowsArray track by $index' >
-                    <td class='order-number'>{{$index+1}}</td>
-                    <td class='uniform-number'>14</td>
-                    <td class='player-name'>{{scorecard.pick.label}}
-<!--                    <td class='_____'> 
-                            {{player.name}}
--->
-                            <div ng-dropdown-multiselect="" options="roster" selected-model="batter" extra-settings="batterDropDownSettings"></div>
-                    </td>
 
-                    <td class='position'>5</td>
-                    <td class='field-box' ng-repeat='i in scorecard.inningsArray'></td>
-                </tr>
+                    <tr class='scorecard-row' ng-controller="rowCtrl as row" ng-repeat='r in scorecard.rowsArray track by $index' ng-click='getIndex($index)'>
+                        
+                            <td class='order-number'>{{$index+1}}</td>
+                            <td class='uniform-number'>{{batter.number}}</td>
+                            <td class='player-name'>{{batter.label}}
+                                
+                                    <div class="drop-down-box" ng-dropdown-multiselect="" options="roster" selected-model="batter" extra-settings="batterDropDownSettings" events='{onItemSelect: eventListener}'></div>
+
+                            </td>
+
+                            <td class='position'>5</td>
+                            <td class='field-box' ng-repeat='i in scorecard.inningsArray'></td>
+                        
+                    </tr>
+
             </table>
+            </div>
         </div>
-    </div>
+
     
     
     
@@ -58,6 +64,9 @@
     
     
     <script src='/scripts/scorecardMod.js'></script>
+    <script src='/scripts/values/teamRoster.js'></script>
+    <script src='/scripts/services/lineup.js'></script>
+    
     <script src='/scripts/controllers/rowCtrl.js'></script>
     <script src='/scripts/controllers/scorecardCtrl.js'></script>
     <script src="/scripts/app.js"></script>

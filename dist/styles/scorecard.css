@@ -53,3 +53,7 @@ table.scorecard {
     height: 9%;
     border: 3px solid black;
 }
+.drop-down-box {
+    float: right;
+    margin: 5px 10px 5px 5px;
+}

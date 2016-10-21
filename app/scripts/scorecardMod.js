@@ -5,4 +5,4 @@
         .module('scorecardMod', ['angularjs-dropdown-multiselect']);
     
     
-})();
+})(); 
