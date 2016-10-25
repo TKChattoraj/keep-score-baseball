@@ -25,7 +25,9 @@
         
         $scope.eventListener = function(){
             alert("eventListener: " + Lineup.bench.length);
-            Lineup.adjust($scope.batter, $scope.rowIndex)
+            Lineup.adjust($scope.batter, $scope.rowIndex);
+            $scope.roster = Lineup.bench;
+            console.log($scope.roster);
         };
         
       }
