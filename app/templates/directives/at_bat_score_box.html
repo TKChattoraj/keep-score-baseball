@@ -1,0 +1,73 @@
+<div class='big-box' ng-show="bigBoxState=='initial'">
+
+    <div class='at-bat-score-box' ng-show="littleBoxState=='at-bat'">
+
+    <div>{{row}}{{column}} Little Box State: {{littleBoxState}} Big Box State: {{bigBoxState}} </div> 
+
+
+    <div>
+       <div class="box">
+      <div class="top-right"></div>
+      <div class="top-left"></div>
+      <div class="bottom-right">
+        <div id="one" class="outs" ng-click="bigBoxOut($event)" ng-style="{'background-color': atBatFactory.oneOut}"></div>
+        <div id="two" class="outs" ng-click="bigBoxOut($event)" ng-style="{'background-color': atBatFactory.twoOut}"></div>
+        <div id ="three" class="outs" ng-click="bigBoxOut($event)" ng-style="{'background-color': atBatFactory.threeOut}">
+
+          </div>
+      </div>
+      <div class="bottom-left"></div>
+     <div class="field" ng-style="{'background-color': atBatFactory.background}">
+         <div class="home-plate" ng-click="bigBoxOnBase($event)"></div>
+         <div class="first-base" ng-click="bigBoxOnBase($event)"></div>
+         <div class="second-base" ng-click="bigBoxOnBase($event)"></div>
+         <div class="third-base" ng-click="bigBoxOnBase($event)"></div>
+
+         <div ng-class='atBatFactory.First'></div>
+         <div ng-class='atBatFactory.Second'></div>
+         <div ng-class='atBatFactory.Third'></div>
+         <div ng-class='atBatFactory.Home'></div>
+
+      </div> 
+
+
+
+    </div>
+        <button type='button' class='btn btn-default' ng-click='showBoxClosed()'>back</button>
+    <!--
+        <div>
+            <button type='button' class='btn btn-danger' ng-click='bigBoxOut()'>out</button>
+            <out-score-box-dr></out-score-box-dr>
+        </div>
+    -->
+        <div>
+            <button type="button" class='btn btn-success' ng-click='bigBoxOnBase()'>on-base</button>
+            <on-base-score-box-dr></on-base-score-box-dr>
+        </div>
+
+    </div>
+
+
+    <div class='on-base-score-box' ng-show="littleBoxState === 'runner'">
+
+
+        {{row}}{{column}} Little Box State: {{littleBoxState}} Big Box State: {{bigBoxState}}
+
+
+        <button type='button' class='btn btn-default' ng-click='showBoxClosed()'>back</button>
+        <div>
+            <button type='button' class='btn btn-danger' ng-click='bigBoxOut()'>out</button>
+<!--            <out-score-box-dr></out-score-box-dr>-->
+        </div>
+        <div>
+            <button type="button" class='btn btn-success' ng-click='bigBoxOnBase()'>on-base</button>
+<!--            <on-base-score-box-dr></on-base-score-box-dr>-->
+        </div>
+
+    </div>
+    </div>
+
+</div>
+<out-score-box-dr></out-score-box-dr> 
+<on-base-score-box-dr></on-base-score-box-dr>
+
