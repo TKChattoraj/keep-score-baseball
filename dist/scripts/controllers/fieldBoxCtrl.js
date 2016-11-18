@@ -1,6 +1,6 @@
 (function() {
     
-    function FieldBoxCtrl($scope, scorecardBoxState, boxState, AtBatFactory) {
+    function FieldBoxCtrl($scope, scorecardBoxState, boxState, inningState, AtBatFactory) {
         
         $scope.atBatFactory = AtBatFactory;
         
@@ -33,15 +33,17 @@
             $scope.second = boxState.little[$scope.row][$scope.column].second;
             $scope.third = boxState.little[$scope.row][$scope.column].third;
             $scope.home = boxState.little[$scope.row][$scope.column].home;
+            
             $scope.oneOut = boxState.little[$scope.row][$scope.column].oneOut;
             $scope.twoOut = boxState.little[$scope.row][$scope.column].twoOut;
-            $scope.threeOut = boxState.little[$scope.row][$scope.column].threeOut;
+            $scope.threeOut = boxState.little[$scope.row][$scope.column].threeOut;  
+                
             
         };
         
         var getLittleBoxStatus = function() {
             $scope.littleBoxObject = boxState.little[$scope.row][$scope.column];
-        }
+        };
         
         var getAtBatFactoryStatus = function() {
             
@@ -63,7 +65,7 @@
             $scope.atBatFactory.twoOut = $scope.littleBoxObject.twoOut;
             $scope.atBatFactory.threeOut = $scope.littleBoxObject.threeOut; 
                     
-        }
+        };
         
         
         
@@ -74,9 +76,21 @@
             $scope.littleBoxObject.second = $scope.atBatFactory.Second;
             $scope.littleBoxObject.third = $scope.atBatFactory.Third;
             $scope.littleBoxObject.home = $scope.atBatFactory.Home;
-            $scope.littleBoxObject.oneOut = $scope.atBatFactory.oneOut;
-            $scope.littleBoxObject.twoOut = $scope.atBatFactory.twoOut;
-            $scope.littleBoxObject.threeOut = $scope.atBatFactory.threeOut;
+            
+            
+            if ($scope.bigBoxState == 'at-bat-out' || $scope.bigBoxState == 'on-base-out') {
+                
+                $scope.littleBoxObject.oneOut = $scope.atBatFactory.oneOut;
+                $scope.littleBoxObject.twoOut = $scope.atBatFactory.twoOut;
+                $scope.littleBoxObject.threeOut = $scope.atBatFactory.threeOut;  
+            } else {
+
+                $scope.littleBoxObject.oneOut = null;
+                $scope.littleBoxObject.twoOut = null;
+                $scope.littleBoxObject.threeOut = null;
+            }
+            
+            
             
             boxState.little[$scope.row][$scope.column] = $scope.littleBoxObject;
                        
@@ -108,7 +122,8 @@
 
             
             $scope.bigBoxState = 'initial';
-            console.log("big: " + $scope.bigBoxState + " and little: " + $scope.littleBoxState);
+            $scope.atBatFactory.getOuts();
+
         }
         
         
@@ -140,65 +155,65 @@
             
         $scope.exitToLittleBox = function(){
             if (($scope.bigBoxState == 'at-bat-on-base')|| ($scope.bigBoxState == 'on-base-advance')) {
-                boxState.big[$scope.row][$scope.column] = null;
-                $scope.bigBoxState = null;
-                
+                boxState.big[$scope.row][$scope.column] = null;             
     
                 event.stopPropagation();
             }
             if ($scope.bigBoxState == 'at-bat-out') {
                 boxState.big[$scope.row][$scope.column] = null;
-                $scope.bigBoxState = null;
                 event.stopPropagation();
                 
     
             }
             if ($scope.bigBoxState == 'on-base-out') {
                 boxState.big[$scope.row][$scope.column] = null;
-                $scope.bigBoxState = null;
                 boxState.little[$scope.row][$scope.column].status = 'on-but-out';
                 event.stopPropagation();
                
             }
             updateBoxState();
+            $scope.bigBoxState = null;
             $scope.showLittleBox = 'after';
             $scope.littleBoxState = 'on-base';
+            if (inningState.outs === 3) {
+                inningState.outs=0;
+            }
             
         }
         
         
         
         
-        $scope.showBoxClosed = function() {
-            
-            scorecardBoxState = "closed";
-            $scope.showScoreBox(scorecardBoxState);
-            event.stopPropagation();
-        }
-        
-        $scope.showBoxOut = function() {
-            scorecardBoxState = "out";
-            $scope.showScoreBox(scorecardBoxState);
-            event.stopPropagation();
-        }
-        
-        $scope.showBoxOnBase = function() {
-            scorecardBoxState = 'on-base';
-            $scope.showScoreBox(scorecardBoxState);
-            event.stopPropagation();
-        }
-        
-        $scope.exitToAtBatBox = function() {
-            scorecardBoxState = 'closed';
-            $scope.showScoreBox(scorecardBoxState);
-            event.stopPropagation();
-        }
-        
-        $scope.backToInitial = function() {
-            scorecardBoxState = 'initial';
-            $scope.showScoreBox(scorecardBoxState);
-            event.stopPropagation();
-        }
+//        $scope.showBoxClosed = function() {
+//            
+//            scorecardBoxState = "closed";
+//            $scope.showScoreBox(scorecardBoxState);
+//            event.stopPropagation();
+//        }
+//        
+//        $scope.showBoxOut = function() {
+//            scorecardBoxState = "out";
+//            $scope.showScoreBox(scorecardBoxState);
+//            event.stopPropagation();
+//        }
+//        
+//        $scope.showBoxOnBase = function() {
+//            scorecardBoxState = 'on-base';
+//            $scope.showScoreBox(scorecardBoxState);
+//            event.stopPropagation();
+//        }
+//        
+//        $scope.exitToAtBatBox = function() {
+//            scorecardBoxState = 'closed';
+//            $scope.showScoreBox(scorecardBoxState);
+//            event.stopPropagation();
+//        }
+//        
+//        $scope.backToInitial = function() {
+//            scorecardBoxState = 'initial';
+//            $scope.showScoreBox(scorecardBoxState);
+//            event.stopPropagation();
+//        }
         
     }
     
@@ -206,6 +221,6 @@
     
     angular 
         .module('scorecardMod')
-        .controller('fieldBoxCtrl', ['$scope', 'scorecardBoxState', 'boxState', 'AtBatFactory', FieldBoxCtrl]);
+        .controller('fieldBoxCtrl', ['$scope', 'scorecardBoxState', 'boxState', 'inningState', 'AtBatFactory', FieldBoxCtrl]);
 })();
 

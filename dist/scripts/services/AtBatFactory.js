@@ -107,25 +107,46 @@
                 }
         }
         
+        
+        AtBatFactory.getOuts = function() {
+            alert('in atBatFactory getOuts')
+            alert('inningState.outs ' + inningState.outs);
+            if (inningState.outs === 0) {
+                AtBatFactory.oneOut = null;
+                AtBatFactory.twoOut = null;
+                AtBatFactory.threeOut = null;
+            }
+            if (inningState.outs >= 1) {
+                AtBatFactory.oneOut = 'black';
+            }
+            if (inningState.outs >= 2) {
+                AtBatFactory.twoOut = 'black';
+            }
+            if (inningState.outs == 3) {
+                AtBatFactory.threeOut = 'black';
+            }
+        }
+        
         AtBatFactory.updateOut = function(e, row, column) {
             if (e.target.id === 'one') {
                 AtBatFactory.oneOut = 'black';
-                inningState.outs = 1;
+                
                 console.log(inningState.outs);
             }
             else if (e.target.id === 'two') {
                 AtBatFactory.oneOut = 'black';
                 AtBatFactory.twoOut = 'black';
-                inningState.outs = 2;
+                
                 console.log(inningState.outs);
             }
             else {
                 AtBatFactory.oneOut = 'black';
                 AtBatFactory.twoOut = 'black';
                 AtBatFactory.threeOut = 'black';
-                inningState.outs = 3;
+                
                 console.log(inningState.outs);
             }
+            inningState.outs++;
             boxState.little[row][column].status = 'out';
             
             
