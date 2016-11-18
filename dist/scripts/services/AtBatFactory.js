@@ -54,7 +54,7 @@
                         AtBatFactory.Second = 'to-second';
                         AtBatFactory.Third = 'to-third';
                         AtBatFactory.Home = 'to-home';
-                        //AtBatFactory.background = 'blue';
+                        AtBatFactory.background = 'blue';
                         boxState.little[row][column].status = 'score';
                 } 
             }
@@ -109,8 +109,7 @@
         
         
         AtBatFactory.getOuts = function() {
-            alert('in atBatFactory getOuts')
-            alert('inningState.outs ' + inningState.outs);
+        
             if (inningState.outs === 0) {
                 AtBatFactory.oneOut = null;
                 AtBatFactory.twoOut = null;

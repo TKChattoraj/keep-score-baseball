@@ -36,7 +36,8 @@
             
             $scope.oneOut = boxState.little[$scope.row][$scope.column].oneOut;
             $scope.twoOut = boxState.little[$scope.row][$scope.column].twoOut;
-            $scope.threeOut = boxState.little[$scope.row][$scope.column].threeOut;  
+            $scope.threeOut = boxState.little[$scope.row][$scope.column].threeOut;
+            $scope.fieldBackground = boxState.little[$scope.row][$scope.column].fieldBackground;
                 
             
         };
@@ -64,6 +65,7 @@
             $scope.atBatFactory.oneOut = $scope.littleBoxObject.oneOut;
             $scope.atBatFactory.twoOut = $scope.littleBoxObject.twoOut;
             $scope.atBatFactory.threeOut = $scope.littleBoxObject.threeOut; 
+            $scope.atBatFactory.background = $scope.littleBoxObject.fieldBackground;
                     
         };
         
@@ -76,6 +78,7 @@
             $scope.littleBoxObject.second = $scope.atBatFactory.Second;
             $scope.littleBoxObject.third = $scope.atBatFactory.Third;
             $scope.littleBoxObject.home = $scope.atBatFactory.Home;
+            $scope.littleBoxObject.fieldBackground = $scope.atBatFactory.background;
             
             
             if ($scope.bigBoxState == 'at-bat-out' || $scope.bigBoxState == 'on-base-out') {
