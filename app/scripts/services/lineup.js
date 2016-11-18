@@ -6,14 +6,13 @@
         Lineup.lineup = [];
         
         var reconcile = function(player) {
-            for (var i=0; Lineup.lineup.length; i++) {
+            for (var i=0; i<Lineup.lineup.length; i++) {
               if (player.id === Lineup.lineup[i].id) {
                     alert(player.id + " and " + Lineup.lineup[i].id);
                     return false;
-              } else {
-                    return true;
               }
             }
+            return true;
         };
 
         
