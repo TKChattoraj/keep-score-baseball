@@ -44,6 +44,33 @@
                             <td class='position'>5</td>
                             <td class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index' ng-click='decideLittleBox(rowIndex, $index)' id='{{rowIndex}}{{$index}}' ng-style="{'background-color': atBatBackground}">
                                 <at-bat-score-box-dr></at-bat-score-box-dr>  
+                                
+                                
+                                <div  ng-show="showLittleBox === 'after'" >
+                                    <div class="little-box">
+                                      <div class="top-right"></div>
+                                      <div class="top-left"></div>
+                                      <div class="bottom-right">
+                                        <div id="one" class="outs" ng-style="{'background-color': oneOut}"></div>
+                                        <div id="two" class="outs" ng-style="{'background-color': twoOut}"></div>
+                                        <div id ="three" class="outs" ng-style="{'background-color': threeOut}">
+                                          </div>
+                                      </div>
+                                      <div class="bottom-left"></div>
+                                      <div class="little-field" ng-style="{'background-color': atBatFactory.background}">
+                                         <div class="home-plate" ></div>
+                                         <div class="first-base" ></div>
+                                         <div class="second-base" ></div>
+                                         <div class="third-base" ></div>
+
+                                         <div ng-class='first'></div>
+                                         <div ng-class='second'></div>
+                                         <div ng-class='third'></div>
+                                         <div ng-class='home'></div>
+
+                                      </div> 
+                                    </div>
+                                </div>
 
                                 
                             </td>

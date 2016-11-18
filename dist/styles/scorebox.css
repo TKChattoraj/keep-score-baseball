@@ -1,56 +1,70 @@
 div.box {
-    position: relative;
-    width: 130px;
-    height: 130px;
+    position: absolute;
+    width: 100%;
+    height: 80%;
+    left: 0%;
+    top: 20%;
     border: 3px solid #73AD21;
 } 
 
+div.little-box {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    left: 0%;
+    top: 0%;
+    border: 3px solid #73AD21;
+} 
+
+
 div.top-right {
     position: absolute;
-    top: 0px;
-    right: 0px;
-    width: 40px;
-    height: 40px;
+    top: 0%;
+    right: 0%;
+    width: 33%;
+    height: 33%;
     background-color:  lightgrey;
 
 }
 div.top-left {
     position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 40px;
-    height: 40px;
+    top: 0%;
+    left: 0%;
+    width: 33%;
+    height: 33%;
     background-color:  lightgrey;
 
 }
 div.bottom-right {
     position: absolute;
-    bottom: 0px;
-    right: 0px;
-    width: 40px;
-    height: 40px;
+    bottom: 0%;
+    right: 0%;
+    width: 43%;
+    height: 33%;
     background-color:  lightgrey;
 
 }
 div.bottom-left {
     position: absolute;
-    bottom: 0px;
-    left: 0px;
-    width: 40px;
-    height: 40px;
+    bottom: 0%;
+    left: 0%;
+    width: 33%;
+    height: 33%;
     background-color:  lightgrey;
 
 }
 
 div.outs {
    position:  relative;
-   left:  0px;
-   top: 25px;
-   width: 11px;
-   height: 11px;
+   left:  7%;
+   top: 60%;
+   width: 25%;
+   height: 33%;
    border: 1px solid black;
    float:  left;
-   border-radius:  11px;
+   border-radius:  100%;
+   margin: 2%;
+   background-color: white;
 }
 
 div .outs .out {
@@ -58,16 +72,32 @@ div .outs .out {
 }
 
 div .field {
-    width: 90px;
-    height: 90px;
+    width: 48%;
+    height: 60%;
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 27%;
+    left: 26%;
     background-color: lightgrey;
     -ms-transform: rotate(45deg); /* IE 9 */
     -webkit-transform: rotate(45deg); /* Safari */
     transform: rotate(45deg); /* Standard syntax */
+    
 }
+
+div .little-field {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    top: 27%;
+    left: 26%;
+    background-color: lightgrey;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Safari */
+    transform: rotate(45deg); /* Standard syntax */
+    
+}
+
+
 
 div .field .home-plate {
     position: absolute;
@@ -75,7 +105,7 @@ div .field .home-plate {
     height: 20%;
     right: 0;
     bottom: 0%;
-    background-color: blue;
+    background-color: red;
     
 }
 
@@ -190,4 +220,24 @@ div#double {
     border-right: 5px solid black;
     border-top: 5px solid black;
 
+}
+
+
+div.positions {
+   width: 15%;
+   height: 18.75%;
+   border: 1px solid black;
+   
+   border-radius:  100%;
+
+   background-color: white;
+   text-align: center;
+   vertical-align: middle;
+}
+
+div .positions.pitcher {
+    position: absolute;
+    left: 42.5%;
+    top: 50%;
+    
 }
