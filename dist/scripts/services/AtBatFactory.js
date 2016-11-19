@@ -23,10 +23,11 @@
 //        AtBatFactory.twoOut = null;
 //        AtBatFactory.threeOut = null;
         
-        AtBatFactory.updateBasePath = function(e, row, column) {
+        AtBatFactory.updateBasePath = function(e, $scope) {
             console.log("into updateBasePath")
-            basePathState.PreviousBase = boxState.little[row][column].status;
-            console.log('previous base: ' + basePathState.PreviousBase);
+//            basePathState.PreviousBase = boxState.little[$scope.row][$scope.column].status;
+            basePathState.PreviousBase = $scope.littleBoxState;
+            console.log('previous base: ' + $scope.litteBoxState);
             basePathState.Base = e.target.className;
             console.log('base: ' + basePathState.Base);
             
@@ -36,18 +37,21 @@
                     case 'first-base':
                         AtBatFactory.First = 'to-first';
                         console.log("AtBatFactory.First: " + AtBatFactory.First);
-                        boxState.little[row][column].status = 'first-base';
+//                        boxState.little[row][column].status = 'first-base';
+                        $scope.littleBoxState = 'first-base';
                         break;
                     case 'second-base':
                         AtBatFactory.First = 'to-first'; 
                         AtBatFactory.Second = 'to-second';
-                        boxState.little[row][column].status = 'second-base';
+//                        boxState.little[row][column].status = 'second-base';
+                        $scope.littleBoxState = 'second-base';
                         break;
                     case 'third-base':
                         AtBatFactory.First = 'to-first'; 
                         AtBatFactory.Second = 'to-second';
                         AtBatFactory.Third = 'to-third';
-                        boxState.little[row][column].status = 'third-base';
+//                        boxState.little[row][column].status = 'third-base';
+                        $scope.littleBoxState = 'third-base';
                         break;
                     case 'home-plate':
                         AtBatFactory.First = 'to-first'; 
@@ -55,7 +59,8 @@
                         AtBatFactory.Third = 'to-third';
                         AtBatFactory.Home = 'to-home';
                         AtBatFactory.background = 'blue';
-                        boxState.little[row][column].status = 'score';
+//                        boxState.little[row][column].status = 'score';
+                        $scope.littleBoxState = 'score';
                 } 
             }
                 
@@ -64,19 +69,22 @@
                     switch (basePathState.Base) {
                         case 'second-base': 
                             AtBatFactory.Second = 'advance-from-first';
-                            boxState.little[row][column].status = 'second-base';
+//                            boxState.little[row][column].status = 'second-base';
+                            $scope.littleBoxState = 'second-base';
                             break;
                         case 'third-base':
                             AtBatFactory.Second = 'advance-from-first';
                             AtBatFactory.Third = 'to-third';
-                            boxState.little[row][column].status = 'third-base';
+//                            boxState.little[row][column].status = 'third-base';
+                            $scope.littleBoxState = 'third-base';
                             break;
                         case 'home-plate':
                             AtBatFactory.Second = 'advance-from-first';
                             AtBatFactory.Third = 'to-third';
                             AtBatFactory.Home = 'to-home';
                             AtBatFactory.background = 'blue';
-                            boxState.little[row][column].status = 'score';
+                            //boxState.little[row][column].status = 'score';
+                            $scope.littleBoxState = 'score';
                             break;
                     }
              }
@@ -86,13 +94,15 @@
                     switch (basePathState.Base) {
                         case 'third-base':
                             AtBatFactory.Third = 'advance-from-second';
-                            boxState.little[row][column].status = 'third-base';
+//                            boxState.little[row][column].status = 'third-base';
+                            $scope.littleBoxState = 'third-base';
                             break;
                         case 'home-plate':
                             AtBatFactory.Third = 'advance-from-second';
                             AtBatFactory.Home = 'to-home';
                             AtBatFactory.background = 'blue';
-                            boxState.little[row][column].status = 'score';
+//                            boxState.little[row][column].status = 'score';
+                            $scope.littleBoxState = 'score';
                             break;
                     }
             }
@@ -101,7 +111,8 @@
                         case 'home-plate':
                             AtBatFactory.Home = 'advance-from-third';
                             AtBatFactory.background = 'blue';
-                            boxState.little[row][column].status = 'score';
+//                            boxState.little[row][column].status = 'score';
+                            $scope.littleBoxState = 'score';
                             break;
                     }
                 }
@@ -126,7 +137,7 @@
             }
         }
         
-        AtBatFactory.updateOut = function(e, row, column) {
+        AtBatFactory.updateOut = function(e, $scope) {
             if (e.target.id === 'one') {
                 AtBatFactory.oneOut = 'black';
                 
@@ -146,7 +157,9 @@
                 console.log(inningState.outs);
             }
             inningState.outs++;
-            boxState.little[row][column].status = 'out';
+            
+//            boxState.little[row][column].status = 'out';
+            $scope.littleBoxState = $scope.bigBoxState;
             
             
         }

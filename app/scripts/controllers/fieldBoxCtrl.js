@@ -38,6 +38,10 @@
             $scope.twoOut = boxState.little[$scope.row][$scope.column].twoOut;
             $scope.threeOut = boxState.little[$scope.row][$scope.column].threeOut;
             $scope.fieldBackground = boxState.little[$scope.row][$scope.column].fieldBackground;
+            if (boxState.little[$scope.row][$scope.column].status == 'at-bat-out' || boxState.little[$scope.row][$scope.column].status == 'on-base-out') {
+                
+                $scope.center = 'true';
+            }
                 
             
         };
@@ -94,7 +98,7 @@
             }
             
             
-            
+            $scope.littleBoxObject.status = $scope.littleBoxState;
             boxState.little[$scope.row][$scope.column] = $scope.littleBoxObject;
                        
             updateLittleBox();
@@ -114,20 +118,32 @@
             
             
             if (($scope.littleBoxObject.status == 'first-base')||($scope.littleBoxObject.status == 'second-base') ||  ($scope.littleBoxObject.status == 'third-base')) {
-                $scope.littleBoxState = 'runner';
-                $scope.test = 'test';
-
+                $scope.onBase = true;
+                
             }
             if ($scope.littleBoxObject.status == 'initial') {
                 $scope.littleBoxObject.status = 'at-bat';
-                $scope.littleBoxState = $scope.littleBoxObject.status;
+                
             }
 
-            
+            $scope.littleBoxState = $scope.littleBoxObject.status;
             $scope.bigBoxState = 'initial';
             $scope.atBatFactory.getOuts();
 
         }
+        
+        
+        $scope.putOut = function(event){
+            var fielder = event.currentTarget.innerHTML;
+                        
+            $scope.putOutArray.push(fielder);
+            $scope.putOutString = $scope.putOutArray.join('-');
+            console.log($scope.putOutArray.join('-'));
+            event.stopPropagation();
+        }
+        
+       
+        
         
         
         $scope.bigBoxOut = function(event){
@@ -138,7 +154,8 @@
             }
             boxState.big[$scope.row][$scope.column] = $scope.bigBoxState;
             
-            $scope.atBatFactory.updateOut(event, $scope.row, $scope.column);
+            $scope.atBatFactory.updateOut(event, $scope);
+            $scope.putOutArray = [];
             event.stopPropagation();
             event.preventDefault();
             
@@ -152,32 +169,32 @@
                 $scope.bigBoxState = 'on-base-advance';
             }
             boxState.big[$scope.row][$scope.column] = $scope.bigBoxState;
-            $scope.atBatFactory.updateBasePath(event, $scope.row, $scope.column);
+            $scope.atBatFactory.updateBasePath(event, $scope);
             event.stopPropagation();
         }
             
         $scope.exitToLittleBox = function(){
             if (($scope.bigBoxState == 'at-bat-on-base')|| ($scope.bigBoxState == 'on-base-advance')) {
                 boxState.big[$scope.row][$scope.column] = null;             
-    
+//                $scope.littleBoxState = 'on-base';
                 event.stopPropagation();
             }
             if ($scope.bigBoxState == 'at-bat-out') {
                 boxState.big[$scope.row][$scope.column] = null;
+                $scope.littleBoxState = 'at-bat-out';
                 event.stopPropagation();
                 
     
             }
             if ($scope.bigBoxState == 'on-base-out') {
                 boxState.big[$scope.row][$scope.column] = null;
-                boxState.little[$scope.row][$scope.column].status = 'on-but-out';
+                $scope.littleBoxState = 'on-base-out';
                 event.stopPropagation();
                
             }
             updateBoxState();
             $scope.bigBoxState = null;
             $scope.showLittleBox = 'after';
-            $scope.littleBoxState = 'on-base';
             if (inningState.outs === 3) {
                 inningState.outs=0;
             }

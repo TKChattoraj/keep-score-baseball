@@ -8,7 +8,7 @@
         var reconcile = function(player) {
             for (var i=0; i<Lineup.lineup.length; i++) {
               if (player.id === Lineup.lineup[i].id) {
-                    alert(player.id + " and " + Lineup.lineup[i].id);
+                    
                     return false;
               }
             }
@@ -20,7 +20,7 @@
             
             Lineup.lineup[orderNum] = player;
             Lineup.bench = Lineup.team.filter(reconcile);
-            alert("adjust bench.length " + Lineup.bench.length);
+            
         }
         
         return Lineup;
