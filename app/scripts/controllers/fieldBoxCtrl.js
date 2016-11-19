@@ -195,14 +195,30 @@
                 $scope.center = 'true';
                 $scope.centerString = 'HR';      
             }
-                
-                
+                          
+            if (target != 'E') {
+                $scope.exitToLittleBox();
+            }
             
-            
-            $scope.exitToLittleBox();
             event.stopPropagation();
             
         }
+        
+        
+        $scope.advBase = function() {
+            var target = event.currentTarget.innerHTML;
+            $scope.advBaseArray.push(target);
+            $scope.advBaseString = $scope.advBaseArray.join('-');
+            
+            $scope.topLeft= 'true';
+            if ((target == 'SB') || (target == 'WP') || (target == 'PB') || (target == 'Balk')) {
+                $scope.exitToLittleBox();
+            }
+            
+            event.stopPropagation();
+            
+        }
+        
        
         
         
@@ -238,12 +254,15 @@
         $scope.bigBoxOnBase = function(event){
             if ($scope.littleBoxState=='at-bat') {
                 $scope.bigBoxState = 'at-bat-on-base';
+                $scope.onBaseArray = [];
             } else {
                 $scope.bigBoxState = 'on-base-advance';
+                $scope.advBaseArray =[];
             }
             boxState.big[$scope.row][$scope.column] = $scope.bigBoxState;
             $scope.atBatFactory.updateBasePath(event, $scope);
-            $scope.onBaseArray = [];
+            
+
             event.stopPropagation();
         }
             
