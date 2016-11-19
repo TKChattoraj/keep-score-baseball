@@ -1,6 +1,6 @@
 (function() {
     
-    function FieldBoxCtrl($scope, scorecardBoxState, boxState, inningState, AtBatFactory) {
+    function FieldBoxCtrl($scope, scorecardBoxState, boxState, inningState, AtBatFactory, basePathState) {
         
         $scope.atBatFactory = AtBatFactory;
         
@@ -38,10 +38,16 @@
             $scope.twoOut = boxState.little[$scope.row][$scope.column].twoOut;
             $scope.threeOut = boxState.little[$scope.row][$scope.column].threeOut;
             $scope.fieldBackground = boxState.little[$scope.row][$scope.column].fieldBackground;
-            if (boxState.little[$scope.row][$scope.column].status == 'at-bat-out' || boxState.little[$scope.row][$scope.column].status == 'on-base-out') {
-                
+            
+            if (boxState.little[$scope.row][$scope.column].status == 'at-bat-out' || boxState.little[$scope.row][$scope.column].status == 'on-base-out') {      
                 $scope.center = 'true';
             }
+            
+            if (boxState.little[$scope.row][$scope.column].status == 'at-bat-out' || boxState.little[$scope.row][$scope.column].status == 'on-base-out') {      
+                $scope.center = 'true';
+            }
+            
+            
                 
             
         };
@@ -104,10 +110,7 @@
             updateLittleBox();
             resetAtBatFactory();
         };
-        
-        
-
-        
+                
         
         $scope.decideLittleBox = function(row,column) { 
             
@@ -134,11 +137,16 @@
         
         
         $scope.putOut = function(event){
-            var fielder = event.currentTarget.innerHTML;         
-            $scope.putOutArray.push(fielder);
-            $scope.putOutString = $scope.putOutArray.join('-');
+            var target = event.currentTarget.innerHTML;
+            $scope.putOutArray.push(target);
+            $scope.centerString = $scope.putOutArray.join('-');
             
-            switch(fielder) {
+            
+            if (target == 'K' || target =='BK') {
+                $scope.exitToLittleBox();
+            }
+            var fielder = event.currentTarget.innerHTML;                  
+            switch(target) {
                 case '1':
                     $scope.pitcherBackground = 'red';
                     break;
@@ -168,7 +176,6 @@
                     break;
                     
             }
-            
             event.stopPropagation();
         }
         
@@ -176,6 +183,26 @@
             return {"background-color": $scope.positionBackground};
         };
         
+        
+        $scope.onBase = function() {
+            var target = event.currentTarget.innerHTML;
+            $scope.onBaseArray.push(target);
+            $scope.onBaseString = $scope.onBaseArray.join('-');
+            
+            $scope.topRight = 'true';
+            
+            if ((basePathState.Base == 'home-plate') && (basePathState.PreviousBase == 'at-bat')) {
+                $scope.center = 'true';
+                $scope.centerString = 'HR';      
+            }
+                
+                
+            
+            
+            $scope.exitToLittleBox();
+            event.stopPropagation();
+            
+        }
        
         
         
@@ -216,6 +243,7 @@
             }
             boxState.big[$scope.row][$scope.column] = $scope.bigBoxState;
             $scope.atBatFactory.updateBasePath(event, $scope);
+            $scope.onBaseArray = [];
             event.stopPropagation();
         }
             
@@ -287,6 +315,6 @@
     
     angular 
         .module('scorecardMod')
-        .controller('fieldBoxCtrl', ['$scope', 'scorecardBoxState', 'boxState', 'inningState', 'AtBatFactory', FieldBoxCtrl]);
+        .controller('fieldBoxCtrl', ['$scope', 'scorecardBoxState', 'boxState', 'inningState', 'AtBatFactory', 'basePathState', FieldBoxCtrl]);
 })();
 

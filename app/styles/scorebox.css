@@ -24,6 +24,9 @@ div.top-right {
     width: 33%;
     height: 33%;
     background-color:  lightgrey;
+    color:  black;
+    text-align: center;
+    vertical-align: center;
     
 
 }
