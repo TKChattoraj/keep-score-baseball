@@ -134,13 +134,47 @@
         
         
         $scope.putOut = function(event){
-            var fielder = event.currentTarget.innerHTML;
-                        
+            var fielder = event.currentTarget.innerHTML;         
             $scope.putOutArray.push(fielder);
             $scope.putOutString = $scope.putOutArray.join('-');
-            console.log($scope.putOutArray.join('-'));
+            
+            switch(fielder) {
+                case '1':
+                    $scope.pitcherBackground = 'red';
+                    break;
+                case '2':
+                    $scope.catcherBackground = 'red';
+                    break;
+                case '3':
+                    $scope.firstBackground = 'red';
+                    break;
+                case '4':
+                    $scope.secondBackground = 'red';
+                    break;
+                case '5':
+                    $scope.thirdBackground = 'red';
+                    break;
+                case '6':
+                    $scope.shortBackground = 'red';
+                    break;
+                case '7':
+                    $scope.leftBackground = 'red';
+                    break;
+                case '8':
+                    $scope.centerBackground = 'red';
+                    break;
+                case '9':
+                    $scope.rightBackground = 'red';
+                    break;
+                    
+            }
+            
             event.stopPropagation();
         }
+        
+        $scope.set_background_color = function() {
+            return {"background-color": $scope.positionBackground};
+        };
         
        
         
@@ -156,6 +190,18 @@
             
             $scope.atBatFactory.updateOut(event, $scope);
             $scope.putOutArray = [];
+            
+            
+            $scope.pitcherBackground = 'white';        
+            $scope.catcherBackground = 'white';       
+            $scope.firstBackground = 'white';      
+            $scope.secondBackground = 'white';        
+            $scope.thirdBackground = 'white';      
+            $scope.shortBackground = 'white';       
+            $scope.leftBackground = 'white';      
+            $scope.centerBackground = 'white';       
+            $scope.rightBackground = 'white';
+
             event.stopPropagation();
             event.preventDefault();
             
