@@ -1,3 +1,5 @@
+//This file probably can be deleted as scorecardBoxState is not used. Delete if after a while no problem arises.
+
 (function() {
     
     angular 

@@ -1,3 +1,5 @@
+//This can probably be deleted.  teamRoster is now in states.js
+
 (function() {
     
     angular 

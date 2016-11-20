@@ -1,6 +1,6 @@
 (function() {
     
-    function FieldBoxCtrl($scope, scorecardBoxState, boxState, inningState, AtBatFactory, basePathState) {
+    function FieldBoxCtrl($scope, boxState, inningState, AtBatFactory, basePathState) {
         
         $scope.atBatFactory = AtBatFactory;
 
@@ -270,6 +270,6 @@
     
     angular 
         .module('scorecardMod')
-        .controller('fieldBoxCtrl', ['$scope', 'scorecardBoxState', 'boxState', 'inningState', 'AtBatFactory', 'basePathState', FieldBoxCtrl]);
+        .controller('fieldBoxCtrl', ['$scope', 'boxState', 'inningState', 'AtBatFactory', 'basePathState', FieldBoxCtrl]);
 })();
 

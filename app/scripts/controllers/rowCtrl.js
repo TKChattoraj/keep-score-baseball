@@ -25,8 +25,6 @@
         $scope.eventListener = function(){
             
             Lineup.adjust($scope.batter, $scope.rowIndex);
-            //$scope.roster = Lineup.bench;
-            console.log($scope.roster);
             $rootScope.$broadcast('playerChosen');
         };
         $rootScope.$on('playerChosen', function(){$scope.roster=Lineup.bench});
