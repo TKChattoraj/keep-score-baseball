@@ -3,29 +3,7 @@
     function FieldBoxCtrl($scope, scorecardBoxState, boxState, inningState, AtBatFactory, basePathState) {
         
         $scope.atBatFactory = AtBatFactory;
-        
-        var resetAtBatFactory = function() {
-            
 
-            $scope.atBatFactory.First = null;
-            $scope.atBatFactory.Second = null;
-            $scope.atBatFactory.Third = null;
-            $scope.atBatFactory.Home = null;
-
-            $scope.atBatFactory.toFirst = false;
-            $scope.atBatFactory.toSecond = false;
-            $scope.atBatFactory.toThird = false;
-            $scope.atBatFactory.toHome = false;
-            $scope.atBatFactory.advFrmFirst = false;
-            $scope.atBatFactory.advFrmSecond = false;
-            $scope.atBatFactory.advFrmThird = false;
-
-
-            $scope.atBatFactory.oneOut = null;
-            $scope.atBatFactory.twoOut = null;
-            $scope.atBatFactory.threeOut = null;
-        };
-             
         
         var updateLittleBox = function() {
             
@@ -46,10 +24,7 @@
             if (boxState.little[$scope.row][$scope.column].status == 'at-bat-out' || boxState.little[$scope.row][$scope.column].status == 'on-base-out') {      
                 $scope.center = 'true';
             }
-            
-            
-                
-            
+          
         };
         
         var getLittleBoxStatus = function() {
@@ -79,8 +54,7 @@
                     
         };
         
-        
-        
+            
         var updateBoxState = function() {
             
             
@@ -108,7 +82,6 @@
             boxState.little[$scope.row][$scope.column] = $scope.littleBoxObject;
                        
             updateLittleBox();
-            resetAtBatFactory();
         };
                 
         
@@ -261,15 +234,12 @@
             }
             boxState.big[$scope.row][$scope.column] = $scope.bigBoxState;
             $scope.atBatFactory.updateBasePath(event, $scope);
-            
-
             event.stopPropagation();
         }
             
         $scope.exitToLittleBox = function(){
             if (($scope.bigBoxState == 'at-bat-on-base')|| ($scope.bigBoxState == 'on-base-advance')) {
-                boxState.big[$scope.row][$scope.column] = null;             
-//                $scope.littleBoxState = 'on-base';
+                boxState.big[$scope.row][$scope.column] = null;  
                 event.stopPropagation();
             }
             if ($scope.bigBoxState == 'at-bat-out') {
@@ -293,40 +263,6 @@
             }
             
         }
-        
-        
-        
-        
-//        $scope.showBoxClosed = function() {
-//            
-//            scorecardBoxState = "closed";
-//            $scope.showScoreBox(scorecardBoxState);
-//            event.stopPropagation();
-//        }
-//        
-//        $scope.showBoxOut = function() {
-//            scorecardBoxState = "out";
-//            $scope.showScoreBox(scorecardBoxState);
-//            event.stopPropagation();
-//        }
-//        
-//        $scope.showBoxOnBase = function() {
-//            scorecardBoxState = 'on-base';
-//            $scope.showScoreBox(scorecardBoxState);
-//            event.stopPropagation();
-//        }
-//        
-//        $scope.exitToAtBatBox = function() {
-//            scorecardBoxState = 'closed';
-//            $scope.showScoreBox(scorecardBoxState);
-//            event.stopPropagation();
-//        }
-//        
-//        $scope.backToInitial = function() {
-//            scorecardBoxState = 'initial';
-//            $scope.showScoreBox(scorecardBoxState);
-//            event.stopPropagation();
-//        }
         
     }
     

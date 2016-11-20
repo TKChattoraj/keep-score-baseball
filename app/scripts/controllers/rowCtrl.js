@@ -10,7 +10,6 @@
         
         $scope.getIndex = function(i) {
             $scope.rowIndex = i;
-            console.log($scope.rowIndex);
         }
         
         $scope.batter = {};
