@@ -1,3 +1,5 @@
+//This file probably can be deleted as basePathState is in states.js now.  Delete if after a while no problem arises.
+
 (function() {
     
     angular 

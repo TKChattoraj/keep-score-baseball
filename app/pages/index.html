@@ -19,89 +19,181 @@
     <div class="navbar">Navigation Bar</div>
     <div ng-controller="scorecardCtrl as scorecard">
         <div class="score-ribbon">RHE</div>
-        <div class="card">
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li><a ui-sref="homeTeam">Home Team</a></li>
+                <li><a ui-sref="visitorTeam">Visitor Team</a></li>       
+            </ul>
+<!--  <div class="tab-content">-->
+      
+      <div ui-view></div>
+
+<!--            <div id="home" class="tab-pane fade in active">
+                <div class="card">
+
+                    <table class='scorecard'>
+
+                        <tr>
+                            <th class='order-number'></th>
+                            <th class='uniform-number'>#</th>
+                            <th class='player-name'>Batter</th>
+                            <th class='position'>POS</th>
+                            <th class='field-box' ng-repeat='i in scorecard.inningsArray'>{{i}}</th>
+                        </tr>
+
+                            <tr class='scorecard-row' ng-controller="rowCtrl as row" ng-repeat='r in scorecard.rowsArray track by $index' ng-click='getIndex($index)' id={{$index}}>
+
+                                    <td class='order-number'>{{$index+1}}</td>
+                                    <td class='uniform-number'>{{batter.number}}</td>
+                                    <td class='player-name'>{{batter.label}}
+
+                                            <div class="drop-down-box" ng-dropdown-multiselect="" options="roster" selected-model="batter" extra-settings="batterDropDownSettings" events='{onItemSelect: eventListener}'></div>
+
+                                    </td>
+
+                                    <td class='position'>5</td>
+                                    <td class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index' ng-click='decideLittleBox(rowIndex, $index)' id='{{rowIndex}}{{$index}}' ng-style="{'background-color': atBatBackground}">
+                                        <at-bat-score-box-dr></at-bat-score-box-dr>  
+
+
+                                        <div  ng-show="showLittleBox === 'after'" >
+                                            <div class="little-box">
+                                              <div class="top-right">
+                                                  <div ng-show="topRight">
+                                                    {{onBaseString}}
+                                                  </div>
+
+                                              </div>
+                                              <div class="top-left">
+                                                <div ng-show="topLeft">
+                                                    {{advBaseString}}
+                                                </div>
+                                              </div>
+                                              <div class="bottom-right">
+                                                <div id="one" class="outs" ng-style="{'background-color': oneOut}"></div>
+                                                <div id="two" class="outs" ng-style="{'background-color': twoOut}"></div>
+                                                <div id ="three" class="outs" ng-style="{'background-color': threeOut}">
+                                                  </div>
+                                              </div>
+                                              <div class="bottom-left"></div>
+                                              <div class="center" ng-show="center">{{centerString}}</div>
+                                              <div class="little-field" ng-style="{'background-color': fieldBackground}">
+                                                 <div class="home-plate" ></div>
+                                                 <div class="first-base" ></div>
+                                                 <div class="second-base" ></div>
+                                                 <div class="third-base" ></div>
+
+                                                 <div ng-class='first'></div>
+                                                 <div ng-class='second'></div>
+                                                 <div ng-class='third'></div>
+                                                 <div ng-class='home'></div>
+
+                                              </div> 
+                                            </div>
+                                        </div>
+
+
+                                    </td>
+
+                            </tr>
+
+                    </table>
+
+                </div>
+            </div>
             
-            <table class='scorecard'>
-                
-                <tr>
-                    <th class='order-number'></th>
-                    <th class='uniform-number'>#</th>
-                    <th class='player-name'>Batter</th>
-                    <th class='position'>POS</th>
-                    <th class='field-box' ng-repeat='i in scorecard.inningsArray'>{{i}}</th>
-                </tr>
+        <div id="visitor" class="tab-pane fade">
+            <div class="card">
 
-                    <tr class='scorecard-row' ng-controller="rowCtrl as row" ng-repeat='r in scorecard.rowsArray track by $index' ng-click='getIndex($index)' id={{$index}}>
-                        
-                            <td class='order-number'>{{$index+1}}</td>
-                            <td class='uniform-number'>{{batter.number}}</td>
-                            <td class='player-name'>{{batter.label}}
-                                
-                                    <div class="drop-down-box" ng-dropdown-multiselect="" options="roster" selected-model="batter" extra-settings="batterDropDownSettings" events='{onItemSelect: eventListener}'></div>
+                <table class='scorecard'>
 
-                            </td>
-
-                            <td class='position'>5</td>
-                            <td class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index' ng-click='decideLittleBox(rowIndex, $index)' id='{{rowIndex}}{{$index}}' ng-style="{'background-color': atBatBackground}">
-                                <at-bat-score-box-dr></at-bat-score-box-dr>  
-                                
-                                
-                                <div  ng-show="showLittleBox === 'after'" >
-                                    <div class="little-box">
-                                      <div class="top-right"></div>
-                                      <div class="top-left"></div>
-                                      <div class="bottom-right">
-                                        <div id="one" class="outs" ng-style="{'background-color': oneOut}"></div>
-                                        <div id="two" class="outs" ng-style="{'background-color': twoOut}"></div>
-                                        <div id ="three" class="outs" ng-style="{'background-color': threeOut}">
-                                          </div>
-                                      </div>
-                                      <div class="bottom-left"></div>
-                                      <div class="little-field" ng-style="{'background-color': atBatFactory.background}">
-                                         <div class="home-plate" ></div>
-                                         <div class="first-base" ></div>
-                                         <div class="second-base" ></div>
-                                         <div class="third-base" ></div>
-
-                                         <div ng-class='first'></div>
-                                         <div ng-class='second'></div>
-                                         <div ng-class='third'></div>
-                                         <div ng-class='home'></div>
-
-                                      </div> 
-                                    </div>
-                                </div>
-
-                                
-                            </td>
-                            
+                    <tr>
+                        <th class='order-number'></th>
+                        <th class='uniform-number'>#</th>
+                        <th class='player-name'>Batter</th>
+                        <th class='position'>POS</th>
+                        <th class='field-box' ng-repeat='i in scorecard.inningsArray'>{{i}}</th>
                     </tr>
 
-            </table>
+                        <tr class='scorecard-row' ng-controller="rowCtrl as row" ng-repeat='r in scorecard.rowsArray track by $index' ng-click='getIndex($index)' id={{$index}}>
 
-        </div>
-        </div>
+                                <td class='order-number'>{{$index+1}}</td>
+                                <td class='uniform-number'>{{batter.number}}</td>
+                                <td class='player-name'>{{batter.label}}
 
+                                        <div class="drop-down-box" ng-dropdown-multiselect="" options="roster" selected-model="batter" extra-settings="batterDropDownSettings" events='{onItemSelect: eventListener}'></div>
+
+                                </td>
+
+                                <td class='position'>5</td>
+                                <td class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index' ng-click='decideLittleBox(rowIndex, $index)' id='{{rowIndex}}{{$index}}' ng-style="{'background-color': atBatBackground}">
+                                    <at-bat-score-box-dr></at-bat-score-box-dr>  
+
+
+                                    <div  ng-show="showLittleBox === 'after'" >
+                                        <div class="little-box">
+                                          <div class="top-right">
+                                              <div ng-show="topRight">
+                                                {{onBaseString}}
+                                              </div>
+
+                                          </div>
+                                          <div class="top-left">
+                                            <div ng-show="topLeft">
+                                                {{advBaseString}}
+                                            </div>
+                                          </div>
+                                          <div class="bottom-right">
+                                            <div id="one" class="outs" ng-style="{'background-color': oneOut}"></div>
+                                            <div id="two" class="outs" ng-style="{'background-color': twoOut}"></div>
+                                            <div id ="three" class="outs" ng-style="{'background-color': threeOut}">
+                                              </div>
+                                          </div>
+                                          <div class="bottom-left"></div>
+                                          <div class="center" ng-show="center">{{centerString}}</div>
+                                          <div class="little-field" ng-style="{'background-color': fieldBackground}">
+                                             <div class="home-plate" ></div>
+                                             <div class="first-base" ></div>
+                                             <div class="second-base" ></div>
+                                             <div class="third-base" ></div>
+
+                                             <div ng-class='first'></div>
+                                             <div ng-class='second'></div>
+                                             <div ng-class='third'></div>
+                                             <div ng-class='home'></div>
+
+                                          </div> 
+                                        </div>
+                                    </div>
+
+
+                                </td>
+
+                        </tr>
+
+                </table>
+
+            </div>
+        </div> -->   
+<!--        </div>-->
     
-    
-    
-    
-    
+    </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>-->
 <!--    <script src="/scripts/bower_components/jquery/src/jquery.js"></script>-->
     <script src="/scripts/bower_components/angular/angular.js"></script>
     <script src="/scripts/bower_components/myforce-angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js"></script>
-<!--    Don't think I need ui-router just yet since I am not calling different pages but suspect I'll need it when I move to keeping score of the 'other' team to-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>-->
+    <script src='/scripts/bower_components/angular-ui-router/release/angular-ui-router.js'></script>
     
     
     <script src='/scripts/scorecardMod.js'></script>
-    <script src='/scripts/values/teamRoster.js'></script>
-    <script src='/scripts/values/scorecardBoxState.js'></script>
+<!--    <script src='/scripts/values/teamRoster.js'></script>-->
+<!--    <script src='/scripts/values/scorecardBoxState.js'></script>-->
     <script src='/scripts/values/boxState.js'></script>
-    <script src='/scripts/values/inningState.js'></script>
-    <script src='/scripts/values/basePathState.js'></script>
+    <script src='/scripts/values/states.js'></script>
+<!--    <script src='/scripts/values/basePathState.js'></script>-->
     
     <script src='/scripts/services/lineup.js'></script>
     <script src='/scripts/services/AtBatFactory.js'></script>

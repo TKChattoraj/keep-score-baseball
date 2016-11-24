@@ -1,9 +1,18 @@
                                 
 <div class='big-box' ng-show="bigBoxState === 'at-bat-out'">
-    {{rowIndex}}{{$index}} Little Box State:  {{littleBoxState}} Big Box State: {{bigBoxState}}
-    
+  <div>
+    <button type="button" class='btn btn-default' ng-click='putOut($event)' >K</button>
+    <button type="button" class='btn btn-default' ng-click='putOut($event)' >BK</button>
+    <button type="button" class='btn btn-default' ng-click='putOut($event)' >SAC</button>
+    <button type="button" class='btn btn-default' ng-click='putOut($event)' >RBI</button>     
+  </div>   
   <div>
     <div class="box">
+       
+        
+        
+        
+        
       <div class="top-right"></div>
       <div class="top-left"></div>
       <div class="bottom-right">
@@ -27,7 +36,19 @@
          <div ng-class='atBatFactory.Home'></div>
 
       </div>
-        <div class="positions pitcher">1</div>
+        <div class="positions pitcher" ng-click="putOut($event)" ng-style="{'background-color': pitcherBackground}">1</div>
+        <div class="positions catcher" ng-click="putOut($event)" ng-style="{'background-color': catcherBackground}">2</div>
+        <div class="positions firstbase" ng-click="putOut($event)" ng-style="{'background-color': firstBackground}">3</div>
+        <div class="positions secondbase" ng-click="putOut($event)" ng-style="{'background-color': secondBackground}">4</div>
+        <div class="positions thirdbase" ng-click="putOut($event)" ng-style="{'background-color': thirdBackground}">5</div>
+        <div class="positions shortstop" ng-click="putOut($event)" ng-style="{'background-color': shortBackground}">6</div>
+        <div class="positions leftfield" ng-click="putOut($event)" ng-style="{'background-color': leftBackground}">7</div>
+        <div class="positions centerfield" ng-click="putOut($event)"ng-style="{'background-color': centerBackground}" >8</div>
+        <div class="positions rightfield" ng-click="putOut($event)" ng-style="{'background-color': rightBackground}">9</div>
+        
+        
+        
+        
     </div>
     
 <!--
@@ -40,10 +61,11 @@
 </div>
 
 <div class='big-box' ng-show="bigBoxState === 'on-base-out'">
-    {{rowIndex}}{{$index}} Little Box State:  {{littleBoxState}} Big Box State: {{bigBoxState}}
+
     
     <div>
     <div class="box">
+       
       <div class="top-right"></div>
       <div class="top-left"></div>
       <div class="bottom-right">
@@ -67,6 +89,17 @@
          <div ng-class='atBatFactory.Home'></div>
 
       </div> 
+        
+        <div class="positions pitcher" ng-click="putOut($event)" ng-style="{'background-color': pitcherBackground}">1</div>
+        <div class="positions catcher" ng-click="putOut($event)" ng-style="{'background-color': catcherBackground}">2</div>
+        <div class="positions firstbase" ng-click="putOut($event)" ng-style="{'background-color': firstBackground}">3</div>
+        <div class="positions secondbase" ng-click="putOut($event)" ng-style="{'background-color': secondBackground}">4</div>
+        <div class="positions thirdbase" ng-click="putOut($event)" ng-style="{'background-color': thirdBackground}">5</div>
+        <div class="positions shortstop" ng-click="putOut($event)" ng-style="{'background-color': shortBackground}">6</div>
+        <div class="positions leftfield" ng-click="putOut($event)" ng-style="{'background-color': leftBackground}">7</div>
+        <div class="positions centerfield" ng-click="putOut($event)"ng-style="{'background-color': centerBackground}" >8</div>
+        <div class="positions rightfield" ng-click="putOut($event)" ng-style="{'background-color': rightBackground}">9</div>
+        
     </div>
     <div>
         
