@@ -21,14 +21,19 @@
         <div class="score-ribbon">RHE</div>
         <div class="container">
             <ul class="nav nav-tabs">
+<!--
                 <li><a ui-sref="homeTeam">Home Team</a></li>
-                <li><a ui-sref="visitorTeam">Visitor Team</a></li>       
+                <li><a ui-sref="visitorTeam">Visitor Team</a></li> 
+-->
+                <li><a ng-click="showHomeTeam()">Home Team</a></li>
+                <li><a ng-click="showVisitorTeam()">Visitor Team</a></li> 
             </ul>
-<!--  <div class="tab-content">-->
+  <div class="tab-content">
+            
       
-      <div ui-view></div>
+<!--      <div ui-view></div>-->
 
-<!--            <div id="home" class="tab-pane fade in active">
+            <div id="home" class="tab-pane fade in active" ng-show="showHome">
                 <div class="card">
 
                     <table class='scorecard'>
@@ -102,7 +107,7 @@
                 </div>
             </div>
             
-        <div id="visitor" class="tab-pane fade">
+        <div id="visitor" class="tab-pane fade in active" ng-show="showVisitors">
             <div class="card">
 
                 <table class='scorecard'>
@@ -174,8 +179,8 @@
                 </table>
 
             </div>
-        </div> -->   
-<!--        </div>-->
+        </div>    
+        </div>
     
     </div>
     </div>
