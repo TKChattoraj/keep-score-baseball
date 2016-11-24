@@ -21,11 +21,14 @@
         <div class="score-ribbon">RHE</div>
         <div class="container">
             <ul class="nav nav-tabs">
-                <li><a data-toggle="tab" href="home">Home Team</a></li>
-                <li><a data-toggle="tab" href="visitor">Visitor Team</a></li>       
+                <li><a ui-sref="homeTeam">Home Team</a></li>
+                <li><a ui-sref="visitorTeam">Visitor Team</a></li>       
             </ul>
-        <div class="tab-content">
-            <div id="home" class="tab-pane fade in active">
+<!--  <div class="tab-content">-->
+      
+      <div ui-view></div>
+
+<!--            <div id="home" class="tab-pane fade in active">
                 <div class="card">
 
                     <table class='scorecard'>
@@ -171,8 +174,9 @@
                 </table>
 
             </div>
-        </div>    
-        </div>
+        </div> -->   
+<!--        </div>-->
+    
     </div>
     </div>
 
@@ -181,8 +185,7 @@
 <!--    <script src="/scripts/bower_components/jquery/src/jquery.js"></script>-->
     <script src="/scripts/bower_components/angular/angular.js"></script>
     <script src="/scripts/bower_components/myforce-angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js"></script>
-<!--    Don't think I need ui-router just yet since I am not calling different pages but suspect I'll need it when I move to keeping score of the 'other' team to-->
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>-->
+    <script src='/scripts/bower_components/angular-ui-router/release/angular-ui-router.js'></script>
     
     
     <script src='/scripts/scorecardMod.js'></script>
