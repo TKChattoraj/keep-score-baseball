@@ -18,7 +18,33 @@
 <body>
     <div class="navbar">Navigation Bar</div>
     <div ng-controller="scorecardCtrl as scorecard">
-        <div class="score-ribbon">RHE</div>
+        <div class="score-ribbon">
+          <div>
+              <table>
+                <tr>
+                    <th></th>  
+                    <th>R</th>
+                    <th>H</th>
+                    <th>E</th>
+                </tr>
+                <tr ng-repeat='t in teamRow track by $index' ng-controller="scorecardCtrl" ng-click='getIndex($index)'>
+                    <td>
+                        <div>{{team.label}}</div>
+                         <div class="drop-down-box" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateTeam}'></div>
+                    </td>
+                    <td>{{runs}}</td>
+                    <td>{{hits}}</td>
+                    <td>{{errors}}</td>
+                </tr>
+              
+              </table>
+            
+          </div>
+        
+        
+        
+        
+        </div>
         <div class="container">
             <ul class="nav nav-tabs">
 <!--

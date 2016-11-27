@@ -16,7 +16,7 @@
               {id: 8, label: "Concepcion", number: 13}, 
               {id: 9, label: "Gullet", number: 35},
               {id: 10, label: "Armbrister", number: 33}],
-          "Red Sox": [
+          "Red_Sox": [
               {id: 1, label: "Carbo", number: 1},
               {id: 2, label: "Doyle", number: 5},
               {id: 3, label: "Yastrzemski", number: 8 },
