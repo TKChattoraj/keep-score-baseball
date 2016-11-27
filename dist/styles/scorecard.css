@@ -7,6 +7,27 @@
     height: 20%;
 }
 
+.score-ribbon .scoreboard {
+    
+    position: relative;
+    width: 50%;
+    left: 50%;
+}
+
+.scoreboard .team {
+    width: 75%;
+    left: 0%;
+}
+
+.scoreboard .select {
+    width: 33%;
+    left: 66%;
+}
+.scoreboard .score {
+    width: 15%;
+    left: 85%;
+}
+
 .card {
     position: relative;
     padding: 0.5rem;

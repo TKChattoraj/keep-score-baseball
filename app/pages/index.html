@@ -20,21 +20,25 @@
     <div ng-controller="scorecardCtrl as scorecard">
         <div class="score-ribbon">
           <div>
-              <table>
+              <table class='scoreboard'>
                 <tr>
-                    <th></th>  
-                    <th>R</th>
-                    <th>H</th>
-                    <th>E</th>
+                    <th class= 'team'></th>  
+                    <div class='score'>
+                        <th>R</th>
+                        <th>H</th>
+                        <th>E</th>
+                    </div>
                 </tr>
                 <tr ng-repeat='t in teamRow track by $index' ng-controller="scorecardCtrl" ng-click='getIndex($index)'>
-                    <td>
+                    <td class='team'>
                         <div>{{team.label}}</div>
-                         <div class="drop-down-box" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateTeam}'></div>
+                         <div class="drop-down-box select" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateTeam}'></div>
                     </td>
-                    <td>{{runs}}</td>
-                    <td>{{hits}}</td>
-                    <td>{{errors}}</td>
+                    <div class='score'>
+                        <td>{{runs}}</td>
+                        <td>{{hits}}</td>
+                        <td>{{errors}}</td>
+                    </div>
                 </tr>
               
               </table>
