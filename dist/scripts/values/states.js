@@ -22,6 +22,7 @@
             "visitorsRuns": 0,
             "visitorsHits": 0,
             "visitorsErrors": 0,
+            "currentTeam": {},
         
     });
 })();

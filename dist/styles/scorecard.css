@@ -10,20 +10,32 @@
 .score-ribbon .scoreboard {
     
     position: relative;
-    width: 50%;
-    left: 50%;
+    width: 25%;
+    left: 60%;
 }
 
 .scoreboard .team {
+    position: relative;
+    
     width: 75%;
     left: 0%;
 }
 
-.scoreboard .select {
-    width: 33%;
-    left: 66%;
+.team .name {
+    position: relative;
+   
+    width: 50%;
+    left: 50%;
+}
+
+.team .select {
+    position: relative;
+    float: left;
+    width: 25%;
+    left: 10%;
 }
 .scoreboard .score {
+    position: relative;
     width: 15%;
     left: 85%;
 }

@@ -31,8 +31,9 @@
                 </tr>
                 <tr ng-repeat='t in teamRow track by $index' ng-controller="scorecardCtrl" ng-click='getIndex($index)'>
                     <td class='team'>
-                        <div>{{team.label}}</div>
-                         <div class="drop-down-box select" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateTeam}'></div>
+                        
+                         <div class="select" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateTeam}'></div>
+                        <div class='name'>{{team.label}}</div>
                     </td>
                     <div class='score'>
                         <td>{{runs}}</td>
