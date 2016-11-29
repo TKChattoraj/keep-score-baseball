@@ -10,7 +10,7 @@
         $scope.showHomeTeam = function() {
             $scope.showHome = true;
             $scope.showVisitors = false;
-            gameState.currentTeam = gameState.home;
+            gameState.currentTeam = "home";
             console.log("current team: " + gameState.currentTeam.label);
             
         }
@@ -18,7 +18,7 @@
         $scope.showVisitorTeam = function(){
             $scope.showHome = false;
             $scope.showVisitors = true;
-            gameState.currentTeam = gameState.visitors;
+            gameState.currentTeam = "visitors";
             console.log("current team: " + gameState.currentTeam.label);
             
         }

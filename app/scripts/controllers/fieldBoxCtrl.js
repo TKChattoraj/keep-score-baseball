@@ -1,34 +1,69 @@
 (function() {
     
-    function FieldBoxCtrl($scope, boxState, inningState, AtBatFactory, basePathState) {
+    function FieldBoxCtrl($scope, boxState, inningState, AtBatFactory, basePathState, gameState) {
         
         $scope.atBatFactory = AtBatFactory;
 
         
         var updateLittleBox = function() {
             
-            $scope.first = boxState.little[$scope.row][$scope.column].first;
-            $scope.second = boxState.little[$scope.row][$scope.column].second;
-            $scope.third = boxState.little[$scope.row][$scope.column].third;
-            $scope.home = boxState.little[$scope.row][$scope.column].home;
+//            $scope.first = boxState.little[$scope.row][$scope.column].first;
+//            $scope.second = boxState.little[$scope.row][$scope.column].second;
+//            $scope.third = boxState.little[$scope.row][$scope.column].third;
+//            $scope.home = boxState.little[$scope.row][$scope.column].home;
+//            
+//            $scope.oneOut = boxState.little[$scope.row][$scope.column].oneOut;
+//            $scope.twoOut = boxState.little[$scope.row][$scope.column].twoOut;
+//            $scope.threeOut = boxState.little[$scope.row][$scope.column].threeOut;
+//            $scope.fieldBackground = boxState.little[$scope.row][$scope.column].fieldBackground;
+//            
+//            if (boxState.little[$scope.row][$scope.column].status == 'at-bat-out' || boxState.little[$scope.row][$scope.column].status == 'on-base-out') {      
+//                $scope.center = 'true';
+//            }
+//            
+//            if (boxState.little[$scope.row][$scope.column].status == 'at-bat-out' || boxState.little[$scope.row][$scope.column].status == 'on-base-out') {      
+//                $scope.center = 'true';
+//            }
             
-            $scope.oneOut = boxState.little[$scope.row][$scope.column].oneOut;
-            $scope.twoOut = boxState.little[$scope.row][$scope.column].twoOut;
-            $scope.threeOut = boxState.little[$scope.row][$scope.column].threeOut;
-            $scope.fieldBackground = boxState.little[$scope.row][$scope.column].fieldBackground;
             
-            if (boxState.little[$scope.row][$scope.column].status == 'at-bat-out' || boxState.little[$scope.row][$scope.column].status == 'on-base-out') {      
+            
+            
+            $scope.first = $scope.littleBoxObject.first;
+            $scope.second = $scope.littleBoxObject.second;
+            $scope.third = $scope.littleBoxObject.third;
+            $scope.home = $scope.littleBoxObject.home;
+            
+            $scope.oneOut = $scope.littleBoxObject.oneOut;
+            $scope.twoOut = $scope.littleBoxObject.twoOut;
+            $scope.threeOut = $scope.littleBoxObject.threeOut;
+            $scope.fieldBackground = $scope.littleBoxObject.fieldBackground;
+            
+            if ($scope.littleBoxObject.status == 'at-bat-out' || $scope.littleBoxObject.status == 'on-base-out') {      
                 $scope.center = 'true';
             }
             
-            if (boxState.little[$scope.row][$scope.column].status == 'at-bat-out' || boxState.little[$scope.row][$scope.column].status == 'on-base-out') {      
+            if ($scope.littleBoxObject.status == 'at-bat-out' || $scope.littleBoxObject.status == 'on-base-out') {      
                 $scope.center = 'true';
             }
+            
+            
+            
+            
+            
           
         };
         
         var getLittleBoxStatus = function() {
-            $scope.littleBoxObject = boxState.little[$scope.row][$scope.column];
+            
+            //need logic here to pull from either home or visitor's little box 
+            if (gameState.currentTeam == 'home') {
+                $scope.littleBoxObject = boxState.littleHome[$scope.row][$scope.column];
+            }
+            if (gameState.currentTeam == 'visitors') {
+                $scope.littleBoxObject = boxState.littleVisitors[$scope.row][$scope.column];
+            }
+            //$scope.littleBoxObject = boxState.little[$scope.row][$scope.column];
+            //
         };
         
         var getAtBatFactoryStatus = function() {
@@ -79,9 +114,23 @@
             
             
             $scope.littleBoxObject.status = $scope.littleBoxState;
-            boxState.little[$scope.row][$scope.column] = $scope.littleBoxObject;
-                       
             updateLittleBox();
+            
+            //  need logic here to chose between home/visitor's little box
+            
+            if (gameState.currentTeam == 'home') {
+                boxState.littleHome[$scope.row][$scope.column] = $scope.littleBoxObject;
+            }
+            if (gameState.currentTeam == 'visitors') {
+                boxState.littleVisitors[$scope.row][$scope.column] = $scope.littleBoxObject;
+            }
+            
+            
+            
+            
+            //boxState.little[$scope.row][$scope.column] = $scope.littleBoxObject;
+            //           
+            
         };
                 
         
@@ -270,6 +319,6 @@
     
     angular 
         .module('scorecardMod')
-        .controller('fieldBoxCtrl', ['$scope', 'boxState', 'inningState', 'AtBatFactory', 'basePathState', FieldBoxCtrl]);
+        .controller('fieldBoxCtrl', ['$scope', 'boxState', 'inningState', 'AtBatFactory', 'basePathState', 'gameState', FieldBoxCtrl]);
 })();
 
