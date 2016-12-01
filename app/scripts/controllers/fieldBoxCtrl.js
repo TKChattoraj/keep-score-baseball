@@ -163,8 +163,8 @@
             $scope.putOutArray.push(target);
             $scope.centerString = $scope.putOutArray.join('-');
             
-            
-            if (target == 'K' || target =='BK') {
+            // \u is Javascript escape for unicode and A4D8 is the hexidecimal code for the backwards k
+            if (target == 'K' || target == '\uA4D8') {
                 $scope.exitToLittleBox();
             }
             var fielder = event.currentTarget.innerHTML;                  

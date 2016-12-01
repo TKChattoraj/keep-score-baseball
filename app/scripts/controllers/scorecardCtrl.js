@@ -4,14 +4,15 @@
         this.inningsArray = [1,2,3,4,5,6,7,8,9,10];
         $scope.teamRow = [0, 1];
     
-        $scope.showHome = true;
-        $scope.showVisitors = false;
+        $scope.showHome = false;
+        $scope.showVisitors = true;
         
         $scope.showHomeTeam = function() {
             $scope.showHome = true;
             $scope.showVisitors = false;
             gameState.currentTeam = "home";
-            console.log("current team: " + gameState.currentTeam.label);
+            
+            $rootScope.$broadcast('getLineupAndBench');
             
         }
         
@@ -19,9 +20,18 @@
             $scope.showHome = false;
             $scope.showVisitors = true;
             gameState.currentTeam = "visitors";
-            console.log("current team: " + gameState.currentTeam.label);
+            
+            $rootScope.$broadcast('getLineupAndBench');
+            
             
         }
+        
+        
+        
+        
+        
+        
+        
     
         $scope.team = {};
         $scope.teams = teamRoster;
@@ -42,28 +52,23 @@
                 $scope.runs = gameState.homeRuns;
                 $scope.hits = gameState.homeHits;
                 $scope.errors = gameState.homeErrors;
-                $rootScope.$broadcast('homeChosen');
+                gameState.home.bench = gameState.home.roster;
+                $rootScope.$broadcast('getLineupAndBench');
+                
                 
             }
-            if ($scope.teamIndex === 0) {
+            if ($scope.teamIndex == 0) {
                 gameState.visitors = $scope.team;
                 $scope.runs = gameState.visitorsRuns;
                 $scope.hits = gameState.visitorsHits;
                 $scope.errors = gameState.visitorsErrors;
+                gameState.visitors.bench = gameState.visitors.roster;
+                $rootScope.$broadcast('getLineupAndBench');
                 
             }
-            console.log("Home: " + gameState.home);
-            console.log("Visitors: " + gameState.visitors);
+            
         }
-       
-        
-        
-      $rootScope.$on('homeChosen', function(){gameState.currentTeam = gameState.home;
-       Lineup.team = gameState.currentTeam.roster;
-       Lineup.bench = gameState.currentTeam.roster;
-       console.log("Home Roster: " + Lineup.team);
-       console.log("Home Bench: " + Lineup.bench)});
-       
+    
       }
     
         
