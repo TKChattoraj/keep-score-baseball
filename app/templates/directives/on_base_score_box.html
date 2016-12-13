@@ -20,7 +20,7 @@
           </div>
       </div>
       <div class="bottom-left">
-        <button type="button" class='btn btn-primary' ng-click='exitToLittleBox()'>Submit</button>
+<!--        <button type="button" class='btn btn-primary' ng-click='exitToLittleBox()'>Submit</button>-->
       </div>
       <div class="field" ng-style="{'background-color': atBatFactory.background}">
          <div class="home-plate" ></div>
@@ -51,11 +51,11 @@
 
 
 <div class='big-box' ng-show="bigBoxState === 'on-base-advance'">
-    <button type="button" class='btn btn-default' ng-click='advBase($event)' >SB</button>
-    <button type="button" class='btn btn-default' ng-click='advBase($event)' >WP</button>
-    <button type="button" class='btn btn-default' ng-click='advBase($event)'> PB</button>
-     <button type="button" class='btn btn-default' ng-click='advBase($event)' >Balk</button>
-    <button type="button" class='btn btn-default' ng-click='onBase($event)' >RBI</button>  
+    <button type="button" class='btn btn-default' ng-click="advBase($event)" >SB</button>
+    <button type="button" class='btn btn-default' ng-click="advBase($event)" >WP</button>
+    <button type="button" class='btn btn-default' ng-click="advBase($event)">PB</button>
+     <button type="button" class='btn btn-default' ng-click="advBase($event)" >Balk</button>
+    
     
     
     <div>
@@ -70,7 +70,7 @@
           </div>
       </div>
       <div class="bottom-left">
-        <button type="button" class='btn btn-primary' ng-click='exitToLittleBox()'>Submit</button>     
+        <button type="button" class='btn btn-primary' ng-click='advBase($event)'>Submit</button>     
       </div>
       <div class="field" ng-style="{'background-color': atBatFactory.background}">
          <div class="home-plate" ></div>

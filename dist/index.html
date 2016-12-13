@@ -14,21 +14,66 @@
     <link rel="stylesheet" type="text/css" href="/styles/main.css">
     <link rel="stylesheet" type="text/css" href="/styles/scorecard.css">
     <link rel="stylesheet" type="text/css" href="/styles/scorebox.css">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>-->
+<!--    <script src="/scripts/bower_components/jquery/src/jquery.js"></script>-->
+    <script src="/scripts/bower_components/angular/angular.js"></script>
+    <script src="/scripts/bower_components/myforce-angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js"></script>
+    <script src='/scripts/bower_components/angular-ui-router/release/angular-ui-router.js'></script>
+    
 </head>
-<body>
+<body ng-cloak>
     <div class="navbar">Navigation Bar</div>
     <div ng-controller="scorecardCtrl as scorecard">
-        <div class="score-ribbon">RHE</div>
+        <div class="score-ribbon">
+          <div>
+              <table class='scoreboard'>
+                <tr>
+                    <th class= 'team'></th>  
+                    <div class='score'>
+                        <th>R</th>
+                        <th>H</th>
+                        <th>E</th>
+                    </div>
+                </tr>
+                <tr ng-repeat='t in teamRow track by $index' ng-controller="scorecardCtrl" ng-click='getIndex($index)'>
+                    <td class='team'>
+                        
+                         <div class="select" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateTeam}'></div>
+                        <div class='name'>{{team.label}}</div>
+                    </td>
+                    <div class='score'>
+                        <td>{{runs}}</td>
+                        <td>{{hits}}</td>
+                        <td>{{errors}}</td>
+                    </div>
+                </tr>
+              
+              </table>
+            
+          </div>
+        
+        
+        
+        
+        </div>
         <div class="container">
             <ul class="nav nav-tabs">
+<!--
                 <li><a ui-sref="homeTeam">Home Team</a></li>
-                <li><a ui-sref="visitorTeam">Visitor Team</a></li>       
+                <li><a ui-sref="visitorTeam">Visitor Team</a></li> 
+-->
+                
+                <li><a ng-click="showVisitorTeam()">Visitor Team</a></li> 
+                <li><a ng-click="showHomeTeam()">Home Team</a></li>
             </ul>
-<!--  <div class="tab-content">-->
+  <div class="tab-content">
+            
       
-      <div ui-view></div>
+<!--      <div ui-view></div>-->
 
-<!--            <div id="home" class="tab-pane fade in active">
+            <div id="home" class="tab-pane fade in active" ng-show="showHome">
+                Home
                 <div class="card">
 
                     <table class='scorecard'>
@@ -96,13 +141,25 @@
                                     </td>
 
                             </tr>
+                            <tr>
+                        
+                                <th class='order-number'></th>
+                                <th class='uniform-number'></th>
+                                <th class='player-name'>H/R</th>
+                                <th class='position'></th>
+                                <th class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray'>
+                                    {{homeInningHits[$index]}}/{{homeInningRuns[$index]}}
+                                </th>
+                        
+                            </tr>
 
                     </table>
 
                 </div>
             </div>
             
-        <div id="visitor" class="tab-pane fade">
+        <div id="visitor" class="tab-pane fade in active" ng-show="showVisitors">
+            Visitors
             <div class="card">
 
                 <table class='scorecard'>
@@ -170,23 +227,31 @@
                                 </td>
 
                         </tr>
+                    
+                        <tr>
+                        
+                                <th class='order-number'></th>
+                                <th class='uniform-number'></th>
+                                <th class='player-name'>H/R</th>
+                                <th class='position'></th>
+                                <th class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index'>
+                                    {{visitorsInningHits[$index]}}/{{visitorsInningRuns[$index]}} 
+                                </th>
+                        
+                        </tr>
+                    
 
                 </table>
 
             </div>
-        </div> -->   
-<!--        </div>-->
+        </div>    
+        </div>
     
     </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>-->
-<!--    <script src="/scripts/bower_components/jquery/src/jquery.js"></script>-->
-    <script src="/scripts/bower_components/angular/angular.js"></script>
-    <script src="/scripts/bower_components/myforce-angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js"></script>
-    <script src='/scripts/bower_components/angular-ui-router/release/angular-ui-router.js'></script>
     
+   
     
     <script src='/scripts/scorecardMod.js'></script>
 <!--    <script src='/scripts/values/teamRoster.js'></script>-->

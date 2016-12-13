@@ -1,8 +1,5 @@
 (function() {
-    function Lineup(teamRoster) {
-
-        Lineup.team = teamRoster.reds;
-        Lineup.bench = teamRoster.reds; 
+    function Lineup(teamRoster, gameState) {
         Lineup.lineup = [];
         
         var reconcile = function(player) {
@@ -18,8 +15,21 @@
         
         Lineup.adjust = function(player, orderNum) {
             
-            Lineup.lineup[orderNum] = player;
-            Lineup.bench = Lineup.team.filter(reconcile);
+            if (gameState.currentTeam == 'home') {
+               gameState.home.lineup[orderNum] = player;
+               Lineup.lineup = gameState.home.lineup;
+               gameState.home.bench = gameState.home.roster.filter(reconcile); 
+                
+            }
+            if (gameState.currentTeam == 'visitors') {
+               gameState.visitors.lineup[orderNum] = player;
+               Lineup.lineup = gameState.visitors.lineup;
+               gameState.visitors.bench = gameState.visitors.roster.filter(reconcile); 
+                
+            }
+            
+//            Lineup.lineup[orderNum] = player;
+//            Lineup.bench = Lineup.team.filter(reconcile);
             
         }
         
@@ -29,6 +39,6 @@
     
     angular 
         .module('scorecardMod')
-        .factory('Lineup', ['teamRoster', Lineup]);
+        .factory('Lineup', ['teamRoster', 'gameState', Lineup]);
     
 })();

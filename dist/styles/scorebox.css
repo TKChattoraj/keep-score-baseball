@@ -321,8 +321,11 @@ div .positions.rightfield {
     
 }
 
-
-
+ .number {
+    position: absolute;
+    top: 4px;
+    left: 15px;
+}
 
 
 
