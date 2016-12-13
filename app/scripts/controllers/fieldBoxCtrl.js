@@ -1,9 +1,13 @@
 (function() {
     
-    function FieldBoxCtrl($scope, boxState, inningState, AtBatFactory, basePathState, gameState) {
+    function FieldBoxCtrl($rootScope, $scope, boxState, inningState, AtBatFactory, basePathState, gameState) {
         
         $scope.atBatFactory = AtBatFactory;
-
+        
+        $scope.homeInningHits = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        $scope.homeInningRuns = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        $scope.visitorsInningHits = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        $scope.visitorsInningRuns = [0, 0, 0, 0, 0, 0, 0, 0, 0];
         
         var updateLittleBox = function() {
             
@@ -105,19 +109,105 @@
              
         };
         
+        var calculateHitsRuns = function() {
+            boxState.visitorsHitsRuns[$scope.column].hits = 0;
+            boxState.visitorsHitsRuns[$scope.column].runs = 0;
+            boxState.homeHitsRuns[$scope.column].hits = 0;
+            boxState.homeHitsRuns[$scope.column].runs = 0;
+           
+            
+                if (gameState.currentTeam == 'visitors') {
+                   var visitorBatterHits =0;
+                   boxState.visitorsRawStats[$scope.row][$scope.column] = $scope.rawStats;
+                   for (var i=0; i<9; i++) {
+                       if (boxState.visitorsRawStats[i][$scope.column]) {
+                           visitorsBatterHits = boxState.visitorsRawStats[i][$scope.column].single + boxState.visitorsRawStats[i][$scope.column].double + boxState.visitorsRawStats[i][$scope.column].triple + boxState.visitorsRawStats[i][$scope.column].hr;
+            
+                           boxState.visitorsHitsRuns[$scope.column].hits += visitorsBatterHits;
+                           
+                           boxState.visitorsHitsRuns[$scope.column].runs += boxState.visitorsRawStats[i][$scope.column].r; 
+
+                           console.log('hit: ' + boxState.visitorsHitsRuns[$scope.column].hits);
+                           console.log('run: ' + boxState.visitorsHitsRuns[$scope.column].runs); 
+                       }
+                    }
+                }
+                
+                if (gameState.currentTeam == 'home') {
+                  var homeBatterHits =0;
+                  boxState.homeRawStats[$scope.row][$scope.column] = $scope.rawStats;
+                  for (var i=0; i<9; i++) {
+                    if (boxState.homeRawStats[i][$scope.column]) {
+                      
+                       homeBatterHits = boxState.homeRawStats[i][$scope.column].single + boxState.homeRawStats[i][$scope.column].double + boxState.homeRawStats[i][$scope.column].triple + boxState.homeRawStats[i][$scope.column].hr;
+
+                       boxState.homeHitsRuns[$scope.column].hits += homeBatterHits;
+
+                       boxState.homeHitsRuns[$scope.column].runs += boxState.homeRawStats[i][$scope.column].r; 
+
+                       console.log('hit: ' + boxState.homeHitsRuns[$scope.column].hits);
+                       console.log('run: ' + boxState.homeHitsRuns[$scope.column].runs); 
+                      
+                    }  
+                      
+                  }
+                  
+                }
+            
+            gameState.visitorsRuns = 0;
+            gameState.visitorsHits = 0;
+            gameState.homeRuns = 0;
+            gameState.homeHits = 0;
+            
+            
+            for (var i=0; i<9; i++) {
+                gameState.visitorsRuns += boxState.visitorsHitsRuns[i].runs;
+                gameState.visitorsHits += boxState.visitorsHitsRuns[i].hits;
+                gameState.homeRuns += boxState.homeHitsRuns[i].runs;
+                gameState.homeHits += boxState.homeHitsRuns[i].hits;
+    
+            }
+            console.log('visitors: ' + gameState.visitorsRuns + ' ' + gameState.visitorsHits);
+            $rootScope.$broadcast('updateHitsRuns', {column: $scope.column});
+            //$rootScope.$boradcast('updateLineScore');
+        };
+        
+            $rootScope.$on('updateHitsRuns', function(event, args) {
+                if (gameState.currentTeam == 'home'){
+                    $scope.homeInningHits[args.column] = boxState.homeHitsRuns[args.column].hits;
+                    $scope.homeInningRuns[args.column] = boxState.homeHitsRuns[args.column].runs;
+                }
+                
+                if (gameState.currentTeam == 'visitors'){
+                   $scope.visitorsInningHits[args.column] = boxState.visitorsHitsRuns[args.column].hits;
+                   $scope.visitorsInningRuns[args.column] = boxState.visitorsHitsRuns[args.column].runs;
+                }
+            });
+        
+        
+        
         var generateStatsObject = function() {
-            if ($scope.littleBoxObject.status == 'initial') {
                 
                 if (gameState.currentTeam == 'visitors') {
-                    boxState.visitorsRawStats[$scope.row][$scope.column] = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, wp: 0, pb: 0, fc: 0, rbi: 0, sb: 0, r: 0, er: 0, sac: 0, k: 0, playerID: '', teamID: ''}; 
-                    console.log("AB: " + boxState.visitorsRawStats[$scope.row][$scope.column].ab);
-                }
-                if (gameState.currentTeam == 'home') {
-                    boxState.homeRawStats[$scope.row][$scope.column] = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, wp: 0, pb: 0, fc: 0, rbi: 0, sb: 0, r: 0, er: 0, sac: 0, k: 0, playerID: '', teamID: ''};
-                    console.log("AB: " + boxState.homeRawStats[$scope.row][$scope.column].ab);
                     
+                    if ($scope.littleBoxObject.status == 'initial') {
+                    $scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, wp: 0, pb: 0, sb: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0, playerID: '', teamID: ''}; 
+                    
+                    boxState.visitorsRawStats[$scope.row][$scope.column] = $scope.rawStats;
+
+                    } else {
+                       $scope.rawStats = boxState.visitorsRawStats[$scope.row][$scope.column]; 
+                    }
                 }
-            }
+                
+                if (gameState.currentTeam == 'home') {
+                    if ($scope.littleBoxObject.status == 'initial') {
+                    $scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, wp: 0, pb: 0, sb: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0, playerID: '', teamID: ''}; 
+                    boxState.homeRawStats[$scope.row][$scope.column] = $scope.rawStats;
+                    } else {
+                       $scope.rawStats = boxState.homeRawStats[$scope.row][$scope.column];
+                    }
+                }   
         };
                 
         
@@ -126,7 +216,7 @@
             $scope.row = row;
             $scope.column = column;
             getLittleBoxObject();
-            $scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, wp: 0, pb: 0, fc: 0, rbi: 0, sb: 0, r: 0, er: 0, sac: 0, k: 0, playerID: '', teamID: ''}; 
+            //$scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, wp: 0, pb: 0, sb: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0, playerID: '', teamID: ''}; 
             generateStatsObject();
             getAtBatFactoryStatus();
             
@@ -195,25 +285,29 @@
         };
         
         var updateRawStatsObject = function(target) {
-            alert ('logging a rawStat');
+
             if (basePathState.PreviousBase == 'at-bat') {
-                alert('into rawStat previousState at-bat');
-                if ($scope.previousTarget = 'E') {
+                if ($scope.previousTarget == 'E') {
+                    alert('E');
                     $scope.rawStats.e = 1;
                 } else if (target == 'K') {
+                    alert('K');
                     $scope.rawStats.k = 1;
                 } else if ( target == 'BB') {
+                    alert('BB');
                     $scope.rawStats.bb = 1;
                 } else if (target == 'FC') {
+                    alert('fc');
                     $scope.rawStats.fc = 1;
                 } else if (target == 'HB') {
+                    alert('HB');
                     $scope.rawStats.hb = 1;
                 } else {
-                    alert('starting the switch');
+                   
                     switch ($scope.littleBoxState) {
                         case 'first-base':
                             $scope.rawStats.single = 1;
-                            alert('logging a rawStat single');
+                            
                             break;
                         case 'second-base':
                             $scope.rawStats.double = 1;
@@ -231,26 +325,6 @@
                     
                 }
                 
-                    alert('starting the switch');
-                    switch ($scope.littleBoxState) {
-                        case 'first-base':
-                            $scope.rawStats.single = 1;
-                            alert('logging a rawStat single');
-                            break;
-                        case 'second-base':
-                            $scope.rawStats.double = 1;
-                            break;
-                        case 'third-base':
-                            $scope.rawStats.triple = 1;
-                            break;
-                        case 'score':
-                            $scope.center = 'true';
-                            $scope.centerString = 'HR';  
-                            $scope.rawStats.hr = 1;
-                            $scope.rawStats.r = 1;
-                            break;
-                    }
-                
 
                 if (target != 'BB') {
                     $scope.rawStats.ab = 1;
@@ -258,9 +332,23 @@
 
                 $scope.rawStats.pa = 1;
 
+            } else {
+                if (target == 'SB') {
+                    $scope.rawStats.sb++;
+                } else if (target == 'WP') {
+                    $scope.rawStats.wp++;
+                } else if (target == 'Balk') {
+                    $scope.rawStats.balk++;
+                } else if (target == 'PB') {
+                    $scope.rawStats.pb++;
+                }
+                if ($scope.littleBoxState == 'score') { 
+                
+                    $scope.rawStats.r = 1; 
+                }
+                
             }
-            console.log($scope.rawStats.pa, $scope.rawStats.ab, $scope.rawStats.single, $scope.rawStats.double, $scope.rawStats.triple, $scope.rawStats.hr, $scope.rawStats.r);
-            
+    
         };
         
         
@@ -270,14 +358,11 @@
             $scope.onBaseString = $scope.onBaseArray.join('-');
             
             $scope.topRight = 'true';
-            
-//            if ((basePathState.Base == 'home-plate') && (basePathState.PreviousBase == 'at-bat')) {
-//                $scope.center = 'true';
-//                $scope.centerString = 'HR';      
-//            }
+        
                           
             if (target != 'E'){
                 updateRawStatsObject(target);
+                calculateHitsRuns();
                 $scope.exitToLittleBox();
             } else {
                 $scope.previousTarget = 'E';
@@ -292,12 +377,15 @@
             var target = event.currentTarget.innerHTML;
             $scope.advBaseArray.push(target);
             $scope.advBaseString = $scope.advBaseArray.join('-');
-            
-            $scope.topLeft= 'true';
-            if ((target == 'SB') || (target == 'WP') || (target == 'PB') || (target == 'Balk')) {
-                $scope.exitToLittleBox();
+            if ($scope.advBaseString == 'Submit') {
+                $scope.advBaseString = '';
             }
             
+            $scope.topLeft= 'true';
+
+            updateRawStatsObject(target);
+            calculateHitsRuns();
+            $scope.exitToLittleBox();
             event.stopPropagation();
             
         }
@@ -366,6 +454,7 @@
                
             }
             updateLittleBoxObject();
+            //calculateHitsRuns();
             $scope.bigBoxState = null;
             $scope.showLittleBox = 'after';
             if (inningState.outs === 3) {
@@ -380,6 +469,6 @@
     
     angular 
         .module('scorecardMod')
-        .controller('fieldBoxCtrl', ['$scope', 'boxState', 'inningState', 'AtBatFactory', 'basePathState', 'gameState', FieldBoxCtrl]);
+        .controller('fieldBoxCtrl', ['$rootScope', '$scope', 'boxState', 'inningState', 'AtBatFactory', 'basePathState', 'gameState', FieldBoxCtrl]);
 })();
 

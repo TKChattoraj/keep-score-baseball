@@ -147,8 +147,8 @@
                                 <th class='uniform-number'></th>
                                 <th class='player-name'>H/R</th>
                                 <th class='position'></th>
-                                <th class='field-box' ng-repeat='i in scorecard.inningsArray'>
-                                    hits/runs
+                                <th class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray'>
+                                    {{homeInningHits[$index]}}/{{homeInningRuns[$index]}}
                                 </th>
                         
                             </tr>
@@ -234,9 +234,8 @@
                                 <th class='uniform-number'></th>
                                 <th class='player-name'>H/R</th>
                                 <th class='position'></th>
-                                <th class='field-box' ng-repeat='i in scorecard.inningsArray'>
-                                    hits/runs
-                            
+                                <th class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index'>
+                                    {{visitorsInningHits[$index]}}/{{visitorsInningRuns[$index]}} 
                                 </th>
                         
                         </tr>
@@ -252,7 +251,7 @@
     </div>
 
     
-    
+   
     
     <script src='/scripts/scorecardMod.js'></script>
 <!--    <script src='/scripts/values/teamRoster.js'></script>-->

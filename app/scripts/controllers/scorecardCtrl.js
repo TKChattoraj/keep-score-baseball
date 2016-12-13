@@ -47,16 +47,6 @@
         
         $scope.designateTeam = function(i){
             
-            if ($scope.teamIndex == 1) {
-                gameState.home = $scope.team; 
-                $scope.runs = gameState.homeRuns;
-                $scope.hits = gameState.homeHits;
-                $scope.errors = gameState.homeErrors;
-                gameState.home.bench = gameState.home.roster;
-                $rootScope.$broadcast('getLineupAndBench');
-                
-                
-            }
             if ($scope.teamIndex == 0) {
                 gameState.visitors = $scope.team;
                 $scope.runs = gameState.visitorsRuns;
@@ -66,8 +56,27 @@
                 $rootScope.$broadcast('getLineupAndBench');
                 
             }
+            if ($scope.teamIndex == 1) {
+                gameState.home = $scope.team; 
+                $scope.runs = gameState.homeRuns;
+                $scope.hits = gameState.homeHits;
+                $scope.errors = gameState.homeErrors;
+                gameState.home.bench = gameState.home.roster;
+                $rootScope.$broadcast('getLineupAndBench');
+     
+            }
+            
             
         }
+        
+        $rootScope.$on('updateLineScore', function() {
+                //homeRuns = gameState.homeRuns;
+                //homeHits = gameState.homeHits;
+                //visitorsRuns = gameState.visitorsRuns;
+                //visitorsHits = gameState.visitorsHits;
+            });
+        
+        
     
       }
     

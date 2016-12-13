@@ -108,6 +108,10 @@
                                []
               
           ],
+        
+          'visitorsHitsRuns': [{hits: 0, runs: 0}, {hits: 0, runs: 0}, {hits: 0, runs: 0}, {hits: 0, runs: 0}, {hits: 0, runs: 0}, {hits: 0, runs: 0}, {hits: 0, runs: 0}, {hits: 0, runs: 0}, {hits: 0, runs: 0} ],
+        
+          'homeHitsRuns': [{hits: 0, runs: 0}, {hits: 0, runs: 0}, {hits: 0, runs: 0}, {hits: 0, runs: 0}, {hits: 0, runs: 0}, {hits: 0, runs: 0}, {hits: 0, runs: 0}, {hits: 0, runs: 0}, {hits: 0, runs: 0} ],
 
            'big': [
               ['initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial', 'initial'],
