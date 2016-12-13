@@ -63,8 +63,9 @@
                 <li><a ui-sref="homeTeam">Home Team</a></li>
                 <li><a ui-sref="visitorTeam">Visitor Team</a></li> 
 -->
-                <li><a ng-click="showHomeTeam()">Home Team</a></li>
+                
                 <li><a ng-click="showVisitorTeam()">Visitor Team</a></li> 
+                <li><a ng-click="showHomeTeam()">Home Team</a></li>
             </ul>
   <div class="tab-content">
             
@@ -139,6 +140,17 @@
 
                                     </td>
 
+                            </tr>
+                            <tr>
+                        
+                                <th class='order-number'></th>
+                                <th class='uniform-number'></th>
+                                <th class='player-name'>H/R</th>
+                                <th class='position'></th>
+                                <th class='field-box' ng-repeat='i in scorecard.inningsArray'>
+                                    hits/runs
+                                </th>
+                        
                             </tr>
 
                     </table>
@@ -215,6 +227,20 @@
                                 </td>
 
                         </tr>
+                    
+                        <tr>
+                        
+                                <th class='order-number'></th>
+                                <th class='uniform-number'></th>
+                                <th class='player-name'>H/R</th>
+                                <th class='position'></th>
+                                <th class='field-box' ng-repeat='i in scorecard.inningsArray'>
+                                    hits/runs
+                            
+                                </th>
+                        
+                        </tr>
+                    
 
                 </table>
 

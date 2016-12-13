@@ -1,5 +1,5 @@
 (function() {
-    function AtBatFactory(basePathState, inningState, boxState) {
+    function AtBatFactory(basePathState, inningState, boxState, gameState) {
      
         AtBatFactory.background = "grey";
 
@@ -88,38 +88,63 @@
         
         AtBatFactory.getOuts = function() {
         
-            if (inningState.outs === 0) {
-                AtBatFactory.oneOut = null;
-                AtBatFactory.twoOut = null;
-                AtBatFactory.threeOut = null;
+//            if (inningState.outs === 0) {
+//                AtBatFactory.oneOut = null;
+//                AtBatFactory.twoOut = null;
+//                AtBatFactory.threeOut = null;
+//            }
+//            if (inningState.outs >= 1) {
+//                AtBatFactory.oneOut = 'black';
+//            }
+//            if (inningState.outs >= 2) {
+//                AtBatFactory.twoOut = 'black';
+//            }
+//            if (inningState.outs == 3) {
+//                AtBatFactory.threeOut = 'black';
+//            }
+            if (gameState.currentTeam == 'home') {
+                AtBatFactory.oneOut = inningState.homeOutsArray[0];
+                AtBatFactory.twoOut = inningState.homeOutsArray[1];
+                AtBatFactory.threeOut = inningState.homeOutsArray[2];
             }
-            if (inningState.outs >= 1) {
-                AtBatFactory.oneOut = 'black';
+            if (gameState.currentTeam == 'visotrs') {
+                AtBatFactory.oneOut = inningState.visitorsOutsArray[0];
+                AtBatFactory.twoOut = inningState.vistorsOutsArray[1];
+                AtBatFactory.threeOut = inningState.visitorsOutsArray[2];
             }
-            if (inningState.outs >= 2) {
-                AtBatFactory.twoOut = 'black';
-            }
-            if (inningState.outs == 3) {
-                AtBatFactory.threeOut = 'black';
-            }
+            
+            
+            
+            
         }
         
         AtBatFactory.updateOut = function(e, $scope) {
             if (e.target.id === 'one') {
                 AtBatFactory.oneOut = 'black';
                 
+                
             }
             else if (e.target.id === 'two') {
                 AtBatFactory.oneOut = 'black';
                 AtBatFactory.twoOut = 'black';
+                
             }
-            else {
+            else if (e.target.id === 'three'){
                 AtBatFactory.oneOut = 'black';
                 AtBatFactory.twoOut = 'black';
                 AtBatFactory.threeOut = 'black';
                 
+                
             }
             inningState.outs++;
+            
+            if (gameState.currentTeam == 'home') {
+                inningState.homeOutsArray = [AtBatFactory.oneOut, AtBatFactory.twoOut, AtBatFactory.threeOut];
+            }
+            if (gameState.currentTeam == 'visotrs') {
+                inningState.vistorsOutsArray = [AtBatFactory.oneOut, AtBatFactory.twoOut, AtBatFactory.threeOut];
+            }
+               
             $scope.littleBoxState = $scope.bigBoxState;
            
         }
@@ -130,6 +155,6 @@
     
     angular 
         .module('scorecardMod')
-        .factory('AtBatFactory', ['basePathState', 'inningState', 'boxState', AtBatFactory]);
+        .factory('AtBatFactory', ['basePathState', 'inningState', 'boxState', 'gameState', AtBatFactory]);
     
 })();
