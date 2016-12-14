@@ -110,25 +110,35 @@
         };
         
         var calculateHitsRuns = function() {
-            boxState.visitorsHitsRuns[$scope.column].hits = 0;
-            boxState.visitorsHitsRuns[$scope.column].runs = 0;
-            boxState.homeHitsRuns[$scope.column].hits = 0;
-            boxState.homeHitsRuns[$scope.column].runs = 0;
-           
+            
+            boxState.visitorsHitsRunsErrors[$scope.column].hits = 0;
+            boxState.visitorsHitsRunsErrors[$scope.column].runs = 0;
+            boxState.visitorsHitsRunsErrors[$scope.column].errors =0;
+            boxState.homeHitsRunsErrors[$scope.column].hits = 0;
+            boxState.homeHitsRunsErrors[$scope.column].runs = 0;
+            boxState.homeHitsRunsErrors[$scope.column].errors = 0;
             
                 if (gameState.currentTeam == 'visitors') {
+                   
                    var visitorBatterHits =0;
                    boxState.visitorsRawStats[$scope.row][$scope.column] = $scope.rawStats;
                    for (var i=0; i<9; i++) {
                        if (boxState.visitorsRawStats[i][$scope.column]) {
                            visitorsBatterHits = boxState.visitorsRawStats[i][$scope.column].single + boxState.visitorsRawStats[i][$scope.column].double + boxState.visitorsRawStats[i][$scope.column].triple + boxState.visitorsRawStats[i][$scope.column].hr;
-            
-                           boxState.visitorsHitsRuns[$scope.column].hits += visitorsBatterHits;
                            
-                           boxState.visitorsHitsRuns[$scope.column].runs += boxState.visitorsRawStats[i][$scope.column].r; 
+                           boxState.visitorsHitsRunsErrors[$scope.column].hits += visitorsBatterHits;
+                           
+                           boxState.visitorsHitsRunsErrors[$scope.column].runs += boxState.visitorsRawStats[i][$scope.column].r; 
+                           
+                           boxState.homeHitsRunsErrors[$scope.column].errors +=
+                               boxState.visitorsRawStats[i][$scope.column].e;
+                           
+                           
 
-                           console.log('hit: ' + boxState.visitorsHitsRuns[$scope.column].hits);
-                           console.log('run: ' + boxState.visitorsHitsRuns[$scope.column].runs); 
+                           console.log('hit: ' + boxState.visitorsHitsRunsErrors[$scope.column].hits);
+                           console.log('run: ' + boxState.visitorsHitsRunsErrors[$scope.column].runs); 
+                           console.log('errors: ' + boxState.homeHitsRunsErrors[$scope.column].errors);
+                           
                        }
                     }
                 }
@@ -141,12 +151,13 @@
                       
                        homeBatterHits = boxState.homeRawStats[i][$scope.column].single + boxState.homeRawStats[i][$scope.column].double + boxState.homeRawStats[i][$scope.column].triple + boxState.homeRawStats[i][$scope.column].hr;
 
-                       boxState.homeHitsRuns[$scope.column].hits += homeBatterHits;
+                       boxState.homeHitsRunsErrors[$scope.column].hits += homeBatterHits;
 
-                       boxState.homeHitsRuns[$scope.column].runs += boxState.homeRawStats[i][$scope.column].r; 
+                       boxState.homeHitsRunsErrors[$scope.column].runs += boxState.homeRawStats[i][$scope.column].r; 
+                        
+                       boxState.visitorsHitsRunsErrors[$scope.column].errors += boxState.homeRawStats[i][$scope.column].e
 
-                       console.log('hit: ' + boxState.homeHitsRuns[$scope.column].hits);
-                       console.log('run: ' + boxState.homeHitsRuns[$scope.column].runs); 
+                       
                       
                     }  
                       
@@ -156,30 +167,41 @@
             
             gameState.visitorsRuns = 0;
             gameState.visitorsHits = 0;
+            gameState.visitorsErrors = 0;
             gameState.homeRuns = 0;
             gameState.homeHits = 0;
+            gameState.homeErrors = 0;
             
             
             for (var i=0; i<9; i++) {
-                gameState.visitorsRuns += boxState.visitorsHitsRuns[i].runs;
-                gameState.visitorsHits += boxState.visitorsHitsRuns[i].hits;
-                gameState.homeRuns += boxState.homeHitsRuns[i].runs;
-                gameState.homeHits += boxState.homeHitsRuns[i].hits;
+                gameState.visitorsRuns += boxState.visitorsHitsRunsErrors[i].runs;
+                
+                gameState.visitorsHits += boxState.visitorsHitsRunsErrors[i].hits;
+                
+                gameState.visitorsErrors += boxState.visitorsHitsRunsErrors[i].errors;
+                
+                gameState.homeRuns += boxState.homeHitsRunsErrors[i].runs;
+                
+                gameState.homeHits += boxState.homeHitsRunsErrors[i].hits;
+               
+                
+                gameState.homeErrors += boxState.homeHitsRunsErrors[i].errors;
+               
     
             }
-            console.log('visitors: ' + gameState.visitorsRuns + ' ' + gameState.visitorsHits);
+            
             $rootScope.$broadcast('updateHitsRuns', {column: $scope.column});
-            //$rootScope.$boradcast('updateLineScore');
+            $rootScope.$broadcast('updateLineScore');
         };
         
             $rootScope.$on('updateHitsRuns', function(event, args) {
                 if (gameState.currentTeam == 'home'){
-                    $scope.homeInningHits[args.column] = boxState.homeHitsRuns[args.column].hits;
-                    $scope.homeInningRuns[args.column] = boxState.homeHitsRuns[args.column].runs;
+                    $scope.homeInningHits[args.column] = boxState.homeHitsRunsErrors[args.column].hits;
+                    $scope.homeInningRuns[args.column] = boxState.homeHitsRunsErrors[args.column].runs;
                 }
                 
                 if (gameState.currentTeam == 'visitors'){
-                   $scope.visitorsInningHits[args.column] = boxState.visitorsHitsRuns[args.column].hits;
+                   $scope.visitorsInningHits[args.column] = boxState.visitorsHitsRunsErrors[args.column].hits;
                    $scope.visitorsInningRuns[args.column] = boxState.visitorsHitsRuns[args.column].runs;
                 }
             });
@@ -288,19 +310,20 @@
 
             if (basePathState.PreviousBase == 'at-bat') {
                 if ($scope.previousTarget == 'E') {
-                    alert('E');
+                    
                     $scope.rawStats.e = 1;
+                    
                 } else if (target == 'K') {
-                    alert('K');
+                    
                     $scope.rawStats.k = 1;
                 } else if ( target == 'BB') {
-                    alert('BB');
+                    
                     $scope.rawStats.bb = 1;
                 } else if (target == 'FC') {
-                    alert('fc');
+                    
                     $scope.rawStats.fc = 1;
                 } else if (target == 'HB') {
-                    alert('HB');
+                    
                     $scope.rawStats.hb = 1;
                 } else {
                    
@@ -333,7 +356,9 @@
                 $scope.rawStats.pa = 1;
 
             } else {
-                if (target == 'SB') {
+                if ($scope.previousTarget == 'E') {
+                    $scope.rawStats.e++;
+                } else if (target == 'SB') {
                     $scope.rawStats.sb++;
                 } else if (target == 'WP') {
                     $scope.rawStats.wp++;
@@ -348,7 +373,7 @@
                 }
                 
             }
-    
+          
         };
         
         
@@ -377,15 +402,21 @@
             var target = event.currentTarget.innerHTML;
             $scope.advBaseArray.push(target);
             $scope.advBaseString = $scope.advBaseArray.join('-');
+            
+            $scope.topLeft = 'true';
+            
             if ($scope.advBaseString == 'Submit') {
                 $scope.advBaseString = '';
             }
             
-            $scope.topLeft= 'true';
-
-            updateRawStatsObject(target);
-            calculateHitsRuns();
-            $scope.exitToLittleBox();
+            if (target != 'E'){
+                updateRawStatsObject(target);
+                calculateHitsRuns();
+                $scope.exitToLittleBox();
+            } else {
+                $scope.previousTarget = 'E';
+            }
+            
             event.stopPropagation();
             
         }

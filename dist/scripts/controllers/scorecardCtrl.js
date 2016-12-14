@@ -67,12 +67,15 @@
             }
       
         
-//        //$rootScope.$on('updateLineScore', function() {
-//                //homeRuns = gameState.homeRuns;
-//                //homeHits = gameState.homeHits;
-//                //visitorsRuns = gameState.visitorsRuns;
-//                //visitorsHits = gameState.visitorsHits;
-//            });
+        $rootScope.$on('updateLineScore', function() {
+                
+                $scope.hRuns = gameState.homeRuns;
+                $scope.hHits = gameState.homeHits;
+                $scope.hErrors = gameState.homeErrors;
+                $scope.vRuns = gameState.visitorsRuns;
+                $scope.vHits = gameState.visitorsHits;
+                $scope.vErrors = gameState.visitorsErrors;
+            });
         
         
     
