@@ -45,36 +45,34 @@
         
         $scope.teamDropDownSettings = {selectionLimit: 1, externalIdProp: '', closeOnSelect: true, scrollable: true, scrollableHeight: 150, showCheckAll: false, showUncheckAll: false, dynamicTitle: false};
         
-        $scope.designateTeam = function(i){
-            
-            if ($scope.teamIndex == 0) {
+        $scope.designateVisitors = function(){
+
                 gameState.visitors = $scope.team;
-                $scope.runs = gameState.visitorsRuns;
-                $scope.hits = gameState.visitorsHits;
-                $scope.errors = gameState.visitorsErrors;
+                $scope.vRuns = gameState.visitorsRuns;
+                $scope.vHits = gameState.visitorsHits;
+                $scope.vErrors = gameState.visitorsErrors;
                 gameState.visitors.bench = gameState.visitors.roster;
                 $rootScope.$broadcast('getLineupAndBench');
+        }
                 
-            }
-            if ($scope.teamIndex == 1) {
+        $scope.designateHome = function(){ 
+           
                 gameState.home = $scope.team; 
-                $scope.runs = gameState.homeRuns;
-                $scope.hits = gameState.homeHits;
-                $scope.errors = gameState.homeErrors;
+                $scope.hRuns = gameState.homeRuns;
+                $scope.hHits = gameState.homeHits;
+                $scope.hErrors = gameState.homeErrors;
                 gameState.home.bench = gameState.home.roster;
                 $rootScope.$broadcast('getLineupAndBench');
      
             }
-            
-            
-        }
+      
         
-        $rootScope.$on('updateLineScore', function() {
-                //homeRuns = gameState.homeRuns;
-                //homeHits = gameState.homeHits;
-                //visitorsRuns = gameState.visitorsRuns;
-                //visitorsHits = gameState.visitorsHits;
-            });
+//        //$rootScope.$on('updateLineScore', function() {
+//                //homeRuns = gameState.homeRuns;
+//                //homeHits = gameState.homeHits;
+//                //visitorsRuns = gameState.visitorsRuns;
+//                //visitorsHits = gameState.visitorsHits;
+//            });
         
         
     

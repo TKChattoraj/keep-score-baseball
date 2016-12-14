@@ -36,18 +36,39 @@
                         <th>E</th>
                     </div>
                 </tr>
+<!--
                 <tr ng-repeat='t in teamRow track by $index' ng-controller="scorecardCtrl" ng-click='getIndex($index)'>
+-->
+                  <tr ng-controller='scorecardCtrl'>
                     <td class='team'>
                         
-                         <div class="select" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateTeam}'></div>
+                         <div class="select" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateVisitors}'></div>
                         <div class='name'>{{team.label}}</div>
                     </td>
                     <div class='score'>
-                        <td>{{runs}}</td>
-                        <td>{{hits}}</td>
-                        <td>{{errors}}</td>
+                        <td>{{vRuns}}</td>
+                        <td>{{vHits}}</td>
+                        <td>{{vErrors}}</td>
                     </div>
                 </tr>
+                  
+                  <tr ng-controller='scorecardCtrl'>
+                    <td class='team'>
+                        
+                         <div class="select" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateHome}'></div>
+                        <div class='name'>{{team.label}}</div>
+                    </td>
+                    <div class='score'>
+                        <td>{{hRuns}}</td>
+                        <td>{{hHits}}</td>
+                        <td>{{hErrors}}</td>
+                    </div>
+                </tr>
+                  
+                  
+                  
+                  
+                  
               
               </table>
             
