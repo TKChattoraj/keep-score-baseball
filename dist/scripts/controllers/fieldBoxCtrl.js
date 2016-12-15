@@ -202,7 +202,7 @@
                 
                 if (gameState.currentTeam == 'visitors'){
                    $scope.visitorsInningHits[args.column] = boxState.visitorsHitsRunsErrors[args.column].hits;
-                   $scope.visitorsInningRuns[args.column] = boxState.visitorsHitsRuns[args.column].runs;
+                   $scope.visitorsInningRuns[args.column] = boxState.visitorsHitsRunsErrors[args.column].runs;
                 }
             });
         
@@ -312,6 +312,7 @@
                 if ($scope.previousTarget == 'E') {
                     
                     $scope.rawStats.e = 1;
+                    $scope.previousTarget = null;
                     
                 } else if (target == 'K') {
                     
@@ -358,6 +359,7 @@
             } else {
                 if ($scope.previousTarget == 'E') {
                     $scope.rawStats.e++;
+                    $scope.previousTarget = null;
                 } else if (target == 'SB') {
                     $scope.rawStats.sb++;
                 } else if (target == 'WP') {
@@ -373,7 +375,7 @@
                 }
                 
             }
-          
+          alert('rawStats errors: ' + $scope.rawStats.e);
         };
         
         
