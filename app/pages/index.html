@@ -25,13 +25,7 @@
     <script src="/scripts/bower_components/angular-aria/angular-aria.js"></script>
     <script src="/scripts/bower_components/angular-animate/angular-animate.js"></script>
     <script src="/scripts/bower_components/angular-material/angular-material.js"></script>
-    
-    
-    
-    
-    
-    
-    
+
 </head>
 <body ng-cloak>
     <div class="navbar">Navigation Bar</div>
@@ -213,8 +207,8 @@
                                 </td>
 
                                 <td class='position'>5</td>
-                                <td class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index' ng-click='decideLittleBox(rowIndex, $index)' id='{{rowIndex}}{{$index}}' ng-style="{'background-color': atBatBackground}">
-                                    <at-bat-score-box-dr></at-bat-score-box-dr>  
+                                <td class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index' ng-click='showBigBox($event, rowIndex, $index)' id='{{rowIndex}}{{$index}}' ng-style="{'background-color': atBatBackground}">
+<!--                                    <at-bat-score-box-dr></at-bat-score-box-dr>  -->
 
 
                                     <div  ng-show="showLittleBox === 'after'" >

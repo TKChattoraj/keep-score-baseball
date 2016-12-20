@@ -1,6 +1,6 @@
 (function() {
     
-    function FieldBoxCtrl($rootScope, $scope, boxState, inningState, AtBatFactory, basePathState, gameState) {
+    function FieldBoxCtrl($rootScope, $scope, boxState, inningState, AtBatFactory, basePathState, gameState, $mdDialog) {
         
         $scope.atBatFactory = AtBatFactory;
         
@@ -8,6 +8,26 @@
         $scope.homeInningRuns = [0, 0, 0, 0, 0, 0, 0, 0, 0];
         $scope.visitorsInningHits = [0, 0, 0, 0, 0, 0, 0, 0, 0];
         $scope.visitorsInningRuns = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        
+        $scope.showBigBox = function($event, rowIndex, $index) {
+            $scope.decideLittleBox(rowIndex, $index);
+            $mdDialog.show({ 
+                
+                template:
+                ' <md-dialog class="big-box"><md-dialog-content><at-bat-score-box-dr></at-bat-score-box-dr></md-dialog-content></md-dialog>',
+                scope: $scope,
+                preserveScope: true,
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                clickOUtsideToClose: true,
+                fullscreen: true,
+                
+            
+            })
+            
+            alert('bigBoxState: ' + $scope.bigBoxState);
+        }
+        
         
         var updateLittleBox = function() {
             
@@ -234,7 +254,7 @@
                 
         
         $scope.decideLittleBox = function(row,column) { 
-            
+            alert('into littleBox');
             $scope.row = row;
             $scope.column = column;
             getLittleBoxObject();
@@ -502,6 +522,6 @@
     
     angular 
         .module('scorecardMod')
-        .controller('fieldBoxCtrl', ['$rootScope', '$scope', 'boxState', 'inningState', 'AtBatFactory', 'basePathState', 'gameState', FieldBoxCtrl]);
+        .controller('fieldBoxCtrl', ['$rootScope', '$scope', 'boxState', 'inningState', 'AtBatFactory', 'basePathState', 'gameState', '$mdDialog', FieldBoxCtrl]);
 })();
 
