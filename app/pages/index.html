@@ -14,12 +14,23 @@
     <link rel="stylesheet" type="text/css" href="/styles/main.css">
     <link rel="stylesheet" type="text/css" href="/styles/scorecard.css">
     <link rel="stylesheet" type="text/css" href="/styles/scorebox.css">
+    <link rel="stylesheet" type="text/css" href="/styles/angular-material.css">
+<!--    <link rel="stylesheet" type="text/css" href="/scripts/bower_components/angular-material/angular-material.css">-->
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>-->
 <!--    <script src="/scripts/bower_components/jquery/src/jquery.js"></script>-->
     <script src="/scripts/bower_components/angular/angular.js"></script>
     <script src="/scripts/bower_components/myforce-angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js"></script>
     <script src='/scripts/bower_components/angular-ui-router/release/angular-ui-router.js'></script>
+    <script src="/scripts/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="/scripts/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/scripts/bower_components/angular-material/angular-material.js"></script>
+    
+    
+    
+    
+    
+    
     
 </head>
 <body ng-cloak>
@@ -36,18 +47,37 @@
                         <th>E</th>
                     </div>
                 </tr>
-                <tr ng-repeat='t in teamRow track by $index' ng-controller="scorecardCtrl" ng-click='getIndex($index)'>
+
+                  <tr ng-controller='scorecardCtrl'>
                     <td class='team'>
                         
-                         <div class="select" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateTeam}'></div>
+                         <div class="select" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateVisitors}'></div>
                         <div class='name'>{{team.label}}</div>
                     </td>
                     <div class='score'>
-                        <td>{{runs}}</td>
-                        <td>{{hits}}</td>
-                        <td>{{errors}}</td>
+                        <td>{{vRuns}}</td>
+                        <td>{{vHits}}</td>
+                        <td>{{vErrors}}</td>
                     </div>
                 </tr>
+                  
+                  <tr ng-controller='scorecardCtrl'>
+                    <td class='team'>
+                        
+                         <div class="select" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateHome}'></div>
+                        <div class='name'>{{team.label}}</div>
+                    </td>
+                    <div class='score'>
+                        <td>{{hRuns}}</td>
+                        <td>{{hHits}}</td>
+                        <td>{{hErrors}}</td>
+                    </div>
+                </tr>
+                  
+                  
+                  
+                  
+                  
               
               </table>
             

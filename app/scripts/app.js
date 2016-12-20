@@ -23,7 +23,7 @@
     
    
     angular
-        .module('keepScore', ['ui.router','scorecardMod'])
+        .module('keepScore', ['ui.router','scorecardMod', 'ngMaterial'])
         .config(config);
 })();
 
