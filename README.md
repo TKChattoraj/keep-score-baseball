@@ -6,14 +6,14 @@ See Scorecard Wireframes.pdf
 
 As a ScoreKeeper user I want to:
 
-#1.  Input the lineup on a scorecard (scorecard-table) so that I know the batting order and who is up.
+1.  Input the lineup on a scorecard (scorecard-table) so that I know the batting order and who is up.
 each batter to his own row.
 
-#2.  Input for each batter his number and position (1-9, PH) so that I know where he is playing on the field and what his number is.
+2.  Input for each batter his number and position (1-9, PH) so that I know where he is playing on the field and what his number is.
 
 [Technical:  ng-repeat to build the scorecard rows—ng repeat to build the innings columns within each row.  input fields for #, player and position data.  choose player from a dropdown of roster—then update lineup postion with player name, number.  Choose position form dropdown.]
 
-#3.  See what each batter did at the plate and on the basebath for each at bat.
+3.  See what each batter did at the plate and on the basebath for each at bat.
     * Each batter will have his own row opposite his name in the lineup.
     * Each at-bat will be in its own column corresponding to which inning it occurred.  
     * at-bat box will show:
@@ -25,7 +25,7 @@ each batter to his own row.
                 
 [Technical:  update view in the at-bat box depending on state/data from the keep score box:  at-bat state:  out, reached base-single, double, triple, homerun, if out:  how-positions making the play, if on base:  how-where the hit was etc.  “upper-right box” will show the status of what the batter did at the plate, e.g. if he doubled to center, an “8” would appear in the upper right box.  “upper left box” and “lower-left box” would explain how he, as a runner, advanced, e.g. if he stole 3rd, an “SB” would appear in the upper-right box.  Then, if he stole home, a “SB” would appear in the lower-left box.]
 
-#4.  See the total hits and runs for each inning at the bottom of the score card.
+4.  See the total hits and runs for each inning at the bottom of the score card.
     * This total will be updated automatically as events occur in the applicable inning, i.e.  batter gets a hit—that is marked on the scorecard and the total is updated automatically.
         
 [Technical:  update Totals based on state of Hits/Runs.]
