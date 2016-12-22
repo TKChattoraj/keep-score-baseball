@@ -1,6 +1,6 @@
 (function() {
     
-    function FieldBoxCtrl($rootScope, $scope, boxState, inningState, AtBatFactory, basePathState, gameState) {
+    function FieldBoxCtrl($rootScope, $scope, boxState, inningState, AtBatFactory, basePathState, gameState, $mdDialog) {
         
         $scope.atBatFactory = AtBatFactory;
         
@@ -8,6 +8,25 @@
         $scope.homeInningRuns = [0, 0, 0, 0, 0, 0, 0, 0, 0];
         $scope.visitorsInningHits = [0, 0, 0, 0, 0, 0, 0, 0, 0];
         $scope.visitorsInningRuns = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        
+    
+        
+        $scope.showBigBox = function($event, rowIndex, $index) {
+            $scope.decideLittleBox(rowIndex, $index);
+            $mdDialog.show({ 
+                
+                template:
+                ' <md-dialog class="big-box-d"><md-dialog-content><at-bat-score-box-dr></at-bat-score-box-dr></md-dialog-content></md-dialog>',
+                scope: $scope,
+                preserveScope: true,
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                clickOutsideToClose: true,
+                fullscreen: true,
+    
+            }) 
+        }
+        
         
         var updateLittleBox = function() {
             
@@ -111,17 +130,18 @@
         
         var calculateHitsRuns = function() {
             
-            boxState.visitorsHitsRunsErrors[$scope.column].hits = 0;
-            boxState.visitorsHitsRunsErrors[$scope.column].runs = 0;
-            boxState.visitorsHitsRunsErrors[$scope.column].errors =0;
-            boxState.homeHitsRunsErrors[$scope.column].hits = 0;
-            boxState.homeHitsRunsErrors[$scope.column].runs = 0;
-            boxState.homeHitsRunsErrors[$scope.column].errors = 0;
+            
             
                 if (gameState.currentTeam == 'visitors') {
                    
                    var visitorBatterHits =0;
                    boxState.visitorsRawStats[$scope.row][$scope.column] = $scope.rawStats;
+                   
+                   boxState.visitorsHitsRunsErrors[$scope.column].hits =0;
+                   boxState.visitorsHitsRunsErrors[$scope.column].runs =0; 
+                   boxState.visitorsHitsRunsErrors[$scope.column].errors =0;
+                    
+                    
                    for (var i=0; i<9; i++) {
                        if (boxState.visitorsRawStats[i][$scope.column]) {
                            visitorsBatterHits = boxState.visitorsRawStats[i][$scope.column].single + boxState.visitorsRawStats[i][$scope.column].double + boxState.visitorsRawStats[i][$scope.column].triple + boxState.visitorsRawStats[i][$scope.column].hr;
@@ -146,6 +166,13 @@
                 if (gameState.currentTeam == 'home') {
                   var homeBatterHits =0;
                   boxState.homeRawStats[$scope.row][$scope.column] = $scope.rawStats;
+                  
+                  boxState.homeHitsRunsErrors[$scope.column].hits = 0;
+                  boxState.homeHitsRunsErrors[$scope.column].runs = 0;
+                  boxState.homeHitsRunsErrors[$scope.column].errors =0;
+                    
+                    
+                    
                   for (var i=0; i<9; i++) {
                     if (boxState.homeRawStats[i][$scope.column]) {
                       
@@ -156,9 +183,7 @@
                        boxState.homeHitsRunsErrors[$scope.column].runs += boxState.homeRawStats[i][$scope.column].r; 
                         
                        boxState.visitorsHitsRunsErrors[$scope.column].errors += boxState.homeRawStats[i][$scope.column].e
-
-                       
-                      
+  
                     }  
                       
                   }
@@ -168,13 +193,16 @@
             gameState.visitorsRuns = 0;
             gameState.visitorsHits = 0;
             gameState.visitorsErrors = 0;
+            
             gameState.homeRuns = 0;
             gameState.homeHits = 0;
             gameState.homeErrors = 0;
             
             
+            
             for (var i=0; i<9; i++) {
                 gameState.visitorsRuns += boxState.visitorsHitsRunsErrors[i].runs;
+                
                 
                 gameState.visitorsHits += boxState.visitorsHitsRunsErrors[i].hits;
                 
@@ -187,7 +215,7 @@
                 
                 gameState.homeErrors += boxState.homeHitsRunsErrors[i].errors;
                
-    
+            
             }
             
             $rootScope.$broadcast('updateHitsRuns', {column: $scope.column});
@@ -375,7 +403,7 @@
                 }
                 
             }
-          alert('rawStats errors: ' + $scope.rawStats.e);
+          
         };
         
         
@@ -489,6 +517,7 @@
             updateLittleBoxObject();
             //calculateHitsRuns();
             $scope.bigBoxState = null;
+            $mdDialog.hide();
             $scope.showLittleBox = 'after';
             if (inningState.outs === 3) {
                 inningState.outs=0;
@@ -502,6 +531,6 @@
     
     angular 
         .module('scorecardMod')
-        .controller('fieldBoxCtrl', ['$rootScope', '$scope', 'boxState', 'inningState', 'AtBatFactory', 'basePathState', 'gameState', FieldBoxCtrl]);
+        .controller('fieldBoxCtrl', ['$rootScope', '$scope', 'boxState', 'inningState', 'AtBatFactory', 'basePathState', 'gameState', '$mdDialog', FieldBoxCtrl]);
 })();
 
