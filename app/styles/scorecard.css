@@ -97,8 +97,8 @@ table.scorecard {
     height: 300px;
     width: 300px;
     position: absolute;
-    top: 25%;
-    left: 50%;
+    top: 0%;
+    left: 0%;
 /*
     margin-top: -150px;
     margin-left: -150px;
@@ -109,6 +109,10 @@ table.scorecard {
     color: black;
 }
 
+.big-box-d {
+    height: 300px;
+    width: 300px;
+}
 
 
 .at-bat-score-box {
