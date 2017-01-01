@@ -1,7 +1,7 @@
 (function() {
     function AtBatFactory(basePathState, inningState, boxState, gameState) {
      
-        AtBatFactory.background = "grey";
+        AtBatFactory.background = "aliceblue";
 
         
         AtBatFactory.updateBasePath = function(e, $scope) {
@@ -32,7 +32,6 @@
                         AtBatFactory.Second = 'to-second';
                         AtBatFactory.Third = 'to-third';
                         AtBatFactory.Home = 'to-home';
-                        AtBatFactory.background = 'blue';
                         $scope.littleBoxState = 'score';
                 } 
             }
@@ -53,7 +52,6 @@
                             AtBatFactory.Second = 'advance-from-first';
                             AtBatFactory.Third = 'to-third';
                             AtBatFactory.Home = 'to-home';
-                            AtBatFactory.background = 'blue';
                             $scope.littleBoxState = 'score';
                             break;
                     }
@@ -69,7 +67,7 @@
                         case 'home-plate':
                             AtBatFactory.Third = 'advance-from-second';
                             AtBatFactory.Home = 'to-home';
-                            AtBatFactory.background = 'blue';
+
                             $scope.littleBoxState = 'score';
                             break;
                     }
@@ -78,7 +76,6 @@
                     switch (basePathState.Base) {
                         case 'home-plate':
                             AtBatFactory.Home = 'advance-from-third';
-                            AtBatFactory.background = 'blue';
                             $scope.littleBoxState = 'score';
                             break;
                     }

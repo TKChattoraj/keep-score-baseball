@@ -30,6 +30,7 @@
 <body ng-cloak>
     <div class="navbar">Navigation Bar</div>
     <div ng-controller="scorecardCtrl as scorecard">
+        <div class="container">
         <div class="score-ribbon">
           <div>
               <table class='scoreboard'>
@@ -46,12 +47,13 @@
                     <td class='team'>
                         
                          <div class="select" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateVisitors}'></div>
-                        <div class='name'>{{team.label}}</div>
+                        
+                        <div class='name'><span class="text-content"> <a ng-click="showVisitorTeam()">{{team.label}}</a> </span></div>
                     </td>
                     <div class='score'>
-                        <td>{{vRuns}}</td>
-                        <td>{{vHits}}</td>
-                        <td>{{vErrors}}</td>
+                        <td><span class="text-content"> {{vRuns}}</span></td>
+                        <td><span class="text-content"> {{vHits}}</span></td>
+                        <td><span class="text-content"> {{vErrors}}</span></td>
                     </div>
                 </tr>
                   
@@ -59,7 +61,8 @@
                     <td class='team'>
                         
                          <div class="select" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateHome}'></div>
-                        <div class='name'>{{team.label}}</div>
+                        <div class='name'><span class="text-content"> <a ng-click="showHomeTeam()">{{team.label}}</a></span></div> 
+            
                     </td>
                     <div class='score'>
                         <td>{{hRuns}}</td>
@@ -67,12 +70,7 @@
                         <td>{{hErrors}}</td>
                     </div>
                 </tr>
-                  
-                  
-                  
-                  
-                  
-              
+  
               </table>
             
           </div>
@@ -81,24 +79,38 @@
         
         
         </div>
-        <div class="container">
-            <ul class="nav nav-tabs">
+        
 <!--
+            <ul class="nav nav-tabs">
                 <li><a ui-sref="homeTeam">Home Team</a></li>
                 <li><a ui-sref="visitorTeam">Visitor Team</a></li> 
--->
                 
                 <li><a ng-click="showVisitorTeam()">Visitor Team</a></li> 
                 <li><a ng-click="showHomeTeam()">Home Team</a></li>
             </ul>
-  <div class="tab-content">
-            
-      
-<!--      <div ui-view></div>-->
+-->
+<!--            <div class="tab-content">-->
 
-            <div id="home" class="tab-pane fade in active" ng-show="showHome">
-                Home
-                <div class="card">
+<!--            <div id="home" class="tab-pane fade in active pane-width" ng-show="showHome">-->
+<!--
+            
+            <a ng-click="showVisitorTeam()">Visitor Team</a> 
+            <a ng-click="showHomeTeam()">Home Team</a>
+            
+            
+            
+-->
+            
+            <div id="home" ng-show="showHome">    
+                
+                <div class='text-team-name'> {{homeName}} </div>
+<!--                <div class="card">-->
+                <md-card>
+                    
+                    <md-card-content>
+                    
+                    
+                
 
                     <table class='scorecard'>
 
@@ -178,14 +190,19 @@
                             </tr>
 
                     </table>
-
-                </div>
+                    </md-card-content>
+<!--                </div>-->
+                </md-card>
             </div>
             
-        <div id="visitor" class="tab-pane fade in active" ng-show="showVisitors">
-            Visitors
-            <div class="card">
+<!--        <div id="visitor" class="tab-pane fade in active" ng-show="showVisitors">-->
+            <div id="visitor" ng-show="showVisitors">
+              <div class='text-team-name'>{{visitorsName}}</div>
 
+            <!--                <div class="card">-->
+                <md-card>
+                    
+                    <md-card-content>
                 <table class='scorecard'>
 
                     <tr>
@@ -211,24 +228,33 @@
 <!--                                    <at-bat-score-box-dr></at-bat-score-box-dr>  -->
 
 
-                                    <div  ng-show="showLittleBox === 'after'" >
-                                        <div class="little-box">
+                                    
+                                        <div class="little-box" ng-show="showLittleBox === 'after'">
                                           <div class="top-right">
                                               <div ng-show="topRight">
-                                                {{onBaseString}}
+                                                {{doubleString}}
                                               </div>
 
                                           </div>
                                           <div class="top-left">
                                             <div ng-show="topLeft">
-                                                {{advBaseString}}
+                                                {{tripleString}}
                                             </div>
                                           </div>
-                                          <div class="bottom-right">
+                                            
+                                          <div class="bottom-left">
+                                            <div ng-show="bottomLeft">
+                                              {{scoreString}}
+                                              </div>  
+                                          </div>   
+                                          <div class="bottom-right" ng-show="bottomRightOuts">
                                             <div id="one" class="outs" ng-style="{'background-color': oneOut}"></div>
                                             <div id="two" class="outs" ng-style="{'background-color': twoOut}"></div>
                                             <div id ="three" class="outs" ng-style="{'background-color': threeOut}">
                                               </div>
+                                          </div>
+                                          <div class="bottom-right" ng-show="bottomRight">
+                                              {{singleString}}
                                           </div>
                                           <div class="bottom-left"></div>
                                           <div class="center" ng-show="center">{{centerString}}</div>
@@ -245,7 +271,7 @@
 
                                           </div> 
                                         </div>
-                                    </div>
+                                   
 
 
                                 </td>
@@ -266,13 +292,17 @@
                     
 
                 </table>
+                </md-card-content>
+<!--                </div>-->
+                </md-card>
 
             </div>
-        </div>    
+<!--        </div>    -->
+<!-- End of Tab Content div -->
         </div>
     
     </div>
-    </div>
+
 
     
    

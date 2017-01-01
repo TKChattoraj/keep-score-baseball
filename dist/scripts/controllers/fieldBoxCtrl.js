@@ -290,6 +290,7 @@
         $scope.putOut = function(event){
             var target = event.currentTarget.innerHTML;
             $scope.putOutArray.push(target);
+            $scope.bottomRightOuts = 'true';
             $scope.centerString = $scope.putOutArray.join('-');
             
             // \u is Javascript escape for unicode and A4D8 is the hexidecimal code for the backwards k
@@ -412,7 +413,29 @@
             $scope.onBaseArray.push(target);
             $scope.onBaseString = $scope.onBaseArray.join('-');
             
-            $scope.topRight = 'true';
+            switch($scope.littleBoxState) {
+                case 'first-base':
+                    $scope.bottomRight = 'true';
+                    
+                    $scope.singleString = $scope.onBaseString;
+                    break; 
+                case 'second-base':
+                    $scope.topRight = 'true';
+                    
+                    $scope.doubleString = $scope.onBaseString;
+                    break;
+                case 'third-base':
+                    $scope.topLeft = 'true';
+                    
+                    $scope.tripleString = $scope.onBaseString;
+                    break;
+                case 'score':
+                    $scope.bottomLeft = 'true';
+                    $scope.scoreString = $scope.onBaseString;
+                    
+            }
+            
+            
         
                           
             if (target != 'E'){
@@ -432,6 +455,36 @@
             var target = event.currentTarget.innerHTML;
             $scope.advBaseArray.push(target);
             $scope.advBaseString = $scope.advBaseArray.join('-');
+            if ($scope.advBaseString == 'Submit') {
+                $scope.advBaseString = '';
+            }
+            
+            switch($scope.littleBoxState) {
+                case 'first-base':
+                    $scope.bottomRight = 'true';
+                    
+                    $scope.singleString = $scope.advBaseString;
+                    break; 
+                case 'second-base':
+                    $scope.topRight = 'true';
+                    
+                    $scope.doubleString = $scope.advBaseString;
+                    break;
+                case 'third-base':
+                    $scope.topLeft = 'true';
+                    
+                    $scope.tripleString = $scope.advBaseString;
+                    break;
+                case 'score':
+                    $scope.bottomLeft = 'true';
+                    $scope.scoreString = $scope.advBaseString;
+                    
+            }
+            
+            
+            
+            
+            
             
             $scope.topLeft = 'true';
             
