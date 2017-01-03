@@ -132,7 +132,23 @@
 
                                     </td>
 
-                                    <td class='position'>5</td>
+                                    <td class='position'>
+                                        <select class='select'>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                        </select>
+                                
+                                
+                                
+                                
+                                    </td>
                                     <td class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index' ng-click='showBigBox($event, rowIndex, $index)' id='{{rowIndex}}{{$index}}' ng-style="{'background-color': atBatBackground}">
 <!--                                        <at-bat-score-box-dr></at-bat-score-box-dr>  -->
 
@@ -223,7 +239,21 @@
 
                                 </td>
 
-                                <td class='position'>5</td>
+                                <td class='position'>
+                                        <select class='select'>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                        </select>
+                            
+                            
+                                </td>
                                 <td class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index' ng-click='showBigBox($event, rowIndex, $index)' id='{{rowIndex}}{{$index}}' ng-style="{'background-color': atBatBackground}">
 <!--                                    <at-bat-score-box-dr></at-bat-score-box-dr>  -->
 
