@@ -157,22 +157,31 @@
                                             <div class="little-box">
                                               <div class="top-right">
                                                   <div ng-show="topRight">
-                                                    {{onBaseString}}
+                                                    {{doubleString}}
                                                   </div>
 
                                               </div>
                                               <div class="top-left">
-                                                <div ng-show="topLeft">
-                                                    {{advBaseString}}
-                                                </div>
-                                              </div>
-                                              <div class="bottom-right">
-                                                <div id="one" class="outs" ng-style="{'background-color': oneOut}"></div>
-                                                <div id="two" class="outs" ng-style="{'background-color': twoOut}"></div>
-                                                <div id ="three" class="outs" ng-style="{'background-color': threeOut}">
+                                                  <div ng-show="topLeft">
+                                                    {{tripleString}}
                                                   </div>
                                               </div>
-                                              <div class="bottom-left"></div>
+                                            
+                                              <div class="bottom-left">
+                                                  <div ng-show="bottomLeft">
+                                                    {{scoreString}}
+                                                  </div>  
+                                              </div>   
+                                              <div class="bottom-right" ng-show="bottomRightOuts">
+                                                  <div id="one" class="outs" ng-style="{'background-color': oneOut}"></div>
+                                                  <div id="two" class="outs" ng-style="{'background-color': twoOut}"></div>
+                                                  <div id ="three" class="outs" ng-style="{'background-color': threeOut}">
+                                                  </div>
+                                              </div>
+                                              <div class="bottom-right" ng-show="bottomRight">
+                                                  {{singleString}}
+                                              </div>
+                                              
                                               <div class="center" ng-show="center">{{centerString}}</div>
                                               <div class="little-field" ng-style="{'background-color': fieldBackground}">
                                                  <div class="home-plate" ></div>
@@ -275,18 +284,18 @@
                                           <div class="bottom-left">
                                             <div ng-show="bottomLeft">
                                               {{scoreString}}
-                                              </div>  
+                                            </div>  
                                           </div>   
                                           <div class="bottom-right" ng-show="bottomRightOuts">
                                             <div id="one" class="outs" ng-style="{'background-color': oneOut}"></div>
                                             <div id="two" class="outs" ng-style="{'background-color': twoOut}"></div>
                                             <div id ="three" class="outs" ng-style="{'background-color': threeOut}">
-                                              </div>
+                                            </div>
                                           </div>
                                           <div class="bottom-right" ng-show="bottomRight">
                                               {{singleString}}
                                           </div>
-                                          <div class="bottom-left"></div>
+                                          
                                           <div class="center" ng-show="center">{{centerString}}</div>
                                           <div class="little-field" ng-style="{'background-color': fieldBackground}">
                                              <div class="home-plate" ></div>
