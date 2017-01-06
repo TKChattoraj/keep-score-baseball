@@ -1,7 +1,7 @@
 .container {
-    margin: 0 auto;
+    margin-left: 15px;
     max-width: 90%;
-    width: 90%
+    width: 60%
 } 
 
 /* Medium and small screens (640px) */
@@ -45,7 +45,7 @@
 }
 
 html {
-    height: 100%; /* makes ure our HTML takes up 100% of hte browser window */
+    height: 100%; /* makes HTML takes up 100% of the browser window */
     font-size: 100%;
 }
 
@@ -105,6 +105,12 @@ body {
 
 .container.narrow {
     max-width: 56rem;
+}
+
+
+
+.pane-width {
+    width: 
 }
 
 .unselectable {

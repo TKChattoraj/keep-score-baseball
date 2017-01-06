@@ -4,16 +4,16 @@ div.box {
     height: 80%;
     left: 0%;
     top: 20%;
-    border: 3px solid #73AD21;
+    
 } 
 
 div.little-box {
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     left: 0%;
     top: 0%;
-    border: 3px solid #73AD21;
+    
 } 
 
 
@@ -23,10 +23,11 @@ div.top-right {
     right: 0%;
     width: 33%;
     height: 33%;
-    background-color:  lightgrey;
+/*    background-color:  lightgrey;*/
     color:  black;
     text-align: center;
     vertical-align: center;
+    font-size:xx-small;
     
 
 }
@@ -36,10 +37,11 @@ div.top-left {
     left: 0%;
     width: 33%;
     height: 33%;
-    background-color:  lightgrey;
+/*    background-color:  lightgrey;*/
     color:  black;
     text-align: center;
     vertical-align: center;
+    font-size:xx-small;
     
 
 }
@@ -49,7 +51,10 @@ div.bottom-right {
     right: 0%;
     width: 43%;
     height: 33%;
-    background-color:  lightgrey;
+    font-size: xx-small;
+    text-align: center;
+    
+/*    background-color:  lightgrey;*/
     
 
 }
@@ -59,7 +64,8 @@ div.bottom-left {
     left: 0%;
     width: 33%;
     height: 33%;
-    background-color:  lightgrey;
+    font-size:xx-small;
+/*    background-color:  lightgrey;*/
 }
 
 div.center {
@@ -68,10 +74,11 @@ div.center {
     left: 33%;
     width: 33%;
     height: 33%;
-    background-color: lightcyan;
+/*    background-color: lightcyan;*/
     color:  black;
     text-align: center;
     vertical-align: center;
+    font-size:xx-small;
     z-index: 5;
     
 }
@@ -112,7 +119,7 @@ div .little-field {
     position: absolute;
     top: 27%;
     left: 26%;
-    background-color: lightgrey;
+    background-color: #F0F8FF;
     -ms-transform: rotate(45deg); /* IE 9 */
     -webkit-transform: rotate(45deg); /* Safari */
     transform: rotate(45deg); /* Standard syntax */
@@ -193,7 +200,7 @@ div .advance-from-first {
     position: absolute;
     top: 0%;
     left: 0%;
-    background-color: red;
+    background-color: black;
      
 }
 
@@ -213,7 +220,7 @@ div .advance-from-second {
     position: absolute;
     top: 25%;
     left: 0%;
-    background-color: red;
+    background-color: black;
      
 }
 
@@ -233,7 +240,7 @@ div .advance-from-third {
     position: absolute;
     bottom: 0%;
     left: 25%;
-    background-color: red;
+    background-color: black;
      
 }
 
