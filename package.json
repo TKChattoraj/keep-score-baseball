@@ -2,8 +2,8 @@
   "name": "keep-score-package",
   "version": "0.0.2",
   "engines": {
-      "node": "6.9.1",
-      "npm": "3.10.8"
+    "node": "6.9.1",
+    "npm": "3.10.8"
   },
   "description": "Starter project for the Bloc Frontend Web Development",
   "repository": {
@@ -12,11 +12,12 @@
   },
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "postinstall": "bower install && grunt build"
   },
   "author": "Bloc Inc",
   "license": "ISC",
   "dependencies": {
+    "foobar": "^1.1.0",
     "hapi": "~7.5.0",
     "path": "^0.4.9"
   },
@@ -37,8 +38,5 @@
   "keywords": [
     "keep-score",
     "baseball"
-  ],
-  "scripts": {
-    "postinstall": "bower install && grunt build"
-  }
+  ]
 }
