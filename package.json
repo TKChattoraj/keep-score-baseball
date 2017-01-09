@@ -1,6 +1,10 @@
 {
   "name": "keep-score-package",
   "version": "0.0.2",
+  "engines": {
+      "node": "6.9.1",
+      "npm": "3.10.8"
+  }
   "description": "Starter project for the Bloc Frontend Web Development",
   "repository": {
     "type": "git",
@@ -35,6 +39,6 @@
     "baseball"
   ],
   "scripts": {
-    "postinstall": "bower install"
-}
+    "postinstall": "bower install && grunt build"
+  }
 }
