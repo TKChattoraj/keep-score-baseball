@@ -33,7 +33,7 @@
   "keywords": [
     "keep-score",
     "baseball"
-  ]
+  ],
   "scripts": {
     "postinstall": "bower install"
 }
