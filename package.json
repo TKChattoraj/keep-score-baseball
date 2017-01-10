@@ -17,6 +17,7 @@
   "author": "Bloc Inc",
   "license": "ISC",
   "dependencies": {
+    "express": "4.14.0",
     "foobar": "^1.1.0",
     "hapi": "~7.5.0",
     "path": "^0.4.9"
