@@ -11,9 +11,7 @@
     "url": "git+https://github.com/bloc/bloc-frontend-project-starter.git"
   },
   "main": "server.js",
-  "scripts": {
-    "postinstall": "bower install && grunt build"
-  },
+  
   "author": "Bloc Inc",
   "license": "ISC",
   "dependencies": {
