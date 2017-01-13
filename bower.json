@@ -1,0 +1,22 @@
+{
+  "name": "keep-score",
+  "description": "keep score of a baseball game",
+  "main": "server.js",
+  "authors": [
+    "Tarun"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "keep-score",
+    "baseball"
+  ],
+  "homepage": "https://github.com/TKChattoraj/keep-score-baseball",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
