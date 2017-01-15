@@ -53,5 +53,5 @@
     "baseball"
   ],
 "scripts":
-    {"postinstall" : "npm run build"}
+    {"postinstall" : "npm build"}
 }
