@@ -57,7 +57,7 @@
               {id: 6, label: "Foster", number: 15}, 
               {id: 7, label: "Geronimo", number: 20}, 
               {id: 8, label: "Concepcion", number: 13}, 
-              {id: 9, label: "Gullet", number: 35},
+              {id: 9, label: "Gullett", number: 35},
               {id: 10, label: "Armbrister", number: 33}],
               lineup: [],
               bench: []
