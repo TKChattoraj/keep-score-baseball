@@ -1,5 +1,22 @@
 (function() {
-    function ScorecardCtrl($rootScope, $scope, teamRoster, gameState, Lineup){
+    function ScorecardCtrl($rootScope, $scope, teamRoster, gameState, Lineup, $http){
+        
+        var req = {
+            method: 'POST',
+            url: 'http://localhost:3000',
+            
+        }
+        
+        $http(req).then(function(response){
+            $scope.teamz = response.data;},
+                       function(response){
+            $scope.teamz = "Error!  Error!"
+        });
+        
+        
+        
+        
+        
         this.rowsArray = [1,2,3,4,5,6,7,8,9];
         this.inningsArray = [1,2,3,4,5,6,7,8,9,10];
         $scope.teamRow = [0, 1];
@@ -102,5 +119,5 @@
     
     angular 
         .module('scorecardMod')
-        .controller('scorecardCtrl', ['$rootScope', '$scope', 'teamRoster', 'gameState', 'Lineup',  ScorecardCtrl]);
+        .controller('scorecardCtrl', ['$rootScope', '$scope', 'teamRoster', 'gameState', 'Lineup',  '$http', ScorecardCtrl]);
 })();
