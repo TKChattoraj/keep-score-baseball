@@ -7,8 +7,30 @@
             
         }
         
-        $http(req).then(function(response){
-            $scope.teamz = response.data;},
+        
+        var getTeamSuccess = function(response) {
+            $scope.teamz = [];
+            $scope.teamz[0] = 'zero';
+            $scope.teamz[1] = 'one';
+            $scope.teamz[2] = 'two';
+            console.log('length of response data ' + response.data.length)
+            var team = {};
+            for (var i = 0; i < response.data.length; i++){
+                team.id = response.data[i].id;
+                team.label = response.data[i].label;
+                $scope.teamz.push(team);
+                console.log($scope.teamz[i]);
+                console.log('end of: ' + i);
+            }
+            console.log($scope.teamz[0]);
+            console.log($scope.teamz[1]);
+            console.log($scope.teamz[2]);
+            
+            
+        }
+        
+        
+        $http(req).then(function(response){$scope.teamz = response.data},
                        function(response){
             $scope.teamz = "Error!  Error!"
         });
