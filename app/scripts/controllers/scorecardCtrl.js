@@ -2,8 +2,8 @@
     function ScorecardCtrl($rootScope, $scope, teamRoster, gameState, Lineup, $http){
         
         var req = {
-            method: 'POST',
-            url: 'http://localhost:3000',
+            method: 'GET',
+            url: 'http://localhost:3000/api/keepscore/teams',
             
         }
         
