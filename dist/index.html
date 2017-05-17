@@ -32,7 +32,6 @@
     <div ng-controller="scorecardCtrl as scorecard">
         <div class="container">
         <div class="score-ribbon">
-            <div> {{teamz}}</div>
           <div>
               <table class='scoreboard'>
                 <tr>
@@ -61,7 +60,7 @@
                   <tr ng-controller='scorecardCtrl'>
                     <td class='team'>
                         
-                         <div class="select" ng-dropdown-multiselect="" options="teams" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateHome}'></div>
+                         <div class="select" ng-dropdown-multiselect="" options="teamz" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateHome}'></div>
                         <div class='name'><span class="text-content"> <a ng-click="showHomeTeam()">{{team.label}}</a></span></div> 
             
                     </td>
@@ -69,7 +68,9 @@
                         <td>{{hRuns}}</td>
                         <td>{{hHits}}</td>
                         <td>{{hErrors}}</td>
+                        <td>{{roster}}</td>
                     </div>
+                    
                 </tr>
   
               </table>

@@ -1,11 +1,11 @@
 (function() {
     function ScorecardCtrl($rootScope, $scope, teamRoster, gameState, Lineup, $http){
         
-        var req = {
+        var getTeamsReq = {
             method: 'GET',
-            url: 'http://localhost:3000/api/keepscore/teams',
-            
+            url: 'http://localhost:3000/api/keepscore/teams',       
         }
+        
         
         
         var getTeamSuccess = function(response) {
@@ -16,7 +16,7 @@
         }
         
         
-        $http(req).then(function(response){getTeamSuccess(response)},
+        $http(getTeamsReq).then(function(response){getTeamSuccess(response)},
                        function(response){
             $scope.teamz = "Error!  Error!"
         });
@@ -66,12 +66,7 @@
             $scope.visitorsName = gameState.visitors.label;
         });
         
-        
-        
-        
-        
-        
-    
+  
         $scope.team = {};
         $scope.teams = teamRoster;
         
@@ -102,6 +97,20 @@
                 $scope.hRuns = gameState.homeRuns;
                 $scope.hHits = gameState.homeHits;
                 $scope.hErrors = gameState.homeErrors;
+            
+            //need to get the roster array of objects {id, lable, number} from backend api--sending the backend the id of the team in question--home team here
+                
+                var getRosterReq = {
+                method: 'GET',
+                url: 'http://localhost:3000/api/keepscore/roster',
+                params: {"id": gameState.home.id },
+                }
+        
+                $http(getRosterReq).then
+                    (function(response){$scope.roster = response.data[0].label;}, function(response){$scope.roster = "Error!";});
+            
+            
+            
                 gameState.home.bench = gameState.home.roster;
                 $rootScope.$broadcast('getLineupAndBench');
      
