@@ -9,16 +9,14 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
-<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+
     <link rel="stylesheet" type="text/css" href="/styles/main.css">
     <link rel="stylesheet" type="text/css" href="/styles/scorecard.css">
     <link rel="stylesheet" type="text/css" href="/styles/scorebox.css">
     <link rel="stylesheet" type="text/css" href="/styles/angular-material.css">
-<!--    <link rel="stylesheet" type="text/css" href="/scripts/bower_components/angular-material/angular-material.css">-->
+
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>-->
-<!--    <script src="/scripts/bower_components/jquery/src/jquery.js"></script>-->
+
     <script src="/scripts/bower_components/angular/angular.js"></script>
     <script src="/scripts/bower_components/myforce-angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js"></script>
     <script src='/scripts/bower_components/angular-ui-router/release/angular-ui-router.js'></script>
@@ -81,38 +79,14 @@
         
         </div>
         
-<!--
-            <ul class="nav nav-tabs">
-                <li><a ui-sref="homeTeam">Home Team</a></li>
-                <li><a ui-sref="visitorTeam">Visitor Team</a></li> 
-                
-                <li><a ng-click="showVisitorTeam()">Visitor Team</a></li> 
-                <li><a ng-click="showHomeTeam()">Home Team</a></li>
-            </ul>
--->
-<!--            <div class="tab-content">-->
 
-<!--            <div id="home" class="tab-pane fade in active pane-width" ng-show="showHome">-->
-<!--
             
-            <a ng-click="showVisitorTeam()">Visitor Team</a> 
-            <a ng-click="showHomeTeam()">Home Team</a>
-            
-            
-            
--->
-            
-            <div id="home" ng-show="showHome">    
-                
+            <div id="home" ng-show="showHome">                  
                 <div class='text-team-name'> {{homeName}} </div>
-<!--                <div class="card">-->
                 <md-card>
                     
                     <md-card-content>
-                    
-                    
-                
-
+ 
                     <table class='scorecard'>
 
                         <tr>
@@ -146,13 +120,8 @@
                                             <option>9</option>
                                         </select>
                                 
-                                
-                                
-                                
                                     </td>
                                     <td class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index' ng-click='showBigBox($event, rowIndex, $index)' id='{{rowIndex}}{{$index}}' ng-style="{'background-color': atBatBackground}">
-<!--                                        <at-bat-score-box-dr></at-bat-score-box-dr>  -->
-
 
                                         <div  ng-show="showLittleBox === 'after'" >
                                             <div class="little-box">
@@ -217,15 +186,13 @@
 
                     </table>
                     </md-card-content>
-<!--                </div>-->
+
                 </md-card>
             </div>
             
-<!--        <div id="visitor" class="tab-pane fade in active" ng-show="showVisitors">-->
             <div id="visitor" ng-show="showVisitors">
               <div class='text-team-name'>{{visitorsName}}</div>
 
-            <!--                <div class="card">-->
                 <md-card>
                     
                     <md-card-content>
@@ -265,7 +232,7 @@
                             
                                 </td>
                                 <td class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index' ng-click='showBigBox($event, rowIndex, $index)' id='{{rowIndex}}{{$index}}' ng-style="{'background-color': atBatBackground}">
-<!--                                    <at-bat-score-box-dr></at-bat-score-box-dr>  -->
+
 
 
                                     
@@ -333,12 +300,10 @@
 
                 </table>
                 </md-card-content>
-<!--                </div>-->
+
                 </md-card>
 
             </div>
-<!--        </div>    -->
-<!-- End of Tab Content div -->
         </div>
     
     </div>
@@ -348,11 +313,10 @@
    
     
     <script src='/scripts/scorecardMod.js'></script>
-<!--    <script src='/scripts/values/teamRoster.js'></script>-->
-<!--    <script src='/scripts/values/scorecardBoxState.js'></script>-->
+
     <script src='/scripts/values/boxState.js'></script>
     <script src='/scripts/values/states.js'></script>
-<!--    <script src='/scripts/values/basePathState.js'></script>-->
+
     
     <script src='/scripts/services/lineup.js'></script>
     <script src='/scripts/services/AtBatFactory.js'></script>

@@ -67,7 +67,7 @@
         
   
         $scope.team = {};
-//        $scope.teams = teamRoster;
+
         
         $scope.getIndex = function(i) {
             $scope.teamIndex = i;
@@ -85,9 +85,21 @@
                 $scope.vRuns = gameState.visitorsRuns;
                 $scope.vHits = gameState.visitorsHits;
                 $scope.vErrors = gameState.visitorsErrors;
-                gameState.visitors.bench = gameState.visitors.roster;
-                $rootScope.$broadcast('getLineupAndBench');
-        }
+                 
+                var getRosterReq = {
+                    method: 'GET',
+                    url: 'http://localhost:3000/api/keepscore/roster',
+                    params: {"id": gameState.visitors.id },
+                    };
+
+                    $http(getRosterReq).then
+                        (function(response){gameState.visitors.roster = response.data;                              
+                                           gameState.visitors.bench = gameState.visitors.roster;
+                                            gameState.visitors.lineup = [];}, 
+                         function(response){$scope.roster = "Error!";});
+
+                    $rootScope.$broadcast('getLineupAndBench');
+                    }
                 
         $scope.designateHome = function(){ 
            
@@ -96,8 +108,6 @@
                 $scope.hRuns = gameState.homeRuns;
                 $scope.hHits = gameState.homeHits;
                 $scope.hErrors = gameState.homeErrors;
-            
-            //need to get the roster array of objects {id, lable, number} from backend api--sending the backend the id of the team in question--home team here
                 
                 var getRosterReq = {
                 method: 'GET',
