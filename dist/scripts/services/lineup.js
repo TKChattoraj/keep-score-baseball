@@ -1,5 +1,5 @@
 (function() {
-    function Lineup(teamRoster, gameState) {
+    function Lineup(gameState) {
         Lineup.lineup = [];
         
         var reconcile = function(player) {
@@ -36,6 +36,6 @@
     
     angular 
         .module('scorecardMod')
-        .factory('Lineup', ['teamRoster', 'gameState', Lineup]);
+        .factory('Lineup', ['gameState', Lineup]);
     
 })();

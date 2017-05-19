@@ -1,34 +1,4 @@
-//(function() {
-//    
-//    angular 
-//        .module('scorecardMod')
-//        .run(function(boxState) {
-//            for (var i=0; i<11; i++) {
-//               for(var j=0; j<11; j++) {
-//                    boxState.little[i][j].status = 'initial';
-//
-//                    boxState.little[i][j].first = null;
-//                    boxState.little[i][j].second = null;
-//                    boxState.little[i][j].third = null;
-//                    boxState.little[i][j].home = null;
-//
-//                    boxState.little[i][j].toFirst = false;
-//                    boxState.little[i][j].toSecond = false; 
-//                    boxState.little[i][j].toThird = false;   
-//                    boxState.little[i][j].toHome = false;
-//
-//                    boxState.little[i][j].advFrmFirst = false;
-//                    boxState.little[i][j].advFrmSecond = false;
-//                    boxState.little[i][j].advFrmThird = false;
-//
-//                    boxState.little[i][j].oneOut = null;
-//                    boxState.little[i][j].twoOut = null;
-//                    boxState.little[i][j].threeOut = null;              
-//               }        
-//            }
-//    });
-//    
-//    })();
+
  
 (function() {
     

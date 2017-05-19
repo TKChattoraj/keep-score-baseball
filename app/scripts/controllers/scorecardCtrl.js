@@ -1,5 +1,5 @@
 (function() {
-    function ScorecardCtrl($rootScope, $scope, teamRoster, gameState, Lineup, $http){
+    function ScorecardCtrl($rootScope, $scope, gameState, Lineup, $http){
         
         var getTeamsReq = {
             method: 'GET',
@@ -140,10 +140,7 @@
     
       }
     
-        
-    
-    
     angular 
         .module('scorecardMod')
-        .controller('scorecardCtrl', ['$rootScope', '$scope', 'teamRoster', 'gameState', 'Lineup',  '$http', ScorecardCtrl]);
+        .controller('scorecardCtrl', ['$rootScope', '$scope', 'gameState', 'Lineup',  '$http', ScorecardCtrl]);
 })();
