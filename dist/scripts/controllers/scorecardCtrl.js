@@ -30,7 +30,7 @@
         $scope.teamRow = [0, 1];
     
         $scope.showHome = false;
-        $scope.showVisitors = true;
+        $scope.showVisitors = false;
         
         $scope.showHomeTeam = function() {
             
@@ -40,7 +40,6 @@
             $rootScope.$broadcast('showHome');
             
             $rootScope.$broadcast('getLineupAndBench');
-            console.log("showing Home: " + $scope.showHome);
         }
         
         $scope.showVisitorTeam = function(){
@@ -68,7 +67,7 @@
         
   
         $scope.team = {};
-        $scope.teams = teamRoster;
+//        $scope.teams = teamRoster;
         
         $scope.getIndex = function(i) {
             $scope.teamIndex = i;
@@ -104,14 +103,14 @@
                 method: 'GET',
                 url: 'http://localhost:3000/api/keepscore/roster',
                 params: {"id": gameState.home.id },
-                }
+                };
         
                 $http(getRosterReq).then
-                    (function(response){$scope.roster = response.data[0].label;}, function(response){$scope.roster = "Error!";});
-            
-            
-            
-                gameState.home.bench = gameState.home.roster;
+                    (function(response){gameState.home.roster = response.data;                              
+                                       gameState.home.bench = gameState.home.roster;
+                                        gameState.home.lineup = [];}, 
+                     function(response){$scope.roster = "Error!";});
+           
                 $rootScope.$broadcast('getLineupAndBench');
      
             }

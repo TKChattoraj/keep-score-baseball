@@ -27,10 +27,7 @@
                gameState.visitors.bench = gameState.visitors.roster.filter(reconcile); 
                 
             }
-            
-//            Lineup.lineup[orderNum] = player;
-//            Lineup.bench = Lineup.team.filter(reconcile);
-            
+
         }
         
         return Lineup;

@@ -6,16 +6,23 @@
         }
         
         $scope.batter = {};
+              
         
-        if (gameState.currentTeam == 'home') {
-            $scope.roster = gameState.homeRoster;
-        } else if (gameState.currentTeam == 'visitors'){
-            $scope.roster = gameState.visitorsRoster;
-        } else {
-            $scope.roster = [{id: 1, label: "Me", number: 14}, 
+//        if (gameState.currentTeam && gameState.currentTeam == 'home') {
+//            console.log(" home roster: " + gameState.home.roster);
+////            $scope.roster = gameState.home.roster;
+//            $scope.roster = [{id: 1, label: "Me", number: 14}, 
+//              {id: 2, label: "Myself", number: 30}, 
+//              {id: 3, label: "I", number: 8}, ];
+//            
+//            console.log("set the home roster");
+//        } else if (gameState.currentTeam && gameState.currentTeam == 'visitors'){
+//            $scope.roster = gameState.visitors.roster;
+//        } else {
+            $scope.bench = [{id: 1, label: "Me", number: 14}, 
               {id: 2, label: "Myself", number: 30}, 
               {id: 3, label: "I", number: 8}, ];
-        }
+//        }
         
         //$scope.roster = ;
 
@@ -29,28 +36,26 @@
         };
         $rootScope.$on('playerChosen', function(){
             if (gameState.currentTeam == 'home') {
-                $scope.roster = gameState.home.bench;  
+                $scope.bench = gameState.home.bench;  
             }
             if (gameState.currentTeam == 'visitors') {
-                $scope.roster = gameState.visitors.bench;
+                $scope.bench = gameState.visitors.bench;
             }
             
-            //$scope.roster=Lineup.bench
         });
         
+// put the bench into the $scope.bench
         
         $rootScope.$on('getLineupAndBench', function(){
             
             if (gameState.currentTeam == 'home') {
-                $scope.roster = gameState.home.bench;
-                
+                $scope.bench = gameState.home.bench;
 
             }
             if (gameState.currentTeam == 'visitors') {
-                $scope.roster = gameState.visitors.bench;
+                $scope.bench = gameState.visitors.bench;
 
             }
-            console.log($scope.roster[0].label);
         });
         
         
