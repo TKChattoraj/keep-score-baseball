@@ -52,7 +52,7 @@
             
 //Will need this object for each little box => {AB: 0, PA: 0, Single: 0, Double: 0, Triple: 0, HR: 0, BB: 0, E: 0, WP: 0, PB: 0, RBI: 0, SB: 0, R: 0, ER: 0, SAC: 0, K: 0}
 
-//Created an initialized when the litteBox first hit in initial state.
+//Created and initialized when the litteBox first hit in initial state.
             
           'homeRawStats': [[], 
                            [], 

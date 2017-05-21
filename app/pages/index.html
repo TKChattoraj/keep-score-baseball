@@ -30,6 +30,10 @@
     <div ng-controller="scorecardCtrl as scorecard">
         <div class="container">
         <div class="score-ribbon">
+            
+            
+            
+            
           <div>
               <table class='scoreboard'>
                 <tr>
@@ -185,6 +189,7 @@
                             </tr>
 
                     </table>
+                    
                     </md-card-content>
 
                 </md-card>
@@ -296,7 +301,7 @@
                                 </th>
                         
                         </tr>
-                    
+                        
 
                 </table>
                 </md-card-content>
@@ -304,6 +309,14 @@
                 </md-card>
 
             </div>
+            
+            <div>
+                <button type="button" class='btn btn-default' ng-click='showRawStat()' >Button</button>
+                <div> {{raw}}</div>
+                
+            </div>
+       
+        
         </div>
     
     </div>

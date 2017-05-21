@@ -1,5 +1,5 @@
 (function() {
-    function ScorecardCtrl($rootScope, $scope, gameState, Lineup, $http){
+    function ScorecardCtrl($rootScope, $scope, gameState, Lineup, boxState, $http){
         
         var getTeamsReq = {
             method: 'GET',
@@ -135,12 +135,18 @@
                 $scope.vHits = gameState.visitorsHits;
                 $scope.vErrors = gameState.visitorsErrors;
             });
+        $scope.raw = 'loading...';
         
-        
+        $scope.showRawStat = function() {
+            $scope.raw = boxState.homeRawStats[0][0].playerID;
+            console.log(boxState.homeRawStats[0][0].playerID);
+            console.log(gameState.home.roster[$scope.raw].label);
+            }
     
       }
     
+    
     angular 
         .module('scorecardMod')
-        .controller('scorecardCtrl', ['$rootScope', '$scope', 'gameState', 'Lineup',  '$http', ScorecardCtrl]);
+        .controller('scorecardCtrl', ['$rootScope', '$scope', 'gameState', 'Lineup',  'boxState', '$http', ScorecardCtrl]);
 })();

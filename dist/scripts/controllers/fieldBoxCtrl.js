@@ -241,7 +241,8 @@
                 if (gameState.currentTeam == 'visitors') {
                     
                     if ($scope.littleBoxObject.status == 'initial') {
-                    $scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, wp: 0, pb: 0, sb: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0, playerID: '', teamID: ''}; 
+                    var playerID = gameState.visitors.lineup[$scope.row].id;
+                    $scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, wp: 0, pb: 0, sb: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0, playerID: playerID, teamID: '', }; 
                     
                     boxState.visitorsRawStats[$scope.row][$scope.column] = $scope.rawStats;
 
@@ -252,12 +253,34 @@
                 
                 if (gameState.currentTeam == 'home') {
                     if ($scope.littleBoxObject.status == 'initial') {
-                    $scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, wp: 0, pb: 0, sb: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0, playerID: '', teamID: ''}; 
-                    boxState.homeRawStats[$scope.row][$scope.column] = $scope.rawStats;
+                        var playerID = gameState.home.lineup[$scope.row].id;
+                        console.log("$scope.row: " + $scope.row);
+                        console.log("line position:  " + playerID);
+                        for (var i = 0; i<gameState.home.lineup.length; i++) {
+                            console.log("lineup: " + gameState.home.lineup[i].label);
+                        }
+                        
+                        $scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, wp: 0, pb: 0, sb: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0, playerID: playerID, teamID: ''}; 
+                        boxState.homeRawStats[$scope.row][$scope.column] = $scope.rawStats;
                     } else {
                        $scope.rawStats = boxState.homeRawStats[$scope.row][$scope.column];
                     }
+                    console.log("raw stats player: " + $scope.rawStats.playerID);
+                    console.log("player name: " + gameState.home.lineup[$scope.row].label);
                 }   
+        };
+        
+        var calculateGameStats = function() {
+            
+            for (var col = 0; col<10; col++) {
+                
+                
+                
+            }
+            
+            
+            
+            
         };
                 
         
