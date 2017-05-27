@@ -79,6 +79,9 @@
               
           ],
         
+          'homePlayerGameStats': [],
+          'visitorsPlayerGameStats': [],
+        
           'visitorsHitsRunsErrors': [{hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0} ],
         
           'homeHitsRunsErrors': [{hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0} ],

@@ -138,9 +138,9 @@
         $scope.raw = 'loading...';
         
         $scope.showRawStat = function() {
-            $scope.raw = boxState.homeRawStats[0][0].playerID;
-            console.log(boxState.homeRawStats[0][0].playerID);
-            console.log(gameState.home.roster[$scope.raw].label);
+            $scope.raw = boxState.homePlayerGameStats[0].gameStatsObject.ab;
+            console.log(boxState.homePlayerGameStats[0].gameStatsObject.ab);
+            
             }
     
       }

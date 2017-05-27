@@ -241,8 +241,8 @@
                 if (gameState.currentTeam == 'visitors') {
                     
                     if ($scope.littleBoxObject.status == 'initial') {
-                    var playerID = gameState.visitors.lineup[$scope.row].id;
-                    $scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, wp: 0, pb: 0, sb: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0, playerID: playerID, teamID: '', }; 
+                        var playerID = gameState.visitors.lineup[$scope.row].id;
+                        $scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, wp: 0, pb: 0, sb: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0, playerID: playerID, teamID: '', }; 
                     
                     boxState.visitorsRawStats[$scope.row][$scope.column] = $scope.rawStats;
 
@@ -254,34 +254,66 @@
                 if (gameState.currentTeam == 'home') {
                     if ($scope.littleBoxObject.status == 'initial') {
                         var playerID = gameState.home.lineup[$scope.row].id;
-                        console.log("$scope.row: " + $scope.row);
-                        console.log("line position:  " + playerID);
-                        for (var i = 0; i<gameState.home.lineup.length; i++) {
-                            console.log("lineup: " + gameState.home.lineup[i].label);
-                        }
-                        
                         $scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, wp: 0, pb: 0, sb: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0, playerID: playerID, teamID: ''}; 
                         boxState.homeRawStats[$scope.row][$scope.column] = $scope.rawStats;
                     } else {
                        $scope.rawStats = boxState.homeRawStats[$scope.row][$scope.column];
                     }
-                    console.log("raw stats player: " + $scope.rawStats.playerID);
-                    console.log("player name: " + gameState.home.lineup[$scope.row].label);
+                    
                 }   
         };
         
-        var calculateGameStats = function() {
-            
+        
+        
+        
+        
+        var getPlayerGameStats = function(p, playerID) {
+            console.log('into getPlayerGameStats');
+            var playerGameStats = {
+                ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, wp: 0, pb: 0, sb: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0
+            };
+            var gameStatsObject = {};
+            gameStatsObject.playerID = playerID;
+            var rawStats;
             for (var col = 0; col<10; col++) {
+                rawStats = boxState.homeRawStats[p][col];
                 
-                
-                
+                if (rawStats && (rawStats.playerID === playerID)) {
+                    console.log('adding to the stats');
+                    console.log('rawStats.k: ' + rawStats.k);
+                    console.log('rawStats.single: ' + rawStats.single);
+                    playerGameStats.ab += rawStats.ab;
+                    playerGameStats.pa += rawStats.pa;
+                    playerGameStats.single += rawStats.single;
+                    playerGameStats.double += rawStats.double;
+                    playerGameStats.triple += rawStats.triple;
+                    playerGameStats.hr += rawStats.hr;
+                    playerGameStats.bb += rawStats.bb;
+                    playerGameStats.sb += rawStats.sb;
+                    playerGameStats.rbi += rawStats.rbi;
+                    playerGameStats.r += rawStats.r;
+                    playerGameStats.er += rawStats.er;
+                    playerGameStats.sac += rawStats.sac;
+                    playerGameStats.k += rawStats.k;             
+                }
+            };
+            
+            gameStatsObject.gameStats = playerGameStats;
+            
+            boxState.homePlayerGameStats.push(gameStatsObject);
+            $scope.playerStats = boxState.homePlayerGameStats[0];
+       
+        };
+        
+        $scope.calculateGameStats = function() {
+            console.log('into calculateGameStats');
+            var lineup = gameState.home.lineup;
+            for (var p = 0; p<lineup.length; p++) {
+                var playerID = lineup[p].id;
+                getPlayerGameStats(p, playerID);
             }
             
-            
-            
-            
-        };
+        }
                 
         
         $scope.decideLittleBox = function(row,column) { 
@@ -308,7 +340,10 @@
 
 
         }
-        
+/*
+    Called from at-bat-out or on-base-out in Big Box view.
+    Explains how the out was made.  
+*/
         
         $scope.putOut = function(event){
             var target = event.currentTarget.innerHTML;
@@ -316,8 +351,9 @@
             $scope.bottomRightOuts = 'true';
             $scope.centerString = $scope.putOutArray.join('-');
             
-            // \u is Javascript escape for unicode and A4D8 is the hexidecimal code for the backwards k
+            // \u is Javascript escape for unicode and A4D8 is the hexidecimal code for the 'backwards k'
             if (target == 'K' || target == '\uA4D8') {
+                updateRawStatsObject(target);
                 $scope.exitToLittleBox();
             }
             var fielder = event.currentTarget.innerHTML;                  
@@ -358,7 +394,15 @@
             return {"background-color": $scope.positionBackground};
         };
         
+/*  
+    Figures the raw stats to be associated with a little box
+*/
+        
+        
         var updateRawStatsObject = function(target) {
+            
+            console.log('rawstats target: ' + target);
+            console.log('basePathState.PreviousBase: ' + basePathState.PreviousBase);
 
             if (basePathState.PreviousBase == 'at-bat') {
                 if ($scope.previousTarget == 'E') {
@@ -366,8 +410,9 @@
                     $scope.rawStats.e = 1;
                     $scope.previousTarget = null;
                     
-                } else if (target == 'K') {
+                // \u is Javascript escape for unicode and A4D8 is the hexidecimal code for the 'backwards k'
                     
+                } else if (target == 'K' || target == '\uA4D8'){             
                     $scope.rawStats.k = 1;
                 } else if ( target == 'BB') {
                     
@@ -457,10 +502,7 @@
                     $scope.scoreString = $scope.onBaseString;
                     
             }
-            
-            
-        
-                          
+                      
             if (target != 'E'){
                 updateRawStatsObject(target);
                 calculateHitsRuns();
@@ -504,16 +546,11 @@
                     
             }
             
-            
-            
-            
-            
-            
-            $scope.topLeft = 'true';
-            
-            if ($scope.advBaseString == 'Submit') {
-                $scope.advBaseString = '';
-            }
+//            $scope.topLeft = 'true';
+//            
+//            if ($scope.advBaseString == 'Submit') {
+//                $scope.advBaseString = '';
+//            }
             
             if (target != 'E'){
                 updateRawStatsObject(target);
@@ -529,7 +566,12 @@
         
        
         
-        
+/* 
+    Called by clicking on an "out" circle in the big box view. 
+    Decides if out from at-bat or from on-base.
+
+*/
+  
         
         $scope.bigBoxOut = function(event){
             if ($scope.littleBoxState=='at-bat') {
@@ -557,7 +599,14 @@
             event.preventDefault();
             
         }
+
         
+/*
+ Called by clicking on a base in big box view.
+ Decides which view of the big box to show, 
+ that of reaching base from an at-bat or advancing.
+ Updates the view of the basepath--showing where the batter/runner is.
+*/
         
         $scope.bigBoxOnBase = function(event){
             if ($scope.littleBoxState=='at-bat') {
@@ -571,7 +620,8 @@
             $scope.atBatFactory.updateBasePath(event, $scope);
             event.stopPropagation();
         }
-            
+
+        
         $scope.exitToLittleBox = function(){
             if (($scope.bigBoxState == 'at-bat-on-base')|| ($scope.bigBoxState == 'on-base-advance')) {
                 boxState.big[$scope.row][$scope.column] = null;  
