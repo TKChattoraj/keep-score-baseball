@@ -5,7 +5,7 @@
 
         
         AtBatFactory.updateBasePath = function(e, $scope) {
-            basePathState.PreviousBase = $scope.littleBoxState;
+            //basePathState.PreviousBase = $scope.littleBoxState;
             
             basePathState.Base = e.target.className;
             
@@ -85,20 +85,6 @@
         
         AtBatFactory.getOuts = function() {
         
-//            if (inningState.outs === 0) {
-//                AtBatFactory.oneOut = null;
-//                AtBatFactory.twoOut = null;
-//                AtBatFactory.threeOut = null;
-//            }
-//            if (inningState.outs >= 1) {
-//                AtBatFactory.oneOut = 'black';
-//            }
-//            if (inningState.outs >= 2) {
-//                AtBatFactory.twoOut = 'black';
-//            }
-//            if (inningState.outs == 3) {
-//                AtBatFactory.threeOut = 'black';
-//            }
             if (gameState.currentTeam == 'home') {
                 AtBatFactory.oneOut = inningState.homeOutsArray[0];
                 AtBatFactory.twoOut = inningState.homeOutsArray[1];
@@ -109,10 +95,7 @@
                 AtBatFactory.twoOut = inningState.vistorsOutsArray[1];
                 AtBatFactory.threeOut = inningState.visitorsOutsArray[2];
             }
-            
-            
-            
-            
+   
         }
         
         AtBatFactory.updateOut = function(e, $scope) {
@@ -129,9 +112,7 @@
             else if (e.target.id === 'three'){
                 AtBatFactory.oneOut = 'black';
                 AtBatFactory.twoOut = 'black';
-                AtBatFactory.threeOut = 'black';
-                
-                
+                AtBatFactory.threeOut = 'black';          
             }
             inningState.outs++;
             

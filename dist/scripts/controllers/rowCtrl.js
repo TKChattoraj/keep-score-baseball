@@ -31,7 +31,7 @@
  var getPlayerGameStats = function(p, playerID) {
             console.log('into getPlayerGameStats');
             var playerGameStats = {
-                ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, hb: 0, wp: 0, pb: 0, sb: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0
+                ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, hb: 0, wp: 0, pb: 0, sb: 0, cs: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0
             };
             var gameStatsObject = {};
             gameStatsObject.playerID = playerID;
@@ -57,6 +57,7 @@
                     playerGameStats.balk += rawStats.balk;
                     playerGameStats.pb += rawStats.pb;
                     playerGameStats.sb += rawStats.sb;
+                    playerGameStats.cs += rawStats.cs;
                     playerGameStats.rbi += rawStats.rbi;
                     playerGameStats.r += rawStats.r;
                     playerGameStats.er += rawStats.er;
@@ -69,7 +70,7 @@
             gameStatsObject.gameStats = playerGameStats;
             
             boxState.homePlayerGameStats[p] = gameStatsObject;
-            $scope.playerStats = boxState.homePlayerGameStats[0];
+            $scope.playerStats = boxState.homePlayerGameStats;
        
         };
         
