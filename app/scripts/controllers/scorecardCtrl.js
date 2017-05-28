@@ -138,8 +138,8 @@
         $scope.raw = 'loading...';
         
         $scope.showRawStat = function() {
-            $scope.raw = boxState.homePlayerGameStats[0].gameStatsObject.ab;
-            console.log(boxState.homePlayerGameStats[0].gameStatsObject.ab);
+            $scope.raw = boxState.homePlayerGameStats[0].gameStats.ab;
+            console.log(boxState.homePlayerGameStats[0].gameStats.ab);
             
             }
     
