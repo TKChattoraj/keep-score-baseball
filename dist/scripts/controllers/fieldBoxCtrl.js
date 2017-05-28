@@ -283,65 +283,7 @@
         
       
         
-/*
-    Called from at-bat-out or on-base-out in Big Box view.
-    Explains how the out was made.  
-*/
-        
-        $scope.putOut = function(event){
-            var target = event.currentTarget.innerHTML;
-            if (target == 'Caught Stealing') {
-                console.log('caught stealing!')
-                updateRawStatsObject(target);
-            } else {
-                $scope.putOutArray.push(target);
-            }
-            
-            $scope.bottomRightOuts = 'true';
-            $scope.centerString = $scope.putOutArray.join('-');
-            
-            // \u is Javascript escape for unicode and A4D8 is the hexidecimal code for the 'backwards k'
-            if (target == 'K' || target == '\uA4D8') {
-                updateRawStatsObject(target);
-                $scope.exitToLittleBox();
-            }
-            //var fielder = event.currentTarget.innerHTML;                  
-            switch(target) {
-                case '1':
-                    $scope.pitcherBackground = 'red';
-                    break;
-                case '2':
-                    $scope.catcherBackground = 'red';
-                    break;
-                case '3':
-                    $scope.firstBackground = 'red';
-                    break;
-                case '4':
-                    $scope.secondBackground = 'red';
-                    break;
-                case '5':
-                    $scope.thirdBackground = 'red';
-                    break;
-                case '6':
-                    $scope.shortBackground = 'red';
-                    break;
-                case '7':
-                    $scope.leftBackground = 'red';
-                    break;
-                case '8':
-                    $scope.centerBackground = 'red';
-                    break;
-                case '9':
-                    $scope.rightBackground = 'red';
-                    break;
-                    
-            }
-            event.stopPropagation();
-        }
-        
-        $scope.set_background_color = function() {
-            return {"background-color": $scope.positionBackground};
-        };
+
         
 /*  
     Figures the raw stats to be associated with a little box
@@ -350,13 +292,8 @@
         
         var updateRawStatsObject = function(target) {
             
-            console.log('rawstats target: ' + target);
-            console.log('basePathState.PreviousBase: ' + basePathState.PreviousBase);
-
-            
             
             if (basePathState.PreviousBase == 'at-bat') {
-                console.log('in the previous- at-bat');
                 if ($scope.previousTarget == 'E') {
                     
                     $scope.rawStats.e = 1;
@@ -372,6 +309,9 @@
                 } else if (target == 'FC') {
                     
                     $scope.rawStats.fc = 1;
+                } else if (target == 'SAC') {
+                    
+                    $scope.rawStats.sac = 1;
                 } else if (target == 'HB') {
                     
                     $scope.rawStats.hb = 1;
@@ -417,9 +357,9 @@
                     $scope.rawStats.balk++;
                 } else if (target == 'PB') {
                     $scope.rawStats.pb++;
-                } else if (target == 'Caught Stealing'){
-                    console.log('updating caught stealing');
-                    $scope.rawStats.cs++;
+                } else if (target == 'Caught Stealing!'){
+                    
+                    $scope.rawStats.cs = 1;
                 }
                 if ($scope.littleBoxState == 'score') { 
                 
@@ -514,7 +454,64 @@
             
         }
         
-       
+/*
+    Called from at-bat-out or on-base-out in Big Box view.
+    Builds the string that will appear in the little box diamond explaining how the out was made.  
+*/
+        
+        $scope.putOut = function(event){
+            var target = event.currentTarget.innerHTML;
+            if ((target == 'Caught Stealing!')|| (target == 'SAC')) {
+                updateRawStatsObject(target);
+            } else {
+                $scope.putOutArray.push(target);
+            }
+            
+            $scope.bottomRightOuts = 'true';
+            $scope.centerString = $scope.putOutArray.join('-');
+            
+            // \u is Javascript escape for unicode and A4D8 is the hexidecimal code for the 'backwards k'
+            if (target == 'K' || target == '\uA4D8') {
+                updateRawStatsObject(target);
+                $scope.exitToLittleBox();
+            }
+            //var fielder = event.currentTarget.innerHTML;                  
+            switch(target) {
+                case '1':
+                    $scope.pitcherBackground = 'red';
+                    break;
+                case '2':
+                    $scope.catcherBackground = 'red';
+                    break;
+                case '3':
+                    $scope.firstBackground = 'red';
+                    break;
+                case '4':
+                    $scope.secondBackground = 'red';
+                    break;
+                case '5':
+                    $scope.thirdBackground = 'red';
+                    break;
+                case '6':
+                    $scope.shortBackground = 'red';
+                    break;
+                case '7':
+                    $scope.leftBackground = 'red';
+                    break;
+                case '8':
+                    $scope.centerBackground = 'red';
+                    break;
+                case '9':
+                    $scope.rightBackground = 'red';
+                    break;
+                    
+            }
+            event.stopPropagation();
+        }
+        
+        $scope.set_background_color = function() {
+            return {"background-color": $scope.positionBackground};
+        };       
         
 /* 
     Called by clicking on an "out" circle in the big box view. 
