@@ -91,7 +91,9 @@
             
                     
         };
+
         
+// Updates the elements required for the little Box view
         var updateLittleBox = function() {
             
             $scope.first = $scope.littleBoxObject.first;
@@ -115,9 +117,13 @@
         var updateLittleBoxObject = function() {
                    
             $scope.littleBoxObject.first = $scope.atBatFactory.First;
+            console.log('littleBoxObject.first: ' + $scope.littleBoxObject.first);
             $scope.littleBoxObject.second = $scope.atBatFactory.Second;
+            console.log('littleBoxObject.second: ' + $scope.littleBoxObject.second);
             $scope.littleBoxObject.third = $scope.atBatFactory.Third;
+            console.log('littleBoxObject.third: ' + $scope.littleBoxObject.third);
             $scope.littleBoxObject.home = $scope.atBatFactory.Home;
+            console.log('littleBoxObject.home: ' + $scope.littleBoxObject.home);
             $scope.littleBoxObject.fieldBackground = $scope.atBatFactory.background;
             
             
@@ -240,7 +246,7 @@
             $rootScope.$broadcast('updateLineScore');
         };
         
-            $rootScope.$on('updateHitsRuns', function(event, args) {
+        $rootScope.$on('updateHitsRuns', function(event, args) {
                 if (gameState.currentTeam == 'home'){
                     $scope.homeInningHits[args.column] = boxState.homeHitsRunsErrors[args.column].hits;
                     $scope.homeInningRuns[args.column] = boxState.homeHitsRunsErrors[args.column].runs;
@@ -281,10 +287,7 @@
                 }   
         };
         
-      
-        
-
-        
+ 
 /*  
     Figures the raw stats to be associated with a little box
 */
@@ -456,13 +459,15 @@
         
 /*
     Called from at-bat-out or on-base-out in Big Box view.
-    Builds the string that will appear in the little box diamond explaining how the out was made.  
+    Builds the string that will appear in the little box diamond explaining how the out was made.  If the target is 'Submit' then will exitToLittleBox()  
 */
         
         $scope.putOut = function(event){
             var target = event.currentTarget.innerHTML;
             if ((target == 'Caught Stealing!')|| (target == 'SAC')) {
                 updateRawStatsObject(target);
+            } else if (target === 'Submit') {
+                
             } else {
                 $scope.putOutArray.push(target);
             }
@@ -471,7 +476,7 @@
             $scope.centerString = $scope.putOutArray.join('-');
             
             // \u is Javascript escape for unicode and A4D8 is the hexidecimal code for the 'backwards k'
-            if (target == 'K' || target == '\uA4D8') {
+            if (target == 'K' || target == '\uA4D8' || target === 'Submit') {
                 updateRawStatsObject(target);
                 $scope.exitToLittleBox();
             }
@@ -506,6 +511,7 @@
                     break;
                     
             }
+
             event.stopPropagation();
         }
         
