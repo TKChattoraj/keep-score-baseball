@@ -120,12 +120,31 @@
                 }   
         };
         
- 
+        
+        var calculateRBI = function() {
+            
+            var stat = {};
+            if (gameState.currentTeam == 'visitors') {
+                    stat = boxState.visitorsRawStats[boxState.batterBox.row] [boxState.batterBox.column];
+            } else {
+                stat = boxState.homeRawStats[boxState.batterBox.row][ boxState.batterBox.column];
+            }
+            console.log('stat: ' + stat.single, stat.double, stat.triple, stat.hr, stat.sac, stat.bb);
+            if ((stat.single == 1) || (stat.double == 1) || (stat.triple == 1) || (stat.hr == 1) || (stat.sac == 1) || (stat.bb == 1)) {
+                
+                stat.rbi += 1;
+                console.log('rbi: ' + stat.rbi);
+            }
+
+            if (gameState.currentTeam == 'home') {
+                  boxState.homeRawStats[boxState.batterBox.row] [boxState.batterBox.column].rbi = stat.rbi;
+            } else {
+                 boxState.visitorsRawStats[boxState.batterBox.row] [boxState.batterBox.column].rbi = stat.rbi;
+            }    
+        };
 /*  
     Figures the raw stats to be associated with a little box
-*/
-        
-        
+*/        
         var updateRawStatsObject = function(target) {
             
             
@@ -169,6 +188,7 @@
                             $scope.centerString = 'HR';  
                             $scope.rawStats.hr = 1;
                             $scope.rawStats.r = 1;
+                            console.log(boxState.batterBox.row, boxState.batterBox.column);
                             break;
                     }
                     
@@ -200,10 +220,22 @@
                 if ($scope.littleBoxState == 'score') { 
                 
                     $scope.rawStats.r = 1; 
+                    console.log(boxState.batterBox.row, boxState.batterBox.column);
                 }
                 
             }
           
+            if (gameState.currentTeam == 'home') {
+                  boxState.homeRawStats[$scope.row][$scope.column] = $scope.rawStats;
+            } else {
+                boxState.visitorsRawStats[$scope.row][$scope.column] =
+                  $scope.rawStats;
+            }
+            
+            if($scope.littleBoxState == 'score') {
+                calculateRBI();
+            }
+            
         };
         
         
@@ -397,12 +429,16 @@
         $scope.bigBoxOnBase = function(event){
             if ($scope.littleBoxState=='at-bat') {
                 $scope.bigBoxState = 'at-bat-on-base';
+                boxState.batterBox.row = $scope.row;
+                boxState.batterBox.column = $scope.column;
+                console.log(boxState.batterBox.row, boxState.batterBox.column);
                 $scope.onBaseArray = [];
             } else {
                 $scope.bigBoxState = 'on-base-advance';
                 $scope.advBaseArray =[];
             }
             boxState.big[$scope.row][$scope.column] = $scope.bigBoxState;
+            
             $scope.atBatFactory.updateBasePath(event, $scope);
             event.stopPropagation();
         }
@@ -444,7 +480,7 @@
                 
                 if (gameState.currentTeam == 'home') {
                   var homeBatterHits =0;
-                  boxState.homeRawStats[$scope.row][$scope.column] = $scope.rawStats;
+//                  boxState.homeRawStats[$scope.row][$scope.column] = $scope.rawStats;
                   
                   boxState.homeHitsRunsErrors[$scope.column].hits = 0;
                   boxState.homeHitsRunsErrors[$scope.column].runs = 0;

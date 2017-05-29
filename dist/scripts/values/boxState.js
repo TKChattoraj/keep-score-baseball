@@ -79,6 +79,20 @@
               
           ],
         
+          'homeBatter': {
+              row: 0,
+              column: 0
+          },
+          'visitorsBatter': {
+              row: 0,
+              column: 0
+          },
+          
+          'batterBox': {
+              row: 0,
+              column: 0
+          },
+        
           'homePlayerGameStats': [],
           'visitorsPlayerGameStats': [],
         
