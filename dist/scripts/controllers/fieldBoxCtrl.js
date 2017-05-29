@@ -93,173 +93,6 @@
         };
 
         
-// Updates the elements required for the little Box view
-        var updateLittleBox = function() {
-            
-            $scope.first = $scope.littleBoxObject.first;
-            $scope.second = $scope.littleBoxObject.second;
-            $scope.third = $scope.littleBoxObject.third;
-            $scope.home = $scope.littleBoxObject.home;
-            
-            $scope.oneOut = $scope.littleBoxObject.oneOut;
-            $scope.twoOut = $scope.littleBoxObject.twoOut;
-            $scope.threeOut = $scope.littleBoxObject.threeOut;
-            $scope.fieldBackground = $scope.littleBoxObject.fieldBackground;
-            
-            if ($scope.littleBoxObject.status == 'at-bat-out' || $scope.littleBoxObject.status == 'on-base-out') {      
-                $scope.center = 'true';
-            }
-            
-        };
-        
-        
-            
-        var updateLittleBoxObject = function() {
-                   
-            $scope.littleBoxObject.first = $scope.atBatFactory.First;
-            console.log('littleBoxObject.first: ' + $scope.littleBoxObject.first);
-            $scope.littleBoxObject.second = $scope.atBatFactory.Second;
-            console.log('littleBoxObject.second: ' + $scope.littleBoxObject.second);
-            $scope.littleBoxObject.third = $scope.atBatFactory.Third;
-            console.log('littleBoxObject.third: ' + $scope.littleBoxObject.third);
-            $scope.littleBoxObject.home = $scope.atBatFactory.Home;
-            console.log('littleBoxObject.home: ' + $scope.littleBoxObject.home);
-            $scope.littleBoxObject.fieldBackground = $scope.atBatFactory.background;
-            
-            
-            if ($scope.bigBoxState == 'at-bat-out' || $scope.bigBoxState == 'on-base-out') {
-                
-                $scope.littleBoxObject.oneOut = $scope.atBatFactory.oneOut;
-                $scope.littleBoxObject.twoOut = $scope.atBatFactory.twoOut;
-                $scope.littleBoxObject.threeOut = $scope.atBatFactory.threeOut;  
-            } else {
-
-                $scope.littleBoxObject.oneOut = null;
-                $scope.littleBoxObject.twoOut = null;
-                $scope.littleBoxObject.threeOut = null;
-            }
-            
-            
-            $scope.littleBoxObject.status = $scope.littleBoxState;
-            updateLittleBox();
-            
-            //  need logic here to chose between home/visitor's little box
-            
-            if (gameState.currentTeam == 'home') {
-                boxState.littleHome[$scope.row][$scope.column] = $scope.littleBoxObject;
-            }
-            if (gameState.currentTeam == 'visitors') {
-                boxState.littleVisitors[$scope.row][$scope.column] = $scope.littleBoxObject;
-            }
-             
-        };
-        
-        var calculateHitsRuns = function() {
-         
-                if (gameState.currentTeam == 'visitors') {
-                   
-                   var visitorBatterHits =0;
-                   boxState.visitorsRawStats[$scope.row][$scope.column] = $scope.rawStats;
-                   
-                   boxState.visitorsHitsRunsErrors[$scope.column].hits =0;
-                   boxState.visitorsHitsRunsErrors[$scope.column].runs =0; 
-                   boxState.visitorsHitsRunsErrors[$scope.column].errors =0;
-                    
-                    
-                   for (var i=0; i<9; i++) {
-                       if (boxState.visitorsRawStats[i][$scope.column]) {
-                           visitorsBatterHits = boxState.visitorsRawStats[i][$scope.column].single + boxState.visitorsRawStats[i][$scope.column].double + boxState.visitorsRawStats[i][$scope.column].triple + boxState.visitorsRawStats[i][$scope.column].hr;
-                           
-                           boxState.visitorsHitsRunsErrors[$scope.column].hits += visitorsBatterHits;
-                           
-                           boxState.visitorsHitsRunsErrors[$scope.column].runs += boxState.visitorsRawStats[i][$scope.column].r; 
-                           
-                           boxState.homeHitsRunsErrors[$scope.column].errors +=
-                               boxState.visitorsRawStats[i][$scope.column].e;
-                           
-                           
-
-                           console.log('hit: ' + boxState.visitorsHitsRunsErrors[$scope.column].hits);
-                           console.log('run: ' + boxState.visitorsHitsRunsErrors[$scope.column].runs); 
-                           console.log('errors: ' + boxState.homeHitsRunsErrors[$scope.column].errors);
-                           
-                       }
-                    }
-                }
-                
-                if (gameState.currentTeam == 'home') {
-                  var homeBatterHits =0;
-                  boxState.homeRawStats[$scope.row][$scope.column] = $scope.rawStats;
-                  
-                  boxState.homeHitsRunsErrors[$scope.column].hits = 0;
-                  boxState.homeHitsRunsErrors[$scope.column].runs = 0;
-                  boxState.homeHitsRunsErrors[$scope.column].errors =0;
-                    
-                    
-                    
-                  for (var i=0; i<9; i++) {
-                    if (boxState.homeRawStats[i][$scope.column]) {
-                      
-                       homeBatterHits = boxState.homeRawStats[i][$scope.column].single + boxState.homeRawStats[i][$scope.column].double + boxState.homeRawStats[i][$scope.column].triple + boxState.homeRawStats[i][$scope.column].hr;
-
-                       boxState.homeHitsRunsErrors[$scope.column].hits += homeBatterHits;
-
-                       boxState.homeHitsRunsErrors[$scope.column].runs += boxState.homeRawStats[i][$scope.column].r; 
-                        
-                       boxState.visitorsHitsRunsErrors[$scope.column].errors += boxState.homeRawStats[i][$scope.column].e
-  
-                    }  
-                      
-                  }
-                  
-                }
-            
-            gameState.visitorsRuns = 0;
-            gameState.visitorsHits = 0;
-            gameState.visitorsErrors = 0;
-            
-            gameState.homeRuns = 0;
-            gameState.homeHits = 0;
-            gameState.homeErrors = 0;
-            
-            
-            
-            for (var i=0; i<9; i++) {
-                gameState.visitorsRuns += boxState.visitorsHitsRunsErrors[i].runs;
-                
-                
-                gameState.visitorsHits += boxState.visitorsHitsRunsErrors[i].hits;
-                
-                gameState.visitorsErrors += boxState.visitorsHitsRunsErrors[i].errors;
-                
-                gameState.homeRuns += boxState.homeHitsRunsErrors[i].runs;
-                
-                gameState.homeHits += boxState.homeHitsRunsErrors[i].hits;
-               
-                
-                gameState.homeErrors += boxState.homeHitsRunsErrors[i].errors;
-               
-            
-            }
-            
-            $rootScope.$broadcast('updateHitsRuns', {column: $scope.column});
-            $rootScope.$broadcast('updateLineScore');
-        };
-        
-        $rootScope.$on('updateHitsRuns', function(event, args) {
-                if (gameState.currentTeam == 'home'){
-                    $scope.homeInningHits[args.column] = boxState.homeHitsRunsErrors[args.column].hits;
-                    $scope.homeInningRuns[args.column] = boxState.homeHitsRunsErrors[args.column].runs;
-                }
-                
-                if (gameState.currentTeam == 'visitors'){
-                   $scope.visitorsInningHits[args.column] = boxState.visitorsHitsRunsErrors[args.column].hits;
-                   $scope.visitorsInningRuns[args.column] = boxState.visitorsHitsRunsErrors[args.column].runs;
-                }
-            });
-        
-        
-        
         var generateStatsObject = function() {
                 
                 if (gameState.currentTeam == 'visitors') {
@@ -575,6 +408,182 @@
         }
 
         
+        
+        var calculateHitsRuns = function() {
+         
+                if (gameState.currentTeam == 'visitors') {
+                   
+                   var visitorBatterHits =0;
+                   boxState.visitorsRawStats[$scope.row][$scope.column] = $scope.rawStats;
+                   
+                   boxState.visitorsHitsRunsErrors[$scope.column].hits =0;
+                   boxState.visitorsHitsRunsErrors[$scope.column].runs =0; 
+                   boxState.visitorsHitsRunsErrors[$scope.column].errors =0;
+                    
+                    
+                   for (var i=0; i<9; i++) {
+                       if (boxState.visitorsRawStats[i][$scope.column]) {
+                           visitorsBatterHits = boxState.visitorsRawStats[i][$scope.column].single + boxState.visitorsRawStats[i][$scope.column].double + boxState.visitorsRawStats[i][$scope.column].triple + boxState.visitorsRawStats[i][$scope.column].hr;
+                           
+                           boxState.visitorsHitsRunsErrors[$scope.column].hits += visitorsBatterHits;
+                           
+                           boxState.visitorsHitsRunsErrors[$scope.column].runs += boxState.visitorsRawStats[i][$scope.column].r; 
+                           
+                           boxState.homeHitsRunsErrors[$scope.column].errors +=
+                               boxState.visitorsRawStats[i][$scope.column].e;
+                           
+                           
+
+                           console.log('hit: ' + boxState.visitorsHitsRunsErrors[$scope.column].hits);
+                           console.log('run: ' + boxState.visitorsHitsRunsErrors[$scope.column].runs); 
+                           console.log('errors: ' + boxState.homeHitsRunsErrors[$scope.column].errors);
+                           
+                       }
+                    }
+                }
+                
+                if (gameState.currentTeam == 'home') {
+                  var homeBatterHits =0;
+                  boxState.homeRawStats[$scope.row][$scope.column] = $scope.rawStats;
+                  
+                  boxState.homeHitsRunsErrors[$scope.column].hits = 0;
+                  boxState.homeHitsRunsErrors[$scope.column].runs = 0;
+                  boxState.homeHitsRunsErrors[$scope.column].errors =0;
+                    
+                    
+                    
+                  for (var i=0; i<9; i++) {
+                    if (boxState.homeRawStats[i][$scope.column]) {
+                      
+                       homeBatterHits = boxState.homeRawStats[i][$scope.column].single + boxState.homeRawStats[i][$scope.column].double + boxState.homeRawStats[i][$scope.column].triple + boxState.homeRawStats[i][$scope.column].hr;
+
+                       boxState.homeHitsRunsErrors[$scope.column].hits += homeBatterHits;
+
+                       boxState.homeHitsRunsErrors[$scope.column].runs += boxState.homeRawStats[i][$scope.column].r; 
+                        
+                       boxState.visitorsHitsRunsErrors[$scope.column].errors += boxState.homeRawStats[i][$scope.column].e
+  
+                    }  
+                      
+                  }
+                  
+                }
+            
+            gameState.visitorsRuns = 0;
+            gameState.visitorsHits = 0;
+            gameState.visitorsErrors = 0;
+            
+            gameState.homeRuns = 0;
+            gameState.homeHits = 0;
+            gameState.homeErrors = 0;
+            
+            
+            
+            for (var i=0; i<9; i++) {
+                gameState.visitorsRuns += boxState.visitorsHitsRunsErrors[i].runs;
+                
+                
+                gameState.visitorsHits += boxState.visitorsHitsRunsErrors[i].hits;
+                
+                gameState.visitorsErrors += boxState.visitorsHitsRunsErrors[i].errors;
+                
+                gameState.homeRuns += boxState.homeHitsRunsErrors[i].runs;
+                
+                gameState.homeHits += boxState.homeHitsRunsErrors[i].hits;
+               
+                
+                gameState.homeErrors += boxState.homeHitsRunsErrors[i].errors;
+               
+            
+            }
+            
+            $rootScope.$broadcast('updateHitsRuns', {column: $scope.column});
+            $rootScope.$broadcast('updateLineScore');
+        };
+        
+        $rootScope.$on('updateHitsRuns', function(event, args) {
+                if (gameState.currentTeam == 'home'){
+                    $scope.homeInningHits[args.column] = boxState.homeHitsRunsErrors[args.column].hits;
+                    $scope.homeInningRuns[args.column] = boxState.homeHitsRunsErrors[args.column].runs;
+                }
+                
+                if (gameState.currentTeam == 'visitors'){
+                   $scope.visitorsInningHits[args.column] = boxState.visitorsHitsRunsErrors[args.column].hits;
+                   $scope.visitorsInningRuns[args.column] = boxState.visitorsHitsRunsErrors[args.column].runs;
+                }
+            });
+        
+        
+             
+// Updates the elements required for the little Box view
+        var updateLittleBox = function() {
+            
+            $scope.first = $scope.littleBoxObject.first;
+            $scope.second = $scope.littleBoxObject.second;
+            $scope.third = $scope.littleBoxObject.third;
+            $scope.home = $scope.littleBoxObject.home;
+            
+            $scope.oneOut = $scope.littleBoxObject.oneOut;
+            $scope.twoOut = $scope.littleBoxObject.twoOut;
+            $scope.threeOut = $scope.littleBoxObject.threeOut;
+            $scope.fieldBackground = $scope.littleBoxObject.fieldBackground;
+            
+            if ($scope.littleBoxObject.status == 'at-bat-out' || $scope.littleBoxObject.status == 'on-base-out') {      
+                $scope.center = 'true';
+            }
+            
+        };
+        
+// Updates the content for the little box      
+            
+        var updateLittleBoxObject = function() {
+                   
+            $scope.littleBoxObject.first = $scope.atBatFactory.First;
+            console.log('littleBoxObject.first: ' + $scope.littleBoxObject.first);
+            $scope.littleBoxObject.second = $scope.atBatFactory.Second;
+            console.log('littleBoxObject.second: ' + $scope.littleBoxObject.second);
+            $scope.littleBoxObject.third = $scope.atBatFactory.Third;
+            console.log('littleBoxObject.third: ' + $scope.littleBoxObject.third);
+            $scope.littleBoxObject.home = $scope.atBatFactory.Home;
+            console.log('littleBoxObject.home: ' + $scope.littleBoxObject.home);
+            $scope.littleBoxObject.fieldBackground = $scope.atBatFactory.background;
+            
+            
+            if ($scope.bigBoxState == 'at-bat-out' || $scope.bigBoxState == 'on-base-out') {
+                
+                $scope.littleBoxObject.oneOut = $scope.atBatFactory.oneOut;
+                $scope.littleBoxObject.twoOut = $scope.atBatFactory.twoOut;
+                $scope.littleBoxObject.threeOut = $scope.atBatFactory.threeOut;  
+            } else {
+
+                $scope.littleBoxObject.oneOut = null;
+                $scope.littleBoxObject.twoOut = null;
+                $scope.littleBoxObject.threeOut = null;
+            }
+            
+            
+            $scope.littleBoxObject.status = $scope.littleBoxState;
+            updateLittleBox();
+            
+            //  need logic here to chose between home/visitor's little box
+            
+            if (gameState.currentTeam == 'home') {
+                boxState.littleHome[$scope.row][$scope.column] = $scope.littleBoxObject;
+            }
+            if (gameState.currentTeam == 'visitors') {
+                boxState.littleVisitors[$scope.row][$scope.column] = $scope.littleBoxObject;
+            }
+             
+        };
+        
+   
+// Sets the bigBoxState to null--Do we need all the "if" statements?  
+// Sets littleBoxState to 'at-bat-out' if appropriate.
+// This needs to be looked at for simplification.
+// Calls updateLittleBoxObject()
+// Hides the bigBox dialog box
+
+        
         $scope.exitToLittleBox = function(){
             if (($scope.bigBoxState == 'at-bat-on-base')|| ($scope.bigBoxState == 'on-base-advance')) {
                 boxState.big[$scope.row][$scope.column] = null;  
@@ -598,9 +607,9 @@
             $scope.bigBoxState = null;
             $mdDialog.hide();
             $scope.showLittleBox = 'after';
-            if (inningState.outs === 3) {
-                inningState.outs=0;
-            }
+//            if (inningState.outs === 3) {
+//                inningState.outs=0;
+//           }
             
         }
         
