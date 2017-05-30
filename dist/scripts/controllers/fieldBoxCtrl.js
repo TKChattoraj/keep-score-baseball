@@ -394,6 +394,9 @@
         $scope.bigBoxOut = function(event){
             if ($scope.littleBoxState=='at-bat') {
                 $scope.bigBoxState = 'at-bat-out';
+                boxState.batterBox.row = $scope.row;
+                boxState.batterBox.column = $scope.column;
+                console.log(boxState.batterBox.row, boxState.batterBox.column);
             } else {
                 $scope.bigBoxState = 'on-base-out';
             }
