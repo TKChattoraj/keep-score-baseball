@@ -90,7 +90,8 @@
           
           'batterBox': {
               row: 0,
-              column: 0
+              column: 0,
+              doublePlay: false
           },
         
           'homePlayerGameStats': [],

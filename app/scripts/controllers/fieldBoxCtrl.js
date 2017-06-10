@@ -99,7 +99,7 @@
                     
                     if ($scope.littleBoxObject.status == 'initial') {
                         var playerID = gameState.visitors.lineup[$scope.row].id;
-                        $scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, hb: 0, wp: 0, pb: 0, sb: 0, cs: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0, playerID: playerID, teamID: '', }; 
+                        $scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, hb: 0, wp: 0, pb: 0, sb: 0, cs: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0, doublePlay: false, singleString: '', doubleString: '', tripleString: '', scoreString: '', centerString: '', playerID: playerID, teamID: '', }; 
                     
                     boxState.visitorsRawStats[$scope.row][$scope.column] = $scope.rawStats;
 
@@ -111,7 +111,7 @@
                 if (gameState.currentTeam == 'home') {
                     if ($scope.littleBoxObject.status == 'initial') {
                         var playerID = gameState.home.lineup[$scope.row].id;
-                        $scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, hb: 0, wp: 0, pb: 0, sb: 0, cs: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0, playerID: playerID, teamID: '', };
+                        $scope.rawStats = {ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, hb: 0, wp: 0, pb: 0, sb: 0, cs: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0, doublePlay: false, singleString: '', doubleString: '', tripleString: '', scoreString: '', centerString: '', playerID: playerID, teamID: '', };
                         boxState.homeRawStats[$scope.row][$scope.column] = $scope.rawStats;
                     } else {
                        $scope.rawStats = boxState.homeRawStats[$scope.row][$scope.column];
@@ -122,26 +122,115 @@
         
         
         var calculateRBI = function() {
-            
+            $scope.rbi = true;
+            // stat is the rawStats associated to the present batter--the one who might get the rbi
             var stat = {};
             if (gameState.currentTeam == 'visitors') {
                     stat = boxState.visitorsRawStats[boxState.batterBox.row] [boxState.batterBox.column];
             } else {
                 stat = boxState.homeRawStats[boxState.batterBox.row][ boxState.batterBox.column];
             }
-            console.log('stat: ' + stat.single, stat.double, stat.triple, stat.hr, stat.sac, stat.bb);
-            if ((stat.single == 1) || (stat.double == 1) || (stat.triple == 1) || (stat.hr == 1) || (stat.sac == 1) || (stat.bb == 1)) {
+            
+            if (stat.k == 1) {
+                //no rbi
+                $scope.rbi = false;
+                incrementRBI();
+            } else if (stat.e > 0) {
+                $scope.rbi = false;
+                //no rbi 
+                //but there is an rbi if less than 2 outs, runner on third would have scored even if no error
                 
-                stat.rbi += 1;
-                console.log('rbi: ' + stat.rbi);
+                //showRBIDialog(incrementRBI);
+                console.log('basePathState.previousBase: ' + basePathState.previousBase);
+                console.log('AtBatFactory.Home: ' + AtBatFactory.Home)
+                if (AtBatFactory.Home === 'advance-from-third'){
+                    showRBIDialog();
+                }
+                
+                            
+                console.log("E2 and rbi: " + $scope.rbi);
+            } else if (stat.doublePlay) {
+                //no rbi
+                //but need to make clarification that double play is a ground force or reverse force double play
+                $scope.rbi = false;
+              
+//                switch (stat.centerString) {
+//                        case '':
+//                            
+//                            
+//                            break;
+//                        case '':
+//                            
+//                            break;
+//                        case '':
+//                            
+//                            break;
+//                        case '':
+//                            
+//                            break;
+//                
+//                }
+                 incrementRBI();
+          
+            } else {
+                incrementRBI();
             }
+            console.log("E3 and rbi:  " + $scope.rbi);
+//            if ($scope.rbi) {
+//                console.log("E4 and rbi: " + $scope.rbi);
+//                stat.rbi +=1;
+//                console.log("E5 and rbi: " + $scope.rbi);
+//            }
+            
 
             if (gameState.currentTeam == 'home') {
                   boxState.homeRawStats[boxState.batterBox.row] [boxState.batterBox.column].rbi = stat.rbi;
             } else {
                  boxState.visitorsRawStats[boxState.batterBox.row] [boxState.batterBox.column].rbi = stat.rbi;
-            }    
+            } 
+            console.log('E6');
+            
+            function incrementRBI() {
+                if ($scope.rbi) {
+                    console.log("E4 and rbi: " + $scope.rbi);
+                    stat.rbi +=1;
+                    console.log("E5 and rbi: " + $scope.rbi);
+                }
+            }
+            
+            
+            function showRBIDialog(){
+            
+                $mdDialog.show({
+                    clickOutsideToClose: true,
+                    scope: $scope,
+                    preserveScope: true,
+                    templateUrl: '/templates/rbiBox.html',
+                    controller:  'fieldBoxCtrl as fieldBox'
+                });
+                return $scope.rbi;
+            }
+    
+            $scope.closeDialogRBI = function() {
+                $scope.rbi = true;
+                incrementRBI();
+                $mdDialog.hide();
+                console.log("closeDialog #1 and rbi value: " + $scope.rbi);
+                return $scope.rbi;
+            }
+            
+            $scope.closeDialogNoRBI = function() {
+                $scope.rbi = false;
+                incrementRBI();
+                $mdDialog.hide();
+                console.log("closeDialog #1 and rbi value: " + $scope.rbi);
+                return $scope.rbi;
+            }
+   
         };
+        
+        
+        
 /*  
     Figures the raw stats to be associated with a little box
 */        
@@ -170,7 +259,12 @@
                 } else if (target == 'HB') {
                     
                     $scope.rawStats.hb = 1;
-                } else {
+                } else if (target == 'Double Play') {
+                    $scope.rawStats.doublePlay = true;
+                    console.log($scope.rawStats.doublePlay);
+                }
+                
+                else {
                    
                     switch ($scope.littleBoxState) {
                         case 'first-base':
@@ -224,6 +318,12 @@
                 }
                 
             }
+            
+            $scope.rawStats.singleString = $scope.singleString;
+            $scope.rawStats.doubleString = $scope.doubleString;
+            $scope.rawStats.tripleString = $scope.tripleString;
+            $scope.rawStats.scoreString = $scope.scoreString;
+            $scope.rawStats.centerString = $scope.centerString;
           
             if (gameState.currentTeam == 'home') {
                   boxState.homeRawStats[$scope.row][$scope.column] = $scope.rawStats;
@@ -329,7 +429,13 @@
         
         $scope.putOut = function(event){
             var target = event.currentTarget.innerHTML;
-            if ((target == 'Caught Stealing!')|| (target == 'SAC')) {
+//            if (target == 'Double Play') {
+//                // rawStats.doublePlay = true means the associated at-bat initiated
+//                // caused the double play.  
+//                //$scope.rawStats.doublePlay = true;
+//                console.log('double play? ' + $scope.rawStats.doublePlay);
+//            }
+            if ((target == 'Caught Stealing!')|| (target == 'SAC') || (target == 'Double Play')) {
                 updateRawStatsObject(target);
             } else if (target === 'Submit') {
                 
