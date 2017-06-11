@@ -122,6 +122,7 @@
         
         
         var calculateRBI = function() {
+            var dialogTemplateURL;
             $scope.rbi = true;
             // stat is the rawStats associated to the present batter--the one who might get the rbi
             var stat = {};
@@ -137,22 +138,25 @@
                 incrementRBI();
             } else if (stat.e > 0) {
                 $scope.rbi = false;
-                //no rbi 
-                //but there is an rbi if less than 2 outs, runner on third would have scored even if no error
                 
-                //showRBIDialog(incrementRBI);
-                console.log('basePathState.previousBase: ' + basePathState.previousBase);
-                console.log('AtBatFactory.Home: ' + AtBatFactory.Home)
-                if (AtBatFactory.Home === 'advance-from-third'){
-                    showRBIDialog();
-                }
+                dialogTemplateURL ='/templates/errorRBIBox.html';
+                showRBIDialog(dialogTemplateURL);
                 
-                            
-                console.log("E2 and rbi: " + $scope.rbi);
+                /*  The note AtBatFactoy.Home = 'advance-from-third' is how
+                to tell if the runner scoring came from third
+                */
+                
+//                if (AtBatFactory.Home === 'advance-from-third'){
+//                    dialogTemplateURL = '/templates/errorRBIBox.html';
+//                    showRBIDialog(dialogTemplateURL);
+//                }
+                
             } else if (stat.doublePlay) {
                 //no rbi
                 //but need to make clarification that double play is a ground force or reverse force double play
                 $scope.rbi = false;
+                dialogTemplateURL = '/templates/doublePlayRBIBox.html';
+                showRBIDialog(dialogTemplateURL);
               
 //                switch (stat.centerString) {
 //                        case '':
@@ -170,17 +174,10 @@
 //                            break;
 //                
 //                }
-                 incrementRBI();
           
             } else {
                 incrementRBI();
             }
-            console.log("E3 and rbi:  " + $scope.rbi);
-//            if ($scope.rbi) {
-//                console.log("E4 and rbi: " + $scope.rbi);
-//                stat.rbi +=1;
-//                console.log("E5 and rbi: " + $scope.rbi);
-//            }
             
 
             if (gameState.currentTeam == 'home') {
@@ -199,23 +196,22 @@
             }
             
             
-            function showRBIDialog(){
+            function showRBIDialog(templateURL){
             
                 $mdDialog.show({
                     clickOutsideToClose: true,
                     scope: $scope,
                     preserveScope: true,
-                    templateUrl: '/templates/rbiBox.html',
+                    templateUrl: templateURL,
                     controller:  'fieldBoxCtrl as fieldBox'
                 });
-                return $scope.rbi;
+                
             }
     
             $scope.closeDialogRBI = function() {
                 $scope.rbi = true;
                 incrementRBI();
                 $mdDialog.hide();
-                console.log("closeDialog #1 and rbi value: " + $scope.rbi);
                 return $scope.rbi;
             }
             
@@ -223,7 +219,6 @@
                 $scope.rbi = false;
                 incrementRBI();
                 $mdDialog.hide();
-                console.log("closeDialog #1 and rbi value: " + $scope.rbi);
                 return $scope.rbi;
             }
    
