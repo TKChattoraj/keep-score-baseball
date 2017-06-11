@@ -571,10 +571,20 @@
             
             $scope.yesDoublePlay = function(){
                 
+                var stat = {};
+                if (gameState.currentTeam == 'visitors') {
+                        boxState.visitorsRawStats[boxState.batterBox.row] [boxState.batterBox.column].doublePlay = true;
+                } else {
+                    boxState.homeRawStats[boxState.batterBox.row][ boxState.batterBox.column].doublePlay = true;
+                }
+                
+                $mdDialog.hide();
+                
+                
             };
             
             $scope.noDoublePlay = function(){
-                
+                 $mdDialog.hide();
             };
             
             
