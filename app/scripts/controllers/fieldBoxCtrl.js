@@ -441,6 +441,94 @@
             $scope.bottomRightOuts = 'true';
             $scope.centerString = $scope.putOutArray.join('-');
             
+            
+            
+            if (target === 'Submit') {
+                switch($scope.centerString) {
+                    
+                    
+                    case '1-2-5':
+                    case '1-2-4':  
+                    case '1-2-6':
+                    case '1-2-3':       
+                        
+                    
+                    case '1-5-4':    
+                    case '1-5-6':
+                    case '1-5-3': 
+                             
+                    case '1-4-3':
+                    case '1-6-3':
+                    
+                    case '2-5':
+                    case '2-4':
+                    case '2-6':
+                    case '2-3':
+                    
+                    case '5-2-5':
+                    case '5-2-4':
+                    case '5-2-6':
+                    case '5-4':
+                    case '5-6':
+                    case '5-3':
+                    case '5-4-3':
+                    case '5-6-3':
+                    
+                        
+                    case '6-2-5':
+                    case '6-2-6':
+                    case '6-2-4':
+                    case '6-2-3':
+                    
+                    case '6-5-4':
+                    case '6-5-6':
+                    case '6-5-3':    
+   
+                    case '6-4-3':
+                    case '6-3':
+                    
+                        
+                    case '4-2-5':
+                    case '4-2-4':
+                    case '4-2-6':
+                    case '4-2-3':
+                        
+                    case '4-5-6':
+                    case '4-5-4':
+                    case '4-5-3':
+    
+                    case '4-6-3':
+                    case '4-3':
+                   
+                    case '3-2-5':
+                    case '3-2-4':
+                    case '3-2-6':
+                    case '3-2-3':
+                    
+                    case '3-5-4':
+                    case '3-5-6':
+                    case '3-5-3':
+                    
+                    case '3-6-3':
+                    case '3-4-3':
+                       
+                        
+                        $mdDialog.show({
+                            clickOutsideToClose: true,
+                            scope: $scope,
+                            preserveScope: true,
+                            templateUrl: '/templates/doublePlayDialog.html',
+                            controller:  'fieldBoxCtrl as fieldBox'
+                        });
+                        break;
+                    default:
+                        break;
+                        
+                        
+                }
+            }
+            
+            
             // \u is Javascript escape for unicode and A4D8 is the hexidecimal code for the 'backwards k'
             if (target == 'K' || target == '\uA4D8' || target === 'Submit') {
                 updateRawStatsObject(target);
@@ -479,6 +567,20 @@
             }
 
             event.stopPropagation();
+            
+            
+            $scope.yesDoublePlay = function(){
+                
+            };
+            
+            $scope.noDoublePlay = function(){
+                
+            };
+            
+            
+            
+            
+            
         }
         
         $scope.set_background_color = function() {
