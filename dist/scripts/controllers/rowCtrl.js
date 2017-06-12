@@ -48,7 +48,7 @@
                     // Remember rawStats are the stats for individual little boxes
                     rawStats = boxState.homeRawStats[p][col];
                     } else if (gameState.currentTeam == 'visitors'){    
-                    rawStats = boxState.vistorsRawStats[p][col];
+                    rawStats = boxState.visitorsRawStats[p][col];
                 }
                 
                 if (rawStats && (rawStats.playerID === playerID)) {
@@ -82,7 +82,7 @@
             if (gameState.currentTeam == 'home'){
                     boxState.homePlayerGameStats[p] = gameStatsObject;
                     $scope.playerStats = boxState.homePlayerGameStats;
-                } else if (gameState.currentTeam == 'visitors'){    
+            } else if (gameState.currentTeam == 'visitors'){    
                     boxState.visitorsPlayerGameStats[p] = gameStatsObject;
                     $scope.playerStats = boxState.visitorsPlayerGameStats;
                 }
@@ -93,15 +93,17 @@
    //****Coding Note*******************
         /* 
         Using a team's lineup to gather the game stats.  When doing this for real, 
-        will need to cycle through all players that played the game.  This will require keeping track of those who have been taken out of the game.  Those who didn't get into the game will need to be padded with zeros.  
+        will need to cycle through all players that played the game not just those cuurently in the lineup.  This will require keeping track of those who have been taken out of the game.  Those who didn't get into the game will need to be padded with zeros.  
         */
    //****Coding Note*******************
         
         var lineup;
         if (gameState.currentTeam == 'home'){
             lineup = gameState.home.lineup;
-        } else if (gameState.currentTeam == 'visitors'){    
+        } else if (gameState.currentTeam == 'visitors'){ 
+            
             lineup = gameState.visitors.lineup;
+            console.log(lineup);
         } else {
             console.log("Error!  Find a Team");
         }

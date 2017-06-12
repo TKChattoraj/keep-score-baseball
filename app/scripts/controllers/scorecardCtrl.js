@@ -16,8 +16,7 @@
         }
         
         
-        $http(getTeamsReq).then(function(response){getTeamSuccess(response)},
-                       function(response){
+        $http(getTeamsReq).then(function(response){getTeamSuccess(response)},function(response){
             $scope.teamz = "Error!  Error!"
         });
         
@@ -137,11 +136,11 @@
             });
         $scope.raw = 'loading...';
         
-        $scope.showRawStat = function() {
-            $scope.raw = boxState.homePlayerGameStats[0].gameStats.ab;
-            console.log(boxState.homePlayerGameStats[0].gameStats.ab);
-            
-            }
+//        $scope.showRawStat = function() {
+//            $scope.raw = boxState.homePlayerGameStats[0].gameStats.ab;
+//            console.log(boxState.homePlayerGameStats[0].gameStats.ab);
+//            
+//            }
     
       }
     
