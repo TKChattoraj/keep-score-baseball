@@ -28,21 +28,31 @@
             
         });
         
- var getPlayerGameStats = function(p, playerID) {
-            console.log('into getPlayerGameStats');
+    var getPlayerGameStats = function(p, playerID) {
             var playerGameStats = {
                 ab: 0, pa: 0, single: 0, double: 0, triple: 0, hr: 0, bb: 0, e: 0, fc: 0, hb: 0, wp: 0, pb: 0, sb: 0, cs: 0, balk: 0, rbi: 0, r: 0, er: 0, sac: 0, k: 0
             };
+    /* gameStatsObject = {playerID: --id#--, gamesStats: {--games totals--}}
+    
+    */
             var gameStatsObject = {};
             gameStatsObject.playerID = playerID;
             var rawStats;
             var i = 1;
+    //****Coding Note*******************
+        // column at 10 will need to actually be the number of innings in the game
+    //****Coding Note*******************
             for (var col = 0; col<10; col++) {
-                rawStats = boxState.homeRawStats[p][col];
+                
+                if (gameState.currentTeam == 'home'){
+                    // Remember rawStats are the stats for individual little boxes
+                    rawStats = boxState.homeRawStats[p][col];
+                    } else if (gameState.currentTeam == 'visitors'){    
+                    rawStats = boxState.vistorsRawStats[p][col];
+                }
+                
                 if (rawStats && (rawStats.playerID === playerID)) {
-                    console.log('adding to the stats: ' + i );
-                    console.log('rawStats.k: ' + rawStats.k);
-                    console.log('rawStats.single: ' + rawStats.single);
+
                     playerGameStats.ab += rawStats.ab;
                     playerGameStats.pa += rawStats.pa;
                     playerGameStats.single += rawStats.single;
@@ -69,26 +79,45 @@
             
             gameStatsObject.gameStats = playerGameStats;
             
-            boxState.homePlayerGameStats[p] = gameStatsObject;
-            $scope.playerStats = boxState.homePlayerGameStats;
-       
+            if (gameState.currentTeam == 'home'){
+                    boxState.homePlayerGameStats[p] = gameStatsObject;
+                    $scope.playerStats = boxState.homePlayerGameStats;
+                } else if (gameState.currentTeam == 'visitors'){    
+                    boxState.visitorsPlayerGameStats[p] = gameStatsObject;
+                    $scope.playerStats = boxState.visitorsPlayerGameStats;
+                }
         };
         
-        $scope.calculateGameStats = function() {
-            console.log('into calculateGameStats');
-            var lineup = gameState.home.lineup;
-            for (var p = 0; p<lineup.length; p++) {
-                var playerID = lineup[p].id;
-                getPlayerGameStats(p, playerID);
-            }
+    $scope.calculateGameStats = function() {
+        
+   //****Coding Note*******************
+        /* 
+        Using a team's lineup to gather the game stats.  When doing this for real, 
+        will need to cycle through all players that played the game.  This will require keeping track of those who have been taken out of the game.  Those who didn't get into the game will need to be padded with zeros.  
+        */
+   //****Coding Note*******************
+        
+        var lineup;
+        if (gameState.currentTeam == 'home'){
+            lineup = gameState.home.lineup;
+        } else if (gameState.currentTeam == 'visitors'){    
+            lineup = gameState.visitors.lineup;
+        } else {
+            console.log("Error!  Find a Team");
+        }
+        
+        for (var p = 0; p<lineup.length; p++) {
+            var playerID = lineup[p].id;
+            getPlayerGameStats(p, playerID);
+        }
             
-        }       
+    }       
         
         
         
 // put the bench into the $scope.bench
         
-        $rootScope.$on('getLineupAndBench', function(){
+    $rootScope.$on('getLineupAndBench', function(){
             
             if (gameState.currentTeam == 'home') {
                 $scope.bench = gameState.home.bench;
