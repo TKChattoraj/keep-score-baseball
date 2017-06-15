@@ -311,9 +311,11 @@
        
 
             <div ng-controller='rowCtrl'>
-            <button type="button" class='btn btn-default' ng-click='calculateGameStats()' >Stats</button>
-            <div>{{playerStats}}</div>
+                <button type="button" class='btn btn-default' ng-click='calculateGameStats()' >Stats</button>
+                <div>{{playerStats}}</div>
 
+                <button type="button" class='btn btn-default' ng-click='postGameStats()'>Post Stats</button>
+                <div>{{postStats}}</div>
             </div>
     
         

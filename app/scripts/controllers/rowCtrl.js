@@ -1,5 +1,5 @@
 (function() {
-    function RowCtrl($scope, Lineup, $rootScope, gameState, boxState){
+    function RowCtrl($scope, Lineup, $rootScope, gameState, boxState, $http){
         $scope.lineup = Lineup;     
         $scope.getIndex = function(i) {
             $scope.rowIndex = i;
@@ -86,6 +86,10 @@
                     boxState.visitorsPlayerGameStats[p] = gameStatsObject;
                     $scope.playerStats = boxState.visitorsPlayerGameStats;
                 }
+        
+            
+        
+        
         };
         
     $scope.calculateGameStats = function() {
@@ -113,9 +117,40 @@
             getPlayerGameStats(p, playerID);
         }
             
-    }       
+    }    
+    
+    $scope.postStats = 'Waiting to Post';
+    //Posting Game stats to the rails backend
+    //Need to include the correct parameters
+    $scope.postGameStats = function(){
+        var gameStats;
+        var teamID;
+        if (gameState.currentTeam == 'home'){
+            teamID = gameState.home.id;
+            gameStats =boxState.homePlayerGameStats;
+        } else if (gameState.currentTeam == 'visitors'){ 
+            
+            teamID = gameState.visitors.id;
+            gameStats = boxState.visitorsPlayerGameStats;
+
+        } else {
+            console.log("Error!  Find a Team");
+        }
+        var postGameStats = {
+                    method: 'POST',
+                    url:'http://localhost:3000/api/keepscore/game_stats',
+                    data: {team: teamID, gameStats: gameStats}
+        }
+
+        var postGameStatsSuccess = function(response) {
+            $scope.postGameStats = response.data;
+        }
+
+
+        $http(postGameStats).then(function(response){$scope.postStats = "Success!"}, function(response){$scope.postStats = "Error! Error!"});
+
         
-        
+    };
         
 // put the bench into the $scope.bench
         
@@ -134,5 +169,5 @@
         
     angular 
         .module('scorecardMod')
-        .controller('rowCtrl', ['$scope', 'Lineup', '$rootScope', 'gameState', 'boxState', RowCtrl]);
+        .controller('rowCtrl', ['$scope', 'Lineup', '$rootScope', 'gameState', 'boxState', '$http', RowCtrl]);
 })();
