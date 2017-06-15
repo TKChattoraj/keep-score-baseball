@@ -138,7 +138,7 @@
         }
         var postGameStats = {
                     method: 'POST',
-                    url:'http://localhost:3000/api/keepscore/game_stats',
+                    url:'http://localhost:3000/api/keepscore/post_game_stats',
                     data: {team: teamID, gameStats: gameStats}
         }
 
