@@ -143,11 +143,15 @@
         }
 
         var postGameStatsSuccess = function(response) {
-            $scope.postGameStats = response.data;
+            console.log(response);
+            console.log(response.data);
+            $scope.postStats = response.data;
         }
 
 
-        $http(postGameStats).then(function(response){$scope.postStats = "Success!"}, function(response){$scope.postStats = "Error! Error!"});
+        $http(postGameStats).then(function(response){postGameStatsSuccess(response)}, function(response){
+            console.log(response);
+            $scope.postStats = "Error!  Error!"});
 
         
     };
