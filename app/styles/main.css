@@ -1,7 +1,16 @@
 .container {
     margin-left: 15px;
     max-width: 90%;
-    width: 60%
+    width: 60%;
+    
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    
+    background-color: #b1c489;
+    
+    
 } 
 
 /* Medium and small screens (640px) */
@@ -45,12 +54,12 @@
 }
 
 html {
-    height: 100%; /* makes HTML takes up 100% of the browser window */
+    
     font-size: 100%;
 }
 
 body {
-    background-color: lightgreen;
+    background-color: #eee;
     background-position: center center;
     background-size: cover;
     
@@ -64,8 +73,9 @@ body {
 .navbar {
     position: relative;
     padding: 0.5rem;
-    background-color: rgba(101, 18, 95, 0.5);
+    background-color: #c4856a;
     z-index: 1;
+    margin: 10px;
 }
 .navbar .logo {
     position: relative; 

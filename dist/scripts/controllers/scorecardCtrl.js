@@ -3,7 +3,7 @@
         
         var getTeamsReq = {
             method: 'GET',
-            url: 'http://localhost:3000/api/keepscore/teams',       
+            url: 'https://infinite-brushlands-93704.herokuapp.com/api/keepscore/teams',       
         }
         
         
