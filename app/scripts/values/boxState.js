@@ -1,34 +1,4 @@
-//(function() {
-//    
-//    angular 
-//        .module('scorecardMod')
-//        .run(function(boxState) {
-//            for (var i=0; i<11; i++) {
-//               for(var j=0; j<11; j++) {
-//                    boxState.little[i][j].status = 'initial';
-//
-//                    boxState.little[i][j].first = null;
-//                    boxState.little[i][j].second = null;
-//                    boxState.little[i][j].third = null;
-//                    boxState.little[i][j].home = null;
-//
-//                    boxState.little[i][j].toFirst = false;
-//                    boxState.little[i][j].toSecond = false; 
-//                    boxState.little[i][j].toThird = false;   
-//                    boxState.little[i][j].toHome = false;
-//
-//                    boxState.little[i][j].advFrmFirst = false;
-//                    boxState.little[i][j].advFrmSecond = false;
-//                    boxState.little[i][j].advFrmThird = false;
-//
-//                    boxState.little[i][j].oneOut = null;
-//                    boxState.little[i][j].twoOut = null;
-//                    boxState.little[i][j].threeOut = null;              
-//               }        
-//            }
-//    });
-//    
-//    })();
+
  
 (function() {
     
@@ -82,7 +52,7 @@
             
 //Will need this object for each little box => {AB: 0, PA: 0, Single: 0, Double: 0, Triple: 0, HR: 0, BB: 0, E: 0, WP: 0, PB: 0, RBI: 0, SB: 0, R: 0, ER: 0, SAC: 0, K: 0}
 
-//Created an initialized when the litteBox first hit in initial state.
+//Created and initialized when the litteBox first hit in initial state.
             
           'homeRawStats': [[], 
                            [], 
@@ -108,6 +78,24 @@
                                []
               
           ],
+        
+          'homeBatter': {
+              row: 0,
+              column: 0
+          },
+          'visitorsBatter': {
+              row: 0,
+              column: 0
+          },
+          
+          'batterBox': {
+              row: 0,
+              column: 0,
+              doublePlay: false
+          },
+        
+          'homePlayerGameStats': [],
+          'visitorsPlayerGameStats': [],
         
           'visitorsHitsRunsErrors': [{hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0}, {hits: 0, runs: 0, errors: 0} ],
         

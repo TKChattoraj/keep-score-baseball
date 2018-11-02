@@ -1,15 +1,22 @@
 (function() {
-    function ScorecardCtrl($rootScope, $scope, teamRoster, gameState, Lineup, $http){
+    function ScorecardCtrl($rootScope, $scope, gameState, Lineup, boxState, $http){
         
-        var req = {
-            method: 'POST',
-            url: 'http://localhost:3000',
+        var getTeamsReq = {
+            method: 'GET',
+            url: 'https://infinite-brushlands-93704.herokuapp.com/api/keepscore/teams',       
+        }
+        
+        
+        
+        var getTeamSuccess = function(response) {
+            $scope.teamz = response.data;
+            
+            
             
         }
         
-        $http(req).then(function(response){
-            $scope.teamz = response.data;},
-                       function(response){
+        
+        $http(getTeamsReq).then(function(response){getTeamSuccess(response)},function(response){
             $scope.teamz = "Error!  Error!"
         });
         
@@ -22,7 +29,7 @@
         $scope.teamRow = [0, 1];
     
         $scope.showHome = false;
-        $scope.showVisitors = true;
+        $scope.showVisitors = false;
         
         $scope.showHomeTeam = function() {
             
@@ -32,7 +39,6 @@
             $rootScope.$broadcast('showHome');
             
             $rootScope.$broadcast('getLineupAndBench');
-            console.log("showing Home: " + $scope.showHome);
         }
         
         $scope.showVisitorTeam = function(){
@@ -58,14 +64,9 @@
             $scope.visitorsName = gameState.visitors.label;
         });
         
-        
-        
-        
-        
-        
-    
+  
         $scope.team = {};
-        $scope.teams = teamRoster;
+
         
         $scope.getIndex = function(i) {
             $scope.teamIndex = i;
@@ -83,9 +84,21 @@
                 $scope.vRuns = gameState.visitorsRuns;
                 $scope.vHits = gameState.visitorsHits;
                 $scope.vErrors = gameState.visitorsErrors;
-                gameState.visitors.bench = gameState.visitors.roster;
-                $rootScope.$broadcast('getLineupAndBench');
-        }
+                 
+                var getRosterReq = {
+                    method: 'GET',
+                    url: 'http://localhost:3000/api/keepscore/roster',
+                    params: {"id": gameState.visitors.id },
+                    };
+
+                    $http(getRosterReq).then
+                        (function(response){gameState.visitors.roster = response.data;                              
+                                           gameState.visitors.bench = gameState.visitors.roster;
+                                            gameState.visitors.lineup = [];}, 
+                         function(response){$scope.roster = "Error!";});
+
+                    $rootScope.$broadcast('getLineupAndBench');
+                    }
                 
         $scope.designateHome = function(){ 
            
@@ -94,7 +107,19 @@
                 $scope.hRuns = gameState.homeRuns;
                 $scope.hHits = gameState.homeHits;
                 $scope.hErrors = gameState.homeErrors;
-                gameState.home.bench = gameState.home.roster;
+                
+                var getRosterReq = {
+                method: 'GET',
+                url: 'http://localhost:3000/api/keepscore/roster',
+                params: {"id": gameState.home.id },
+                };
+        
+                $http(getRosterReq).then
+                    (function(response){gameState.home.roster = response.data;                              
+                                       gameState.home.bench = gameState.home.roster;
+                                        gameState.home.lineup = [];}, 
+                     function(response){$scope.roster = "Error!";});
+           
                 $rootScope.$broadcast('getLineupAndBench');
      
             }
@@ -109,15 +134,18 @@
                 $scope.vHits = gameState.visitorsHits;
                 $scope.vErrors = gameState.visitorsErrors;
             });
+        $scope.raw = 'loading...';
         
-        
+//        $scope.showRawStat = function() {
+//            $scope.raw = boxState.homePlayerGameStats[0].gameStats.ab;
+//            console.log(boxState.homePlayerGameStats[0].gameStats.ab);
+//            
+//            }
     
       }
-    
-        
     
     
     angular 
         .module('scorecardMod')
-        .controller('scorecardCtrl', ['$rootScope', '$scope', 'teamRoster', 'gameState', 'Lineup',  '$http', ScorecardCtrl]);
+        .controller('scorecardCtrl', ['$rootScope', '$scope', 'gameState', 'Lineup',  'boxState', '$http', ScorecardCtrl]);
 })();

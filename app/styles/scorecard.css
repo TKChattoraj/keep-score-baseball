@@ -5,6 +5,8 @@
     z-index: 1;
     
     height: 20%;
+    margin: 10px;
+    border-radius: 6px;
 }
 
 .score-ribbon .scoreboard {
@@ -186,7 +188,6 @@ table.scorecard {
     color: black;
 }
 
-
-
-
+.footer-text {
+    color: black;
 }

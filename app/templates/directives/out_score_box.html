@@ -3,16 +3,11 @@
   <div>
     <button type="button" class='btn btn-default' ng-click='putOut($event)' >K</button>
     <button type="button" class='btn btn-default' ng-click='putOut($event)' >&#xA4D8;</button>
-    <button type="button" class='btn btn-default' ng-click='putOut($event)' >SAC</button>
-    <button type="button" class='btn btn-default' ng-click='putOut($event)' >RBI</button>     
+    <button type="button" class='btn btn-default' ng-click='putOut($event)' >SAC</button> 
+     <button type="button" class='btn btn-default' ng-click='putOut($event)' >Double Play</button> 
   </div>   
   <div>
     <div class="box">
-       
-        
-        
-        
-        
       <div class="top-right"></div>
       <div class="top-left"></div>
       <div class="bottom-right">
@@ -22,7 +17,7 @@
           </div>
       </div>
       <div class="bottom-left">
-        <button type="button" class='btn btn-primary' ng-click='exitToLittleBox()'>Submit</button>
+        <button type="button" class='btn btn-primary' ng-click='putOut($event)'>Submit</button>
         </div>
       <div class="field" ng-style="{'background-color': atBatFactory.background}">
          <div class="home-plate" ></div>
@@ -62,6 +57,12 @@
 
 <div class='big-box' ng-show="bigBoxState === 'on-base-out'">
 
+    <div>
+    <button type="button" class='btn btn-default' ng-click='putOut($event)' >Caught Stealing!</button>     
+  </div>   
+    
+    
+    
     
     <div>
     <div class="box">
@@ -75,7 +76,7 @@
           </div>
       </div>
       <div class="bottom-left">
-          <button type="button" class='btn btn-primary' ng-click='exitToLittleBox()'>Submit</button>
+          <button type="button" class='btn btn-primary' ng-click='putOut($event)'>Submit</button>
       </div>
       <div class="field" ng-style="{'background-color': atBatFactory.background}">
          <div class="home-plate" ></div>

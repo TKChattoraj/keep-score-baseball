@@ -1,5 +1,5 @@
 (function() {
-    function Lineup(teamRoster, gameState) {
+    function Lineup(gameState) {
         Lineup.lineup = [];
         
         var reconcile = function(player) {
@@ -27,10 +27,7 @@
                gameState.visitors.bench = gameState.visitors.roster.filter(reconcile); 
                 
             }
-            
-//            Lineup.lineup[orderNum] = player;
-//            Lineup.bench = Lineup.team.filter(reconcile);
-            
+
         }
         
         return Lineup;
@@ -39,6 +36,6 @@
     
     angular 
         .module('scorecardMod')
-        .factory('Lineup', ['teamRoster', 'gameState', Lineup]);
+        .factory('Lineup', ['gameState', Lineup]);
     
 })();
