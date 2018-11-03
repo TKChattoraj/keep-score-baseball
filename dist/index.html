@@ -6,7 +6,7 @@
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Optional theme -->
+<!-- Optional theme -->¬
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 
@@ -26,20 +26,20 @@
 
 </head>
 <body ng-cloak>
-    
+
     <div ng-controller="scorecardCtrl as scorecard">
-        
+
         <div class="container">
         <div class="navbar">Navigation Bar</div>
         <div class="score-ribbon">
-            
-            
-            
-            
+
+
+
+
           <div>
               <table class='scoreboard'>
                 <tr>
-                    <th class= 'team'></th>  
+                    <th class= 'team'></th>
                     <div class='score'>
                         <th>R</th>
                         <th>H</th>
@@ -49,9 +49,9 @@
 
                   <tr ng-controller='scorecardCtrl'>
                     <td class='team'>
-                        
+
                          <div class="select" ng-dropdown-multiselect="" options="teamz" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateVisitors}'></div>
-                        
+
                         <div class='name'><span class="text-content"> <a ng-click="showVisitorTeam()">{{team.label}}</a> </span></div>
                     </td>
                     <div class='score'>
@@ -60,39 +60,39 @@
                         <td><span class="text-content"> {{vErrors}}</span></td>
                     </div>
                 </tr>
-                  
+
                   <tr ng-controller='scorecardCtrl'>
                     <td class='team'>
-                        
+
                          <div class="select" ng-dropdown-multiselect="" options="teamz" selected-model="team" extra-settings="teamDropDownSettings" events='{onItemSelect: designateHome}'></div>
-                        <div class='name'><span class="text-content"> <a ng-click="showHomeTeam()">{{team.label}}</a></span></div> 
+                        <div class='name'><span class="text-content"> <a ng-click="showHomeTeam()">{{team.label}}</a></span></div>
                     </td>
                     <div class='score'>
                         <td>{{hRuns}}</td>
                         <td>{{hHits}}</td>
                         <td>{{hErrors}}</td>
                     </div>
-                    
-                    
-                </tr>
-  
-              </table>
-            
-          </div>
-        
-        
-        
-        
-        </div>
-        
 
-            
-            <div id="home" ng-show="showHome">                  
+
+                </tr>
+
+              </table>
+
+          </div>
+
+
+
+
+        </div>
+
+
+
+            <div id="home" ng-show="showHome">
                 <div class='text-team-name'> {{homeName}} </div>
                 <md-card>
-                    
+
                     <md-card-content>
- 
+
                     <table class='scorecard'>
 
                         <tr>
@@ -125,7 +125,7 @@
                                             <option>8</option>
                                             <option>9</option>
                                         </select>
-                                
+
                                     </td>
                                     <td class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index' ng-click='showBigBox($event, rowIndex, $index)' id='{{rowIndex}}{{$index}}' ng-style="{'background-color': atBatBackground}">
 
@@ -142,12 +142,12 @@
                                                     {{tripleString}}
                                                   </div>
                                               </div>
-                                            
+
                                               <div class="bottom-left">
                                                   <div ng-show="bottomLeft">
                                                     {{scoreString}}
-                                                  </div>  
-                                              </div>   
+                                                  </div>
+                                              </div>
                                               <div class="bottom-right" ng-show="bottomRightOuts">
                                                   <div id="one" class="outs" ng-style="{'background-color': oneOut}"></div>
                                                   <div id="two" class="outs" ng-style="{'background-color': twoOut}"></div>
@@ -157,7 +157,7 @@
                                               <div class="bottom-right" ng-show="bottomRight">
                                                   {{singleString}}
                                               </div>
-                                              
+
                                               <div class="center" ng-show="center">{{centerString}}</div>
                                               <div class="little-field" ng-style="{'background-color': fieldBackground}">
                                                  <div class="home-plate" ></div>
@@ -170,17 +170,17 @@
                                                  <div ng-class='third'></div>
                                                  <div ng-class='home'></div>
 
-                                              </div> 
+                                              </div>
                                             </div>
                                         </div>
 
 
                                     </td>
-                                    
+
 
                             </tr>
                             <tr>
-                        
+
                                 <th class='order-number'></th>
                                 <th class='uniform-number'></th>
                                 <th class='player-name'>H/R</th>
@@ -188,21 +188,21 @@
                                 <th class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray'>
                                     {{homeInningHits[$index]}}/{{homeInningRuns[$index]}}
                                 </th>
-                        
+
                             </tr>
 
                     </table>
-                    
+
                     </md-card-content>
 
                 </md-card>
             </div>
-            
+
             <div id="visitor" ng-show="showVisitors">
               <div class='text-team-name'>{{visitorsName}}</div>
 
                 <md-card>
-                    
+
                     <md-card-content>
                 <table class='scorecard'>
 
@@ -236,11 +236,11 @@
                                             <option>8</option>
                                             <option>9</option>
                                         </select>
-                            
-                            
+
+
                                 </td>
                                 <td class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index' ng-click='showBigBox($event, rowIndex, $index)' id='{{rowIndex}}{{$index}}' ng-style="{'background-color': atBatBackground}">
-   
+
                                         <div class="little-box" ng-show="showLittleBox === 'after'">
                                           <div class="top-right">
                                               <div ng-show="topRight">
@@ -253,12 +253,12 @@
                                                 {{tripleString}}
                                             </div>
                                           </div>
-                                            
+
                                           <div class="bottom-left">
                                             <div ng-show="bottomLeft">
                                               {{scoreString}}
-                                            </div>  
-                                          </div>   
+                                            </div>
+                                          </div>
                                           <div class="bottom-right" ng-show="bottomRightOuts">
                                             <div id="one" class="outs" ng-style="{'background-color': oneOut}"></div>
                                             <div id="two" class="outs" ng-style="{'background-color': twoOut}"></div>
@@ -268,7 +268,7 @@
                                           <div class="bottom-right" ng-show="bottomRight">
                                               {{singleString}}
                                           </div>
-                                          
+
                                           <div class="center" ng-show="center">{{centerString}}</div>
                                           <div class="little-field" ng-style="{'background-color': fieldBackground}">
                                              <div class="home-plate" ></div>
@@ -281,27 +281,27 @@
                                              <div ng-class='third'></div>
                                              <div ng-class='home'></div>
 
-                                          </div> 
+                                          </div>
                                         </div>
-                                   
+
 
 
                                 </td>
 
                         </tr>
-                    
+
                         <tr>
-                        
+
                                 <th class='order-number'></th>
                                 <th class='uniform-number'></th>
                                 <th class='player-name'>H/R</th>
                                 <th class='position'></th>
                                 <th class='field-box' ng-controller='fieldBoxCtrl as fieldBox' ng-repeat='i in scorecard.inningsArray track by $index'>
-                                    {{visitorsInningHits[$index]}}/{{visitorsInningRuns[$index]}} 
+                                    {{visitorsInningHits[$index]}}/{{visitorsInningRuns[$index]}}
                                 </th>
-                        
+
                         </tr>
-                        
+
 
                 </table>
                 </md-card-content>
@@ -309,8 +309,8 @@
                 </md-card>
 
             </div>
-            
-       
+
+
 
             <div ng-controller='rowCtrl'>
                 <button type="button" class='btn btn-default' ng-click='calculateGameStats()' >Stats</button>
@@ -319,34 +319,33 @@
                 <button type="button" class='btn btn-default' ng-click='postGameStats()'>Post Stats</button>
                 <div>{{postStats}}</div>
             </div>
-    
+
             <footer class='footer-text'>&copy; Copyright 2017 hac-jac algorithms</footer>
         </div>
-    
+
     </div>
 
 
-    
-   
-    
+
+
+
     <script src='/scripts/scorecardMod.js'></script>
 
     <script src='/scripts/values/boxState.js'></script>
     <script src='/scripts/values/states.js'></script>
 
-    
+
     <script src='/scripts/services/lineup.js'></script>
     <script src='/scripts/services/AtBatFactory.js'></script>
-    
+
     <script src='/scripts/directives/atBatScoreBox.js'></script>
     <script src='/scripts/directives/onBaseScoreBox.js'></script>
     <script src='/scripts/directives/outScoreBox.js'></script>
-    
+
     <script src='/scripts/controllers/fieldBoxCtrl.js'></script>
-    
+
     <script src='/scripts/controllers/rowCtrl.js'></script>
     <script src='/scripts/controllers/scorecardCtrl.js'></script>
     <script src="/scripts/app.js"></script>
 </body>
 </html>
-
